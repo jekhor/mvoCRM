@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<div>
+  <label>Name</label><br/>
+  <%= @member.given_names %> <%= @member.last_name %>
+</div>
+<div>
+  <%= label :member, :date_of_birth %><br/>
+  <%= @member.date_of_birth %>
+</div>
+<div>
+  <%= label :member, :address %><br/>
+  <%= @member.address %>
+</div>
+<div>
+  <%= label :member, :phone %><br/>
+  <%= @member.phone %>
+</div>
+<div>
+  <%= label :member, :email %><br/>
+  <%= @member.email %>
+</div>
+
+
+
+<%= link_to 'Edit', edit_member_path(@member) %> |
+<%= link_to 'Back', members_path %>
