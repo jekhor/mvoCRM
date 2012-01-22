@@ -1,4 +1,5 @@
 MvoCRM::Application.routes.draw do
+  resources :payments
 
   resources :members
 
