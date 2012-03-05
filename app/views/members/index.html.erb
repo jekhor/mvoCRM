@@ -8,6 +8,10 @@
     <th>Address</th>
     <th>E-mail</th>
     <th>Phone</th>
+    <th>Application</th>
+    <th>Join date</th>
+    <th>Join protocol</th>
+    <th>Card #</th>
     <th></th>
     <th></th>
     <th></th>
@@ -21,6 +25,10 @@
     <td><%= member.address %></td>
     <td><%= member.email %></td>
     <td><%= member.phone %></td>
+    <td><%= member.application_exists ? '✓' : '' %></td>
+    <td><%= member.join_date %></td>
+    <td><%= member.join_protocol %></td>
+    <td><%= sprintf("%06u", member.card_number) unless member.card_number.nil? %></td>
     <td><%= link_to 'Show', member %></td>
     <td><%= link_to 'Edit', edit_member_path(member) %></td>
     <td><%= link_to 'Destroy', member, confirm: 'Are you sure?', method: :delete %></td>

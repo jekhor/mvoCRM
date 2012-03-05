@@ -2,6 +2,7 @@ class MembersController < ApplicationController
   # GET /members
   # GET /members.json
   def index
+    @title = "Members"
     @members = Member.all
 
     respond_to do |format|
@@ -24,6 +25,7 @@ class MembersController < ApplicationController
   # GET /members/new
   # GET /members/new.json
   def new
+    @title = "New Member"
     @member = Member.new
 
     respond_to do |format|
@@ -41,6 +43,10 @@ class MembersController < ApplicationController
   # POST /members.json
   def create
     @member = Member.new(params[:member])
+    if @member.joined.nil?
+      @member.join_date = nil
+      @member.join_protocol = nil
+    end
 
     respond_to do |format|
       if @member.save

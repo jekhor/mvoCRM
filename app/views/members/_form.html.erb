@@ -28,13 +28,34 @@
   </div>
   <div class="field">
     <%= f.label :phone %><br/>
-    <%= f.telephone_field :phone %>
+    <%= f.phone_field :phone %>
   </div>
   <div class="field">
     <%= f.label :email %><br/>
     <%= f.text_field :email %>
   </div>
-
+    <div class="field">
+      <%= f.label :card_number %><br/>
+      <%= f.text_field :card_number %>
+    </div>
+  <div class="field">
+    <%= f.label 'Does application exist?' %><br/>
+    <%= f.check_box :application_exists %>
+  </div>
+  <div class="field">
+    <%= f.label :joined %><br/>
+    <%= f.check_box :joined %>
+  </div>
+  <div id="joined_member_fields" style="display: <%= @member.joined ? '':'none' %>">
+    <div class="field">
+      <%= f.label :join_date %><br/>
+      <%= date_select :member, :join_date, :include_blank => true %>
+    </div>
+    <div class="field">
+      <%= f.label :join_protocol %><br/>
+      <%= f.text_field :join_protocol %>
+    </div>
+  </div>
 
   <div class="actions">
     <%= f.submit %>

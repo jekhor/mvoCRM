@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120121121007) do
+ActiveRecord::Schema.define(:version => 20120122210047) do
 
   create_table "members", :force => true do |t|
     t.string   "given_names"
@@ -20,8 +20,18 @@ ActiveRecord::Schema.define(:version => 20120121121007) do
     t.string   "address"
     t.string   "email"
     t.string   "phone"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+    t.boolean  "application_exists", :default => false
+    t.date     "join_date"
+    t.string   "join_protocol"
+    t.integer  "card_number"
+    t.boolean  "joined"
+  end
+
+  create_table "payments", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end
