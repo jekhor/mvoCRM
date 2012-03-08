@@ -117,6 +117,13 @@ describe Member do
     m.should_not be_valid
   end
 
+  it "should not reject duplicate nil e-mail addresses" do
+    attr = @attr.merge(:email => nil)
+    Member.create!(attr)
+    m = Member.new(attr)
+    m.should be_valid
+  end
+
   it "should reject duplicate e-mail addresses with any case" do
     attr = @attr.merge(:email => 'test@example.com')
     attr_up = @attr.merge(:email => 'TEST@EXAMPLE.COM')
