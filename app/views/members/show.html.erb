@@ -1,26 +1,28 @@
 <p id="notice"><%= notice %></p>
 
-<div>
-  <label>Name</label><br/>
-  <%= @member.given_names %> <%= @member.last_name %>
-</div>
-<div>
-  <%= label :member, :date_of_birth %><br/>
-  <%= @member.date_of_birth %>
-</div>
-<div>
-  <%= label :member, :address %><br/>
-  <%= @member.address %>
-</div>
-<div>
-  <%= label :member, :phone %><br/>
-  <%= @member.phone %>
-</div>
-<div>
-  <%= label :member, :email %><br/>
-  <%= @member.email %>
-</div>
+<table class="member_info" summary="Member information">
+  <tr>
+    <td class="main">
+      <h1><%= "#{@member.last_name} #{@member.given_names}" %></h1>
+    </td>
+    <td class="sidebar round">
+      <label>Name</label>
+      <%= @member.given_names %> <%= @member.last_name %><br/>
 
+      <%= label :member, :date_of_birth %>
+      <%= @member.date_of_birth %><br/>
+
+      <%= label :member, :address %>
+      <%= @member.address %><br/>
+
+      <%= label :member, :phone %>
+      <%= @member.phone %><br/>
+
+      <%= label :member, :email %>
+      <%= @member.email %><br/>
+    </td>
+  </tr>
+</table>
 
 
 <%= link_to 'Edit', edit_member_path(@member) %> |

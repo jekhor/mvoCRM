@@ -15,6 +15,7 @@ class MembersController < ApplicationController
   # GET /members/1.json
   def show
     @member = Member.find(params[:id])
+    @title = "#{@member.last_name} #{@member.given_names}"
 
     respond_to do |format|
       format.html # show.html.erb
