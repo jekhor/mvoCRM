@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: members
+#
+#  id                 :integer         not null, primary key
+#  given_names        :string(255)
+#  last_name          :string(255)
+#  date_of_birth      :date
+#  address            :string(255)
+#  email              :string(255)
+#  phone              :string(255)
+#  created_at         :datetime        not null
+#  updated_at         :datetime        not null
+#  application_exists :boolean         default(FALSE)
+#  join_date          :date
+#  join_protocol      :string(255)
+#  card_number        :integer
+#  joined             :boolean
+#
+
 class Member < ActiveRecord::Base
   attr_accessible :given_names, :last_name, :date_of_birth, :address, :email, :phone
   attr_accessible :application_exists, :join_date, :join_protocol, :card_number, :joined
