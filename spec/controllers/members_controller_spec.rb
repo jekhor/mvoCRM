@@ -54,7 +54,7 @@ describe MembersController do
 
     it "should include user name in header" do
       get 'show', :id => @member
-      response.should have_selector("h1", :content => "#{@member.last_name} #{@member.given_names}")
+      response.should have_selector("h2", :content => "#{@member.last_name} #{@member.given_names}")
     end
 
   end
