@@ -3,23 +3,38 @@
 <table class="member_info" summary="Member information">
   <tr>
     <td class="main">
-      <h1><%= "#{@member.last_name} #{@member.given_names}" %></h1>
+      <h2><%= "#{@member.last_name} #{@member.given_names}" %></h2>
     </td>
     <td class="sidebar round">
-      <label>Name</label>
+      <strong>Name</strong>
       <%= @member.given_names %> <%= @member.last_name %><br/>
 
-      <%= label :member, :date_of_birth %>
+      <strong>Date of birth</strong>
       <%= @member.date_of_birth %><br/>
 
-      <%= label :member, :address %>
+      <strong>Address</strong>
       <%= @member.address %><br/>
 
-      <%= label :member, :phone %>
+      <strong>Phone</strong>
       <%= @member.phone %><br/>
 
-      <%= label :member, :email %>
+      <strong>e-mail</strong>
       <%= @member.email %><br/>
+
+      <strong>Application</strong>
+      <%= @member.application_exists ? 'signed' : "isn't' signed" %><br/>
+
+      <strong>Joined</strong>
+      <%= @member.joined ? 'yes' : 'no' %><br/>
+
+      <% if @member.joined %>
+        <strong>Join date</strong>
+        <%= @member.join_date %><br/>
+
+        <strong>Join protocol</strong>
+        <%= @member.join_protocol %><br/>
+      <% end %>
+
     </td>
   </tr>
 </table>
