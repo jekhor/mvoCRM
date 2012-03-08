@@ -40,7 +40,13 @@ class Member < ActiveRecord::Base
 
   email_regex = /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/
 
-  validates :email, :format => {:with => email_regex, :allow_nil => true},
-                    :uniqueness => {:case_sensitive => false}
+  validates :email, :format => {:with => email_regex, :allow_blank => true},
+                    :uniqueness => {:case_sensitive => false, :allow_nil => true}
 
+  before_validation :set_nil
+  before_save :set_nil
+
+  def set_nil
+    self[:email] = nil if self[:email].blank?
+  end
 end

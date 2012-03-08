@@ -81,9 +81,10 @@ describe Member do
     end
   end
 
-  it "should not allow empty but not nil email" do
+  it "should convert empty email to nil" do
     m = Member.new(@attr.merge(:email => ''))
-    m.should_not be_valid
+    m.save
+    m.email.should be_nil
   end
 
   it "should accept valid e-mail addresses" do
