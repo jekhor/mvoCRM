@@ -36,10 +36,11 @@ class Member < ActiveRecord::Base
 #    record.errors.add attr, 'is empty' if value.nil? and record.joined
 #  end
 
-  validates :card_number, :inclusion => {:in => 0..999999, :allow_nil => true}
+  validates :card_number, :inclusion => {:in => 1..999999, :allow_nil => true}
 
-  email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  email_regex = /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/
 
-  validates :email, :format => {:with => email_regex, :allow_nil => true}
+  validates :email, :format => {:with => email_regex, :allow_nil => true},
+                    :uniqueness => {:case_sensitive => false}
 
 end
