@@ -19,7 +19,7 @@
   <% @members.each_with_index do |member, i| %>
     <tr>
       <td><%= check_box 'selected_members', 'id', {:multiple => true, :class => 'check', :checked => checked_all}, i, nil %></td>
-      <td><%= i %></td>
+      <td><%= i+1 %></td>
       <td><%= member.last_name %></td>
       <td><%= member.given_names %></td>
       <td><%= member.date_of_birth %></td>
