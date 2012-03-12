@@ -16,7 +16,9 @@
 
   <div class="container">
     <header>
-    <%= image_tag("logo.png", :alt => "Sample App", :class => "round") %>
+    <%= link_to pages_home_path do -%>
+      <%= image_tag("logo.png", :alt => "Sample App", :class => "round") %>
+    <% end -%>
     <nav class="round">
     <ul>
       <li><%= link_to "Home", root_path %></li>
