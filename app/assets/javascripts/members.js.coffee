@@ -6,3 +6,8 @@ $ ->
   $('#member_joined').click ->
     $('#joined_member_fields').toggle()
 
+$ ->
+  $('#check_all').click ->
+    box.checked = $('#check_all')[0].checked for box in $('.check')
+
+

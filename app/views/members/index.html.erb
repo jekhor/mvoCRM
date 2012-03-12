@@ -12,7 +12,6 @@
     <th>Card #</th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
 
 <% @members.each do |member| %>
@@ -29,11 +28,11 @@
     <td><%= sprintf("%06u", member.card_number) unless member.card_number.nil? %></td>
     <td><%= link_to 'Show', member %></td>
     <td><%= link_to 'Edit', edit_member_path(member) %></td>
-    <td><%= link_to 'Destroy', member, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Member', new_member_path %>
+<%= link_to 'New Member', new_member_path %> |
+<%= link_to "Import members from CSV", members_import_csv_path %>

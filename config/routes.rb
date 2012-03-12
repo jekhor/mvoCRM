@@ -5,6 +5,9 @@ MvoCRM::Application.routes.draw do
 
   resources :payments
 
+  get "members/import_csv"
+  post "members/parse_csv"
+  post "members/import_parsed_csv"
   resources :members
 
   # The priority is based upon order of creation:

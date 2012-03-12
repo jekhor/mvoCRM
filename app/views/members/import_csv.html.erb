@@ -1,0 +1,12 @@
+<%= form_tag members_parse_csv_path , :multipart => true do -%>
+
+  <label for="file">CSV file to import</label>
+  <%= file_field_tag "file" %>
+  <p>File should has following fields:<br/>
+  <code>
+    last_name,given_names,date_of_birth,address,phone,email,card_number,joined,join_date,join_protocol
+  </code>
+  </p>
+
+  <%= submit_tag 'Import' %>
+<% end -%>

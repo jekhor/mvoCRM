@@ -27,6 +27,11 @@
     </nav>
     </header>
     <section class="round">
+    <% for name in [:notices, :errors, :messages] -%>
+      <% if flash[name] %>
+        <div id="<%= name %>"><%= raw flash[name].join("<br/>\n") %></div>
+      <% end %>
+    <% end %>
     <%= yield %>
     </section>
     <%= debug(params) if Rails.env.development? %>

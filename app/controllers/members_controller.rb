@@ -1,3 +1,7 @@
+# encoding: utf-8
+
+require 'csv'
+
 class MembersController < ApplicationController
   # GET /members
   # GET /members.json
@@ -86,5 +90,61 @@ class MembersController < ApplicationController
       format.html { redirect_to members_url }
       format.json { head :no_content }
     end
+  end
+
+  # GET /members/import_from_csv
+  def import_csv
+    @title = "Import members from CSV"
+  end
+
+  # POST /members/parse_csv
+  def parse_csv
+    file = params[:file]
+    file.tempfile.set_encoding("utf-8")
+    @members = Array.new
+    @import_failed = 0
+
+    CSV.parse(file.read, :headers => true) do |row|
+      begin
+        m = Member.new(row.to_hash)
+        if m.valid?
+          @members << m
+        else
+          flash.now[:errors] = Array.new if flash.now[:errors].nil?
+          flash.now[:errors] << "'#{m.last_name} #{m.given_names}' failed to import: #{m.errors.any? ? m.errors.full_messages.join(', ') : 'unknown reason'}"
+          @import_failed += 1
+        end
+      rescue
+        flash.now[:errors] = Array.new if flash.now[:errors].nil?
+        flash.now[:errors] << "'#{m.last_name} #{m.given_names}' failed to import: #{m.errors.any? ? m.errors.full_messages.join(', ') : 'unknown reason'}"
+        @import_failed += 1
+      end
+    end
+
+    session[:imported_members] = @members
+  end
+
+  # POST /members/import_parsed_csv
+  def import_parsed_csv
+    imported_members = session[:imported_members]
+    selection = params['imported_members']['id']
+    successfully = 0
+    unless imported_members.nil?
+      selection.each do |idx|
+        next if idx.blank?
+        idx = idx.to_i
+        m = imported_members[idx]
+        begin
+          m.save
+          successfully += 1
+        rescue
+          flash.now[:errors] = Array.new if flash.now[:errors].nil?
+          flash.now[:errors] << "'#{m.last_name} #{m.given_names}' failed to import: #{m.errors.any? ? m.errors.full_messages.join(', ') : 'unknown reason'}"
+        end
+      end
+    end
+    flash[:notices] = ["#{successfully} members was imported"]
+    session[:imported_members] = nil
+    redirect_to members_path
   end
 end
