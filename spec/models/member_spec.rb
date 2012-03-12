@@ -165,4 +165,16 @@ describe Member do
     end
   end
 
+  it "should accept official address" do
+    addr = "220112, г. Минск, Игуменский тракт, 40-24"
+    m = Member.new(@attr.merge(:address => addr))
+    m.should be_valid
+  end
+
+  it "should accept real postal address" do
+    addr = "220112, г. Минск, Игуменский тракт, 40-24"
+    m = Member.new(@attr.merge(:postal_address => addr))
+    m.should be_valid
+  end
+
 end

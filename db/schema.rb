@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120311112410) do
+ActiveRecord::Schema.define(:version => 20120312173119) do
 
   create_table "members", :force => true do |t|
     t.string   "given_names"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20120311112410) do
     t.string   "join_protocol"
     t.integer  "card_number"
     t.boolean  "joined"
+    t.string   "postal_address"
   end
 
   add_index "members", ["email"], :name => "index_members_on_email", :unique => true
