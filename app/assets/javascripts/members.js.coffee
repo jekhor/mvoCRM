@@ -7,6 +7,10 @@ $ ->
     $('#joined_member_fields').toggle()
 
 $ ->
+  $('#member_application_exists').click ->
+    $('#application_date_field').toggle()
+
+$ ->
   $('#check_all').click ->
     box.checked = $('#check_all')[0].checked for box in $('.check')
 

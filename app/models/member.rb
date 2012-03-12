@@ -21,7 +21,7 @@
 class Member < ActiveRecord::Base
   attr_accessible :given_names, :last_name, :date_of_birth, :address, :email, :phone
   attr_accessible :application_exists, :join_date, :join_protocol, :card_number, :joined
-  attr_accessible :postal_address
+  attr_accessible :postal_address, :application_date
 
   validates :given_names, :presence => true,
                           :length => {:maximum => 50}
@@ -32,6 +32,7 @@ class Member < ActiveRecord::Base
   validates :join_protocol, :presence => {:if => :joined}
   validates :join_date, :presence => {:if => :joined}
 
+  validates :application_date, :presence => {:if => :application_exists}
 #  validates_each :join_protocol, :join_date do |record, attr, value|
 #    record.errors.add attr, 'is not empty' if !value.nil? and !record.joined
 #    record.errors.add attr, 'is empty' if value.nil? and record.joined

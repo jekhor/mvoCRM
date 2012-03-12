@@ -20,7 +20,7 @@
   </div>
   <div class="field">
     <%= f.label :date_of_birth %><br/>
-    <%= date_select :member, :date_of_birth %>
+    <%= date_select :member, :date_of_birth, :start_year => 1900 %>
   </div>
   <div class="field">
     <%= f.label :address %><br/>
@@ -46,6 +46,12 @@
     <%= f.label 'Does application exist?' %><br/>
     <%= f.check_box :application_exists %>
   </div>
+  <div class="field" id="application_date_field" style="display: <%= @member.application_exists ? '':'none' %>">
+    <%= f.label :application_date %><br/>
+    <%= date_select :member, :application_date, :include_blank => true %>
+  </div>
+
+
   <div class="field">
     <%= f.label :joined %><br/>
     <%= f.check_box :joined %>

@@ -177,4 +177,15 @@ describe Member do
     m.should be_valid
   end
 
+  it "should accept application date if application exists" do
+    m = Member.new(@attr.merge(:application_exists => true, :application_date => '2012-01-01'))
+    m.should be_valid
+  end
+
+  it "should not accept empty application date if application exists" do
+    m = Member.new(@attr.merge(:application_exists => true, :application_date => nil))
+    m.should_not be_valid
+  end
+
+
 end
