@@ -30,7 +30,7 @@
       <td><%= member.join_date %></td>
       <td><%= member.join_protocol %></td>
       <td><%= sprintf("%06u", member.card_number) unless member.card_number.nil? %></td>
-      <td><%= link_to member.site_user, "http://bike.org.by/users/#{member.site_user}" %></td>
+      <td><%= link_to member.site_user, "http://bike.org.by/users/#{member.site_user_normalized}" unless member.site_user.nil? or member.site_user.blank? %></td>
       <td><%= link_to 'Show', member_path(member) %></td>
       <td><%= link_to 'Edit', edit_member_path(member) %></td>
     </tr>

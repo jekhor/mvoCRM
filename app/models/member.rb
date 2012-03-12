@@ -54,4 +54,8 @@ class Member < ActiveRecord::Base
   def set_nil
     self[:email] = nil if self[:email].blank?
   end
+
+  def site_user_normalized
+    self.site_user.gsub(/[_.]/, "")
+  end
 end

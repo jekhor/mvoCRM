@@ -202,4 +202,9 @@ describe Member do
     m.should_not be_valid
   end
 
+  it "should normalize site_user as site_user_normalized" do
+    m = Member.new(@attr.merge(:site_uid => 13, :site_user => 'jekhor.jekhor_jekhor'))
+    m.site_user_normalized.should == 'jekhorjekhorjekhor'
+  end
+
 end

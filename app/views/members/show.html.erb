@@ -40,9 +40,9 @@
         <%= @member.join_protocol %><br/>
       <% end %>
 
-      <% unless @member.site_user.nil? -%>
+      <% unless @member.site_user.nil? or @member.site_user.blank? -%>
         <strong>Site user</strong>
-        <%= link_to @member.site_user, "http://bike.org.by/users/#{@member.site_user}" %><br/>
+        <%= link_to @member.site_user, "http://bike.org.by/users/#{@member.site_user_normalized}" %><br/>
 
         <strong>Site UID</strong>
         <%= @member.site_uid %><br/>
