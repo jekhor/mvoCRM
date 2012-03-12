@@ -21,7 +21,7 @@
 class Member < ActiveRecord::Base
   attr_accessible :given_names, :last_name, :date_of_birth, :address, :email, :phone
   attr_accessible :application_exists, :join_date, :join_protocol, :card_number, :joined
-  attr_accessible :postal_address, :application_date
+  attr_accessible :postal_address, :application_date, :site_uid, :site_user
 
   validates :given_names, :presence => true,
                           :length => {:maximum => 50}
@@ -44,6 +44,9 @@ class Member < ActiveRecord::Base
 
   validates :email, :format => {:with => email_regex, :allow_blank => true},
                     :uniqueness => {:case_sensitive => false, :allow_nil => true}
+
+  validates :site_uid, :presence => {:if => :site_user}, :uniqueness => {:allow_nil => true}
+  validates :site_user, :presence => {:if => :site_uid}, :uniqueness => {:allow_nil => true}
 
   before_validation :set_nil
   before_save :set_nil

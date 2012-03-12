@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120312190324) do
+ActiveRecord::Schema.define(:version => 20120312215710) do
 
   create_table "members", :force => true do |t|
     t.string   "given_names"
@@ -29,9 +29,13 @@ ActiveRecord::Schema.define(:version => 20120312190324) do
     t.boolean  "joined"
     t.string   "postal_address"
     t.date     "application_date"
+    t.string   "site_user"
+    t.integer  "site_uid"
   end
 
   add_index "members", ["email"], :name => "index_members_on_email", :unique => true
+  add_index "members", ["site_uid"], :name => "index_members_on_site_uid", :unique => true
+  add_index "members", ["site_user"], :name => "index_members_on_site_user", :unique => true
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
