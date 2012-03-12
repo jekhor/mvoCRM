@@ -54,9 +54,9 @@ describe Member do
     m.should_not be_valid
   end
 
-  it "should require a date of birth" do
+  it "should not require a date of birth" do
     no_dateofbirth_member = Member.new(@attr.merge(:date_of_birth => ''))
-    no_dateofbirth_member.should_not be_valid
+    no_dateofbirth_member.should be_valid
   end
 
   describe "joined member" do

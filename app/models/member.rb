@@ -27,7 +27,7 @@ class Member < ActiveRecord::Base
                           :length => {:maximum => 50}
   validates :last_name, :presence => true,
                           :length => {:maximum => 50}
-  validates :date_of_birth, :presence => true
+#  validates :date_of_birth, :presence => true
 
   validates :join_protocol, :presence => {:if => :joined}
   validates :join_date, :presence => {:if => :joined}
