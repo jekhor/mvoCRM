@@ -146,7 +146,7 @@ class MembersController < ApplicationController
         end
       end
     end
-    flash[:notices] = ["#{successfully} members was imported"]
+    flash[:notices] = ["#{successfully} members have been imported"]
     session[:imported_members] = nil
     redirect_to members_path
   end
