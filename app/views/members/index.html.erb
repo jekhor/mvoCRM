@@ -1,37 +1,4 @@
-<table>
-  <tr>
-    <th>Last name</th>
-    <th>Given names</th>
-    <th>Birth date</th>
-    <th>Address</th>
-    <th>E-mail</th>
-    <th>Phone</th>
-    <th>Application</th>
-    <th>Join date</th>
-    <th>Join protocol</th>
-    <th>Card #</th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @members.each do |member| %>
-  <tr>
-    <td><%= member.last_name %></td>
-    <td><%= member.given_names %></td>
-    <td><%= member.date_of_birth %></td>
-    <td><%= member.address %></td>
-    <td><%= member.email %></td>
-    <td><%= member.phone %></td>
-    <td><%= member.application_exists ? '✓' : '' %></td>
-    <td><%= member.join_date %></td>
-    <td><%= member.join_protocol %></td>
-    <td><%= sprintf("%06u", member.card_number) unless member.card_number.nil? %></td>
-    <td><%= link_to 'Show', member %></td>
-    <td><%= link_to 'Edit', edit_member_path(member) %></td>
-  </tr>
-<% end %>
-</table>
-
+<%= render 'list', :checked_all => false %>
 <br />
 
 <%= link_to 'New Member', new_member_path %> |

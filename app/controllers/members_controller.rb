@@ -106,7 +106,10 @@ class MembersController < ApplicationController
 
     CSV.parse(file.read, :headers => true) do |row|
       begin
-        m = Member.new(row.to_hash)
+        h = row.to_hash
+        m = Member.new(h)
+        m.application_exists = true unless h['application_date'].nil? or h['application_date'].blank?
+
         if m.valid?
           @members << m
         else
@@ -127,7 +130,7 @@ class MembersController < ApplicationController
   # POST /members/import_parsed_csv
   def import_parsed_csv
     imported_members = session[:imported_members]
-    selection = params['imported_members']['id']
+    selection = params['selected_members']['id']
     successfully = 0
     unless imported_members.nil?
       selection.each do |idx|

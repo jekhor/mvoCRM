@@ -1,0 +1,37 @@
+<table>
+  <tr>
+    <th><%= check_box_tag 'check_all', 'check_all', checked_all %></th>
+    <th>#</th>
+    <th>Last name</th>
+    <th>Given names</th>
+    <th>Birth date</th>
+    <th>Address</th>
+    <th>E-mail</th>
+    <th>Phone</th>
+    <th>Application</th>
+    <th>Join date</th>
+    <th>Join protocol</th>
+    <th>Card #</th>
+    <th></th>
+  </tr>
+
+  <% @members.each_with_index do |member, i| %>
+    <tr>
+      <td><%= check_box 'selected_members', 'id', {:multiple => true, :class => 'check', :checked => checked_all}, i, nil %></td>
+      <td><%= i %></td>
+      <td><%= member.last_name %></td>
+      <td><%= member.given_names %></td>
+      <td><%= member.date_of_birth %></td>
+      <td><%= member.address %></td>
+      <td><%= member.email %></td>
+      <td><%= member.phone %></td>
+      <td><%= member.application_exists ? member.application_date : '' %></td>
+      <td><%= member.join_date %></td>
+      <td><%= member.join_protocol %></td>
+      <td><%= sprintf("%06u", member.card_number) unless member.card_number.nil? %></td>
+      <td><%= link_to 'Show', member_path(@member) %></td>
+      <td><%= link_to 'Edit', edit_member_path(@member) %></td>
+    </tr>
+  <% end %>
+</table>
+
