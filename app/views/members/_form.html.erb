@@ -20,7 +20,7 @@
   </div>
   <div class="field">
     <%= f.label :date_of_birth %><br/>
-    <%= date_select :member, :date_of_birth, :start_year => 1900 %>
+    <%= date_select :member, :date_of_birth, :start_year => 1900, :include_blank => true %>
   </div>
   <div class="field">
     <%= f.label :address %><br/>
