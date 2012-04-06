@@ -24,11 +24,21 @@
       <li><%= link_to "Home", root_path %></li>
       <li><%= link_to "Members", members_path %></li>
       <li><%= link_to "Help", help_path %></li>
-      <li><%= link_to "Sign in", '#' %></li>
+      <% if admin_signed_in? -%>
+        <li><%= link_to "Sign out (#{current_admin.email})", destroy_admin_session_path, :method => :delete %></li>
+      <% else -%>
+        <li><%= link_to "Sign in", new_admin_session_path %></li>
+      <% end -%>
     </ul>
     </nav>
     </header>
     <section class="round">
+    <% unless notice.nil? -%>
+      <p class="notice"><%= notice %></p>
+    <% end -%>
+    <% unless alert.nil? -%>
+      <p class="alert"><%= alert %></p>
+    <% end %>
     <% for name in [:notices, :errors, :messages] -%>
       <% if flash[name] %>
         <div id="<%= name %>"><%= raw flash[name].join("<br/>\n") %></div>

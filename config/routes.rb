@@ -1,4 +1,6 @@
 MvoCRM::Application.routes.draw do
+  devise_for :admins
+
   get "pages/home"
 
   get "pages/help"
