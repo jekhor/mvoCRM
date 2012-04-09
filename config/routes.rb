@@ -1,5 +1,6 @@
 MvoCRM::Application.routes.draw do
-  devise_for :admins
+  devise_for :admins, :path_prefix => 'd'
+  resources :admins
 
   get "pages/home"
 

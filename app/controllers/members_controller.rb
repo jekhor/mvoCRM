@@ -10,11 +10,12 @@ class MembersController < ApplicationController
   # GET /members.json
   def index
     @title = "Members"
-    @members = Member.all
+    @members = Member.order("last_name").all
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @members }
+      format.csv { render csv: @members }
     end
   end
 
@@ -56,6 +57,10 @@ class MembersController < ApplicationController
       @member.join_protocol = nil
     end
 
+    if @member.site_user.blank?
+      @member.site_user = nil
+    end
+
     respond_to do |format|
       if @member.save
         format.html { redirect_to @member, notice: 'Member was successfully created.' }
@@ -71,6 +76,7 @@ class MembersController < ApplicationController
   # PUT /members/1.json
   def update
     @member = Member.find(params[:id])
+    params[:member].delete(:site_user) if params[:member][:site_user].blank?
 
     respond_to do |format|
       if @member.update_attributes(params[:member])
