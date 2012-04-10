@@ -2,17 +2,17 @@
   <tr>
     <th><%= check_box_tag 'check_all', 'check_all', checked_all %></th>
     <th>#</th>
-    <th>Last name</th>
-    <th>Given names</th>
-    <th>Birth date</th>
-    <th>Address</th>
-    <th>E-mail</th>
-    <th>Phone</th>
-    <th>Application</th>
-    <th>Join date</th>
-    <th>Join protocol</th>
-    <th>Card #</th>
-    <th>Site user</th>
+    <th><%= link_to "Last name", :sort => 'last_name' %></th>
+    <th><%= link_to "Given names", :sort => 'given_names' %></th>
+    <th><%= link_to "Birth date", :sort => 'date_of_birth' %></th>
+    <th><%= link_to "Address", :sort => 'address' %></th>
+    <th><%= link_to "E-mail", :sort => 'email' %></th>
+    <th><%= link_to "Phone", :sort => 'phone' %></th>
+    <th><%= link_to "Application", :sort => 'application_date' %></th>
+    <th><%= link_to "Join date", :sort => 'join_date' %></th>
+    <th><%= link_to "Join protocol", :sort => 'join_protocol' %></th>
+    <th><%= link_to "Card #", :sort => 'card_number' %></th>
+    <th><%= link_to "Site user", :sort => 'site_user' %></th>
     <th></th>
   </tr>
 

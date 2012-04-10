@@ -10,7 +10,8 @@ class MembersController < ApplicationController
   # GET /members.json
   def index
     @title = "Members"
-    @members = Member.order("last_name").all
+    params[:sort] ||= 'last_name'
+    @members = Member.order(params[:sort]).all
 
     respond_to do |format|
       format.html # index.html.erb
