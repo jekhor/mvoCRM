@@ -9,8 +9,7 @@
     <th><%= link_to "E-mail", :sort => 'email' %></th>
     <th><%= link_to "Phone", :sort => 'phone' %></th>
     <th><%= link_to "Application", :sort => 'application_date' %></th>
-    <th><%= link_to "Join date", :sort => 'join_date' %></th>
-    <th><%= link_to "Join protocol", :sort => 'join_protocol' %></th>
+    <th><%= link_to "Joined", :sort => 'join_date' %></th>
     <th><%= link_to "Card #", :sort => 'card_number' %></th>
     <th><%= link_to "Site user", :sort => 'site_user' %></th>
     <th></th>
@@ -27,8 +26,7 @@
       <td><%= member.email %></td>
       <td><%= member.phone %></td>
       <td><%= member.application_exists ? member.application_date : '' %></td>
-      <td><%= member.join_date %></td>
-      <td><%= member.join_protocol %></td>
+      <td><%= member.joined ? '✓' : '' %></td>
       <td><%= sprintf("%06u", member.card_number) unless member.card_number.nil? %></td>
       <td><%= link_to member.site_user, "http://bike.org.by/users/#{member.site_user_normalized}" unless member.site_user.nil? or member.site_user.blank? %></td>
       <td><%= link_to 'Show', member_path(member) %></td>
