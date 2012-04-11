@@ -1,5 +1,11 @@
-<%= render 'list', :checked_all => false %>
+<%= form_tag members_accept_selected_path, :method => :post, :multipart => true do -%>
+  <%= render 'list', :checked_all => false %>
+  <br/>
+  <%= submit_tag "Accept marked people officially" %> <%= label :selected_people, :join_date %><%= date_select :selected_people, :join_date, :include_blank => true, :order => [:day, :month, :year] %> <%= label :selected_people, :join_protocol %><%= text_field :selected_people, :join_protocol, :length => 5 %>
+
+<% end %>
 <br />
+
 
 <%= link_to 'New Member', new_member_path %> |
 <%= link_to "Import members from CSV", members_import_csv_path %>

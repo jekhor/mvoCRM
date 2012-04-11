@@ -160,4 +160,25 @@ class MembersController < ApplicationController
     session[:imported_members] = nil
     redirect_to members_path
   end
+
+  def accept_selected
+    if params[:selected_people][:join_protocol].blank?
+      redirect_to members_path, :alert => "You should provide protocol date and number."
+      return
+    end
+
+    notice = ""
+
+    params[:selected_members][:id].each do |id|
+      next if id.blank?
+      m = Member.find(id)
+      m.update_attributes(params[:selected_people])
+      m.joined = true
+
+      m.save
+      notice += "#{m.last_name} #{m.given_names} was accepted officially by protocol ##{m.join_protocol} at #{m.join_date}<br/>\n"
+    end
+
+    redirect_to members_path, :notice => notice
+  end
 end

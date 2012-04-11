@@ -11,6 +11,7 @@ MvoCRM::Application.routes.draw do
   get "members/import_csv"
   post "members/parse_csv"
   post "members/import_parsed_csv"
+  post "members/accept_selected"
   resources :members
 
   # The priority is based upon order of creation:

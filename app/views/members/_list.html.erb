@@ -1,3 +1,6 @@
+<% checked_all ||= false -%>
+<% importing ||= false -%>
+
 <table class="members">
   <colgroup>
     <col/>
@@ -30,7 +33,7 @@
 
   <% @members.each_with_index do |member, i| %>
     <tr>
-      <td><%= check_box 'selected_members', 'id', {:multiple => true, :class => 'check', :checked => checked_all}, i, nil %></td>
+      <td><%= check_box 'selected_members', 'id', {:multiple => true, :class => 'check', :checked => checked_all}, importing ? i : member.id, nil %></td>
       <td><%= i+1 %></td>
       <td><%= member.last_name %> <%= member.given_names %></td>
       <td><%= member.date_of_birth %></td>
