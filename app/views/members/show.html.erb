@@ -43,6 +43,8 @@
       <% unless @member.site_user.nil? or @member.site_user.blank? -%>
         <strong>Site user</strong>
         <%= link_to @member.site_user, "http://bike.org.by/users/#{@member.site_user_normalized}" %><br/>
+        <strong>Site user registered at</strong>
+        <%= @member.site_user_creation_date %>
       <% end %>
     </td>
   </tr>

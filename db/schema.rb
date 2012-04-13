@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120413091005) do
+ActiveRecord::Schema.define(:version => 20120413103625) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -38,9 +38,9 @@ ActiveRecord::Schema.define(:version => 20120413091005) do
     t.string   "address"
     t.string   "email"
     t.string   "phone"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
-    t.boolean  "application_exists", :default => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.boolean  "application_exists",      :default => false
     t.date     "join_date"
     t.string   "join_protocol"
     t.integer  "card_number"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20120413091005) do
     t.string   "postal_address"
     t.date     "application_date"
     t.string   "site_user"
+    t.date     "site_user_creation_date"
   end
 
   add_index "members", ["email"], :name => "index_members_on_email", :unique => true

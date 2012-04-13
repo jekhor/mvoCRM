@@ -21,7 +21,7 @@
 class Member < ActiveRecord::Base
   attr_accessible :given_names, :last_name, :date_of_birth, :address, :email, :phone
   attr_accessible :application_exists, :join_date, :join_protocol, :card_number, :joined
-  attr_accessible :postal_address, :application_date, :site_user
+  attr_accessible :postal_address, :application_date, :site_user, :site_user_creation_date
 
   validates :given_names, :presence => true,
                           :length => {:maximum => 50}

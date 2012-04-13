@@ -28,6 +28,7 @@
     <th><%= link_to "J.", :sort => 'join_date' %></th>
     <th><%= link_to "Card #", :sort => 'card_number' %></th>
     <th><%= link_to "Site user", :sort => 'site_user' %></th>
+    <th><%= link_to "Registration date", :sort => 'site_user_creation_date' %></th>
     <th>Action</th>
   </tr>
 
@@ -44,6 +45,7 @@
       <td title="<%= member.join_date %>, <%= member.join_protocol %>"><%= member.joined ? '✓' : '' %></td>
       <td><%= sprintf("%06u", member.card_number) unless member.card_number.nil? %></td>
       <td><%= link_to member.site_user, "http://bike.org.by/users/#{member.site_user_normalized}" unless member.site_user.nil? or member.site_user.blank? %></td>
+      <td><%= member.site_user_creation_date %>
       <td><%= link_to 'Show', member_path(member) %> | <%= link_to 'Edit', edit_member_path(member) %></td>
     </tr>
   <% end %>
