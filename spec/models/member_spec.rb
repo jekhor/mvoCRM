@@ -187,23 +187,13 @@ describe Member do
     m.should_not be_valid
   end
 
-  it "should accept site_uid and site_user" do
-    m = Member.new(@attr.merge(:site_uid => 13, :site_user => 'jekhor'))
+  it "should accept site_user" do
+    m = Member.new(@attr.merge(:site_user => 'jekhor'))
     m.should be_valid
   end
 
-  it "should not accept site_uid without site_user" do
-    m = Member.new(@attr.merge(:site_uid => 13, :site_user => nil))
-    m.should_not be_valid
-  end
-
-  it "should not accept site_user without site_uid" do
-    m = Member.new(@attr.merge(:site_uid => nil, :site_user => 'jekhor'))
-    m.should_not be_valid
-  end
-
   it "should normalize site_user as site_user_normalized" do
-    m = Member.new(@attr.merge(:site_uid => 13, :site_user => 'jekhor.jekhor_jekhor'))
+    m = Member.new(@attr.merge(:site_user => 'jekhor.jekhor_jekhor'))
     m.site_user_normalized.should == 'jekhorjekhorjekhor'
   end
 
