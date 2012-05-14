@@ -72,7 +72,7 @@
   </div>
   <div class="field">
     <%= f.label :site_user_creation_date %><br/>
-    <%= date_select :member, :site_user_creation_date, :include_blank => true %>
+    <%= date_select :member, :site_user_creation_date, :include_blank => true, :order => [:day, :month, :year] %>
   </div>
   <div class="actions">
     <%= f.submit %>
