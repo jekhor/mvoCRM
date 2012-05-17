@@ -2,8 +2,8 @@
 <%= form_tag members_accept_selected_path, :method => :post, :multipart => true do -%>
   <%= render 'list', :checked_all => false %>
   <br/>
-  <%= submit_tag "Accept marked people officially" %> <%= label :selected_people, :join_date %><%= date_select :selected_people, :join_date, :include_blank => true, :order => [:day, :month, :year] %> <%= label :selected_people, :join_protocol %><%= text_field :selected_people, :join_protocol, :length => 5 %>
-
+<%= label :selected_people, :join_date %><%= date_select :selected_people, :join_date, :include_blank => true, :order => [:day, :month, :year] %> <%= label :selected_people, :join_protocol %><%= text_field :selected_people, :join_protocol, :size => 5 %>
+  <%= submit_tag "Accept marked people officially" %> 
 <% end %>
 <br />
 

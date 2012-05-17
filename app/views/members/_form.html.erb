@@ -10,71 +10,85 @@
       </ul>
     </div>
   <% end %>
-  <div class="field">
-    <%= f.label :last_name %><br/>
-    <%= f.text_field :last_name %>
+  <div class="span-8">
+    <div class="field span-8">
+      <%= f.label :last_name %><br/>
+      <%= f.text_field :last_name %>
+    </div>
+    <div class="field">
+      <%= f.label :address %><br/>
+      <%= f.text_field :address %>
+    </div>
+    <div class="field">
+      <%= f.label :phone %><br/>
+      <%= f.phone_field :phone %>
+    </div>
+    <div class="field">
+      <%= f.label 'Does application exist?' %><br/>
+      <%= f.check_box :application_exists %>
+    </div>
+    <div class="field" id="application_date_field" style="display: <%= @member.application_exists ? '':'none' %>">
+      <%= f.label :application_date %><br/>
+      <% ad = @member.application_date.nil? ? '' : @member.application_date.strftime("%d.%m.%Y") -%>
+      <%= f.datepicker :application_date, :value => ad, :size => 10, :dateFormat => 'dd.mm.yy', :selectOtherMonths => true, :changeYear => true, :yearRange => '2011:+0' %>
+    </div>
+
   </div>
-  <div class="field">
-    <%= f.label :given_names %><br/>
-    <%= f.text_field :given_names %>
+
+  <div class="span-8">
+    <div class="field span-8 last">
+      <%= f.label :given_names %><br/>
+      <%= f.text_field :given_names %>
+    </div>
+    <div class="field">
+      <%= f.label :postal_address %><br/>
+      <%= f.text_field :postal_address %>
+    </div>
+    <div class="field">
+      <%= f.label :email %><br/>
+      <%= f.text_field :email %>
+    </div>
+    <div class="field">
+      <%= f.label :joined %><br/>
+      <%= f.check_box :joined %>
+    </div>
+    <div id="joined_member_fields" style="display: <%= @member.joined ? '':'none' %>">
+      <div class="field">
+        <%= f.label :join_date %><br/>
+        <%= date_select :member, :join_date, :include_blank => true %>
+      </div>
+      <div class="field">
+        <%= f.label :join_protocol %><br/>
+        <%= f.text_field :join_protocol, :size => 4 %>
+      </div>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :date_of_birth %><br/>
-    <%= date_select :member, :date_of_birth, :start_year => 1900, :include_blank => true, :order => [:day, :month, :year] %>
-  </div>
-  <div class="field">
-    <%= f.label :address %><br/>
-    <%= f.text_field :address %>
-  </div>
-  <div class="field">
-    <%= f.label :postal_address %><br/>
-    <%= f.text_field :postal_address %>
-  </div>
-  <div class="field">
-    <%= f.label :phone %><br/>
-    <%= f.phone_field :phone %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br/>
-    <%= f.text_field :email %>
-  </div>
+
+  <div class="span-8 last">
+    <div class="field">
+      <%= f.label :date_of_birth %><br/>
+      <% dob = @member.date_of_birth.nil? ? '' : @member.date_of_birth.strftime("%d.%m.%Y") -%>
+      <%= f.datepicker :date_of_birth, :value => dob, :size => 10, :dateFormat => 'dd.mm.yy', :selectOtherMonths => true, :changeYear => true, :yearRange => '-90:-13' %>
+    </div>
     <div class="field">
       <%= f.label :card_number %><br/>
-      <%= f.text_field :card_number %>
-    </div>
-  <div class="field">
-    <%= f.label 'Does application exist?' %><br/>
-    <%= f.check_box :application_exists %>
-  </div>
-  <div class="field" id="application_date_field" style="display: <%= @member.application_exists ? '':'none' %>">
-    <%= f.label :application_date %><br/>
-    <%= date_select :member, :application_date, :include_blank => true, :order => [:day, :month, :year] %>
-  </div>
-
-
-  <div class="field">
-    <%= f.label :joined %><br/>
-    <%= f.check_box :joined %>
-  </div>
-  <div id="joined_member_fields" style="display: <%= @member.joined ? '':'none' %>">
-    <div class="field">
-      <%= f.label :join_date %><br/>
-      <%= date_select :member, :join_date, :include_blank => true %>
+      <%= f.text_field :card_number, :size => 6 %>
     </div>
     <div class="field">
-      <%= f.label :join_protocol %><br/>
-      <%= f.text_field :join_protocol %>
+      <%= f.label :site_user %><br/>
+      <%= f.text_field :site_user, :size => 10 %>
+    </div>
+    <div class="field">
+      <%= f.label :site_user_creation_date %><br/>
+      <% date = @member.site_user_creation_date.nil? ? '' : @member.site_user_creation_date.strftime("%d.%m.%Y") -%>
+      <%= f.datepicker :site_user_creation_date, :value => date , :size => 10, :dateFormat => 'dd.mm.yy', :selectOtherMonths => true %>
     </div>
   </div>
-  <div class="field">
-    <%= f.label :site_user %><br/>
-    <%= f.text_field :site_user %>
+
+  <div class="span-24">
+    <div class="actions">
+      <%= f.submit %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :site_user_creation_date %><br/>
-    <%= date_select :member, :site_user_creation_date, :include_blank => true, :order => [:day, :month, :year] %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
 <% end %>
