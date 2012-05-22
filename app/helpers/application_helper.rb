@@ -12,9 +12,9 @@ module ApplicationHelper
   end
 
   def datepicker_su(f, field, options = {})
-    date = f.object.send(field).nil? ? '' : f.object.send(field).strftime("%d.%m.%Y")
-    opts = {:value => date, :size => 10, :dateFormat => "dd.mm.yy", :selectOtherMonths => true}
-    opts.merge(options) if options.is_a?(Hash)
+    date = f.object.send(field).nil? ? '' : f.object.send(field)
+    opts = {:size => 10, :dateFormat => "yy-mm-dd", :selectOtherMonths => true}
+    opts.merge! options
     f.datepicker field, opts
   end
 end
