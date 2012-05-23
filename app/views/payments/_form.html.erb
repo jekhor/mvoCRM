@@ -30,7 +30,7 @@
     </div>
   </div>
 
-  <div class="span-5">
+  <div class="span-5 last">
     <div class="field">
       <%= f.label :amount %><br/>
       <%= f.number_field :amount, :size => 10 %>
@@ -39,6 +39,10 @@
       <%= f.label :end_date %><br/>
       <%= datepicker_su f, :end_date, :changeYear => true, :yearRange => '-1:+2' %>
     </div>
+  </div>
+  <div class="span-24 last">
+    <%= f.label :note %><br/>
+    <%= f.text_area :note, :size => '20x3', :class => 'span-8' %>
   </div>
 
   <div class="actions span-24 last">
