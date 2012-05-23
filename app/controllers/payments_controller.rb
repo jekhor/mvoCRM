@@ -34,7 +34,7 @@ class PaymentsController < ApplicationController
     unless @payment.member.nil?
       last_payment = @payment.member.payments.order(:end_date).last
       if last_payment.nil?
-        @payment.start_date = @payment.member.site_user_creation_date
+        @payment.start_date = @payment.member.site_user_creation_date unless @payment.member.site_user_creation_date.nil?
       else
         @payment.start_date = 1.day.since last_payment.end_date
       end
