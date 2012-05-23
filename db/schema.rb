@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120523094846) do
+ActiveRecord::Schema.define(:version => 20120523184106) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -56,12 +56,12 @@ ActiveRecord::Schema.define(:version => 20120523094846) do
 
   create_table "payments", :force => true do |t|
     t.integer  "member_id"
-    t.date     "date",                                     :null => false
-    t.decimal  "amount",     :precision => 2, :scale => 0, :null => false
-    t.date     "start_date",                               :null => false
-    t.date     "end_date",                                 :null => false
-    t.datetime "created_at",                               :null => false
-    t.datetime "updated_at",                               :null => false
+    t.date     "date",                                      :null => false
+    t.decimal  "amount",     :precision => 10, :scale => 2, :null => false
+    t.date     "start_date",                                :null => false
+    t.date     "end_date",                                  :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.text     "note"
   end
 
