@@ -11,7 +11,11 @@ class MembersController < ApplicationController
   def index
     @title = "Members"
     params[:sort] ||= 'last_name'
-    @members = Member.order(params[:sort]).all
+    if params[:sort] == 'payments'
+      @members = Member.find(:all, :include => :payments).sort_by {|m| m.payments.size}
+    else
+      @members = Member.order(params[:sort]).all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
