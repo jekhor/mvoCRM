@@ -51,10 +51,10 @@
       <%= f.label :joined %><br/>
       <%= f.check_box :joined %>
     </div>
-    <div id="joined_member_fields" style="display: <%= @member.joined ? '':'none' %>">
+    <div id="joined_member_fields" style="display: <%= @member.joined ? 'block':'none' %>">
       <div class="field">
         <%= f.label :join_date %><br/>
-        <%= datepicker_su f, :join_date, :value => '' %>
+        <%= datepicker_su f, :join_date %>
       </div>
       <div class="field">
         <%= f.label :join_protocol %><br/>
