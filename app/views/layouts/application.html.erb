@@ -14,7 +14,7 @@
 </head>
 <body>
 
-  <div class="container">
+  <div class="container showgrid">
     <header>
     <%= link_to pages_home_path do -%>
       <%= image_tag("logo.png", :alt => "Sample App", :class => "round") %>
@@ -23,6 +23,7 @@
     <ul>
       <li><%= link_to "Home", root_path %></li>
       <li><%= link_to "Members", members_path %></li>
+      <li><%= link_to "Payments", payments_path %></li>
       <li><%= link_to "Help", help_path %></li>
       <% if admin_signed_in? -%>
         <li><%= link_to "Sign out (#{current_admin.email})", destroy_admin_session_path, :method => :delete %></li>
