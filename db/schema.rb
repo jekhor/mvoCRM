@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120413103625) do
+ActiveRecord::Schema.define(:version => 20120517121853) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -53,6 +53,16 @@ ActiveRecord::Schema.define(:version => 20120413103625) do
 
   add_index "members", ["email"], :name => "index_members_on_email", :unique => true
   add_index "members", ["site_user"], :name => "index_members_on_site_user", :unique => true
+
+  create_table "payments", :force => true do |t|
+    t.integer  "member_id"
+    t.date     "date",                                     :null => false
+    t.decimal  "amount",     :precision => 2, :scale => 0, :null => false
+    t.date     "start_date",                               :null => false
+    t.date     "end_date",                                 :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+  end
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false

@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+  <strong>Member:</strong>
+  <%= @payment.member.full_name unless @payment.member.nil? %><br/>
+  
+  <strong>Date:</strong>
+  <%= @payment.date %><br/>
+
+  <strong>Amount:</strong>
+  <%= @payment.amount %><br/>
+
+  <strong>Valid: from</strong> <%= @payment.start_date %> <strong>to</strong> <%= @payment.end_date %><br/>
+ 
+<%= link_to 'Edit', edit_payment_path(@payment) %> |
+<%= link_to 'Back', payments_path %>

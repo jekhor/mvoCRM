@@ -29,8 +29,7 @@
     </div>
     <div class="field" id="application_date_field" style="display: <%= @member.application_exists ? '':'none' %>">
       <%= f.label :application_date %><br/>
-      <% ad = @member.application_date.nil? ? '' : @member.application_date.strftime("%d.%m.%Y") -%>
-      <%= f.datepicker :application_date, :value => ad, :size => 10, :dateFormat => 'dd.mm.yy', :selectOtherMonths => true, :changeYear => true, :yearRange => '2011:+0' %>
+      <%= datepicker_su f, :application_date, :changeYear => true, :yearRange => '2011:+0' %>
     </div>
 
   </div>
@@ -55,7 +54,7 @@
     <div id="joined_member_fields" style="display: <%= @member.joined ? '':'none' %>">
       <div class="field">
         <%= f.label :join_date %><br/>
-        <%= date_select :member, :join_date, :include_blank => true %>
+        <%= datepicker_su f, :join_date, :value => '' %>
       </div>
       <div class="field">
         <%= f.label :join_protocol %><br/>
@@ -67,8 +66,7 @@
   <div class="span-8 last">
     <div class="field">
       <%= f.label :date_of_birth %><br/>
-      <% dob = @member.date_of_birth.nil? ? '' : @member.date_of_birth.strftime("%d.%m.%Y") -%>
-      <%= f.datepicker :date_of_birth, :value => dob, :size => 10, :dateFormat => 'dd.mm.yy', :selectOtherMonths => true, :changeYear => true, :yearRange => '-90:-13' %>
+      <%= datepicker_su f, :date_of_birth, :changeYear => true, :yearRange => '-90:-13' %>
     </div>
     <div class="field">
       <%= f.label :card_number %><br/>
@@ -80,8 +78,7 @@
     </div>
     <div class="field">
       <%= f.label :site_user_creation_date %><br/>
-      <% date = @member.site_user_creation_date.nil? ? '' : @member.site_user_creation_date.strftime("%d.%m.%Y") -%>
-      <%= f.datepicker :site_user_creation_date, :value => date , :size => 10, :dateFormat => 'dd.mm.yy', :selectOtherMonths => true %>
+      <%= datepicker_su f, :site_user_creation_date %>
     </div>
   </div>
 

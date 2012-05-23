@@ -19,6 +19,9 @@
 #
 
 class Member < ActiveRecord::Base
+
+  has_many :payments
+
   attr_accessible :given_names, :last_name, :date_of_birth, :address, :email, :phone
   attr_accessible :application_exists, :join_date, :join_protocol, :card_number, :joined
   attr_accessible :postal_address, :application_date, :site_user, :site_user_creation_date
@@ -55,6 +58,10 @@ class Member < ActiveRecord::Base
   end
 
   def site_user_normalized
-    self.site_user.gsub(/[_.]/, "")
+    tmp = site_user.gsub(/[_.]/, "")
+  end
+
+  def full_name
+    self.last_name + " " + self.given_names
   end
 end

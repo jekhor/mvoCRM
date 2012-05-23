@@ -33,7 +33,14 @@
   </tr>
 
   <% @members.each_with_index do |member, i| %>
-    <tr>
+    <% if !importing -%>
+      <% row_class = ''
+        p = member.payments.find(:last, :conditions => {:end_date => Time.now.to_date..('9999-01-01'.to_date) })
+      row_class = 'class=debtor' if p.nil?
+    -%>
+
+    <% end -%>
+    <tr <%= row_class %>>
       <td><%= check_box 'selected_members', 'id', {:multiple => true, :class => 'check', :checked => checked_all}, importing ? i : member.id, nil %></td>
       <td><%= i+1 %></td>
       <td><%= member.last_name %> <%= member.given_names %></td>

@@ -1,0 +1,47 @@
+<%= form_for(@payment) do |f| %>
+  <% if @payment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
+
+      <ul>
+      <% @payment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="span-24 last">
+    <div class="field">
+      <%= f.label 'Member' %><br/>
+      <%= f.select :member_id, @members.map {|m| ["#{sprintf("%06d", m.card_number.nil? ? 0 : m.card_number)} " + m.full_name, m.id]}, :include_blank => true %>
+    </div>
+  </div>
+
+
+  <div class="span-5">
+    <div class="field">
+      <%= f.label :date %><br/>
+      <%= datepicker_su f, :date %>
+    </div>
+    <div class="field">
+      <%= f.label :start_date %><br/>
+      <%= datepicker_su f, :start_date %>
+    </div>
+  </div>
+
+  <div class="span-5">
+    <div class="field">
+      <%= f.label :amount %><br/>
+      <%= f.number_field :amount, :size => 10 %>
+    </div>
+    <div class="field">
+      <%= f.label :end_date %><br/>
+      <%= datepicker_su f, :end_date, :changeYear => true, :yearRange => '-1:+2' %>
+    </div>
+  </div>
+
+  <div class="actions span-24 last">
+    <%= f.submit %>
+  </div>
+<% end %>
