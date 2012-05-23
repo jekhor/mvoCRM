@@ -7,6 +7,7 @@ MvoCRM::Application.routes.draw do
   get "pages/help"
 
   resources :payments
+  get "payments/new/:for_member(.:format)" => 'payments#new', :as => :new_payment_for
 
   get "members/import_csv"
   post "members/parse_csv"

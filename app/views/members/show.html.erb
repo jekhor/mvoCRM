@@ -46,7 +46,8 @@
         <strong>Site user registered at</strong>
         <%= @member.site_user_creation_date %><br/>
       <% end %>
-      <strong>Payments:</strong>
+      <strong>Payments:</strong><br/>
+      <%= link_to 'Pay', new_payment_for_path(@member) %><br/>
       <table>
         <tr>
           <th>Date</th>

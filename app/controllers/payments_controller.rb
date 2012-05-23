@@ -25,6 +25,7 @@ class PaymentsController < ApplicationController
   # GET /payments/new.json
   def new
     @payment = Payment.new
+    @payment.member = Member.find(params[:for_member]) unless params[:for_member].nil?
     @payment.date = Time.now.to_date
     @payment.start_date = Time.now.to_date
     @payment.end_date = 1.year.from_now.to_date

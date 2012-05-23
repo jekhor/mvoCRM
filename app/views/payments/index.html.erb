@@ -2,6 +2,8 @@
 
 <table>
   <tr>
+    <th></th>
+    <th>Card #</th>
     <th>Member</th>
     <th>Date</th>
     <th>Amount</th>
@@ -13,8 +15,10 @@
     <th></th>
   </tr>
 
-<% @payments.each do |payment| %>
+<% @payments.each_with_index do |payment, i| %>
   <tr>
+    <td><%= i+1 %></td>
+    <td><%= payment.member.card_number_str unless payment.member.nil? %></td>
     <td><%= payment.member.full_name unless payment.member.nil? %></td>
     <td><%= payment.date %></td>
     <td><%= payment.amount %></td>

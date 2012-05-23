@@ -64,4 +64,12 @@ class Member < ActiveRecord::Base
   def full_name
     self.last_name + " " + self.given_names
   end
+
+  def card_number_str
+    unless self.card_number.nil?
+      sprintf("%06d", self.card_number)
+    else
+      ''
+    end
+  end
 end
