@@ -53,6 +53,25 @@ class Member < ActiveRecord::Base
   before_validation :set_nil
   before_save :set_nil
 
+  comma do
+    last_name
+    given_names
+    date_of_birth
+    address
+    postal_address
+    email
+    phone
+    application_exists
+    application_date
+    join_date
+    join_protocol
+    card_number
+    joined
+    site_user
+    site_user_creation_date
+  end
+
+
   def site_user_normalized
     tmp = site_user.gsub(/[_.]/, "")
   end

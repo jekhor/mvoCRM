@@ -1,4 +1,5 @@
 <%= link_to 'New Member', new_member_path %>
+<%= link_to 'Export as CSV', members_path(:format => :csv) %>
 <%= form_tag members_accept_selected_path, :method => :post, :multipart => true do -%>
   <%= render 'list', :checked_all => false %>
   <br/>

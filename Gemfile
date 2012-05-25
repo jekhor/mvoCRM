@@ -27,6 +27,8 @@ gem 'jquery-rails'
 gem 'therubyracer'
 gem 'jquery_datepicker', :git => 'git://github.com/cure/jquery_datepicker.git'
 
+gem 'comma'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
