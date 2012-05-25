@@ -53,10 +53,6 @@ class Member < ActiveRecord::Base
   before_validation :set_nil
   before_save :set_nil
 
-  def set_nil
-    self[:email] = nil if self[:email].blank?
-  end
-
   def site_user_normalized
     tmp = site_user.gsub(/[_.]/, "")
   end
@@ -72,4 +68,11 @@ class Member < ActiveRecord::Base
       ''
     end
   end
+
+  private
+
+  def set_nil
+    self[:email] = nil if self[:email].blank?
+  end
+
 end
