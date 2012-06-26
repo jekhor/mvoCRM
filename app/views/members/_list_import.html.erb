@@ -1,0 +1,72 @@
+<% checked_all ||= false -%>
+<% importing ||= false -%>
+
+<table class="members">
+  <colgroup>
+    <col/>
+    <col/>
+    <col style="width: 13em;"/>
+    <col/>
+    <% if importing -%>
+      <col style="width: 10em;"/>
+    <% end -%>
+    <col/>
+    <col style="width: 8em;"/>
+    <col/>
+    <col/>
+    <col/>
+    <col/>
+    <col/>
+  </colgroup>
+  <tr>
+    <th><%= check_box_tag 'check_all', 'check_all', checked_all %></th>
+    <th>#</th>
+    <th><%= link_to "Фамилия, имя, отчество", :sort => 'last_name' %></th>
+    <th><%= link_to "Birth date", :sort => 'date_of_birth' %></th>
+    <% if importing -%>
+      <th><%= link_to "Address", :sort => 'address' %></th>
+    <% end -%>
+    <th><%= link_to "E-mail", :sort => 'email' %></th>
+    <th><%= link_to "Phone", :sort => 'phone' %></th>
+    <th><%= link_to "A.", :sort => 'application_date' %></th>
+    <th><%= link_to "J.", :sort => 'join_date' %></th>
+    <th><%= link_to "Card #", :sort => 'card_number' %></th>
+    <% if !importing -%>
+      <th><%= link_to "Fees", :sort => 'payments' %></th>
+    <% end -%>
+    <th><%= link_to "Site user", :sort => 'site_user' %></th>
+    <th><%= link_to "Registration date", :sort => 'site_user_creation_date' %></th>
+    <th>Actions</th>
+  </tr>
+
+  <% @members.each_with_index do |member, i| %>
+    <% if !importing -%>
+      <% row_class = ''
+        p = member.payments.find(:last, :conditions => {:end_date => Time.now.to_date..('9999-01-01'.to_date) })
+      row_class = 'class=debtor' if p.nil?
+    -%>
+
+    <% end -%>
+    <tr <%= row_class %>>
+      <td><%= check_box 'selected_members', 'id', {:multiple => true, :class => 'check', :checked => checked_all}, importing ? i : member.id, nil %></td>
+      <td><%= i+1 %></td>
+      <td><%= member.last_name %> <%= member.given_names %></td>
+      <td><%= member.date_of_birth %></td>
+      <% if importing -%>
+        <td><%= member.address %></td>
+      <% end -%>
+      <td><%= member.email %></td>
+      <td><%= member.phone %></td>
+      <td title="<%= member.application_date %>"><%= member.application_exists ? '✓' : '' %></td>
+      <td title="<%= member.join_date %>, <%= member.join_protocol %>"><%= member.joined ? '✓' : '' %></td>
+      <td><%= sprintf("%06u", member.card_number) unless member.card_number.nil? %></td>
+      <% if !importing -%>
+        <td><%= member.payments.size %></td>
+      <% end -%>
+      <td><%= link_to member.site_user, "http://bike.org.by/users/#{member.site_user_normalized}" unless member.site_user.nil? or member.site_user.blank? %></td>
+      <td><%= member.site_user_creation_date %></td>
+      <td><%= link_to 'Show', member_path(member) %> | <%= link_to 'Edit', edit_member_path(member) %> | <%= link_to 'Pay', new_payment_for_path(member) %></td>
+    </tr>
+  <% end %>
+</table>
+
