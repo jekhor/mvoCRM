@@ -1,6 +1,8 @@
 <% checked_all ||= false -%>
 <% importing ||= false -%>
 
+<%= will_paginate @members %>
+
 <table class="members">
   <colgroup>
     <col/>
@@ -38,6 +40,7 @@
     <th><%= link_to "Registration date", :sort => 'site_user_creation_date' %></th>
     <th>Actions</th>
   </tr>
+  <tr class="secondary_row"></tr>
 
   <% @members.each_with_index do |member, i| %>
     <% if !importing -%>
@@ -66,6 +69,22 @@
       <td><%= link_to member.site_user, "http://bike.org.by/users/#{member.site_user_normalized}" unless member.site_user.nil? or member.site_user.blank? %></td>
       <td><%= member.site_user_creation_date %></td>
       <td><%= link_to 'Show', member_path(member) %> | <%= link_to 'Edit', edit_member_path(member) %> | <%= link_to 'Pay', new_payment_for_path(member) %></td>
+    </tr>
+    <tr <%= row_class -%> class="secondary_row">
+      <td></td>
+      <td></td>
+      <td><%= member.address %></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
     </tr>
   <% end %>
 </table>

@@ -12,9 +12,9 @@ class MembersController < ApplicationController
     @title = "Members"
     params[:sort] ||= 'last_name'
     if params[:sort] == 'payments'
-      @members = Member.find(:all, :include => :payments).sort_by {|m| m.payments.size}
+      @members = Member.find(:all, :include => :payments).sort_by {|m| m.payments.size}.page(params[:page])
     else
-      @members = Member.order(params[:sort]).all
+      @members = Member.page(params[:page]).order(params[:sort])
     end
 
     respond_to do |format|
