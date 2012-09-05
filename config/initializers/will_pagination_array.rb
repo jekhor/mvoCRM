@@ -7,7 +7,7 @@ Array.class_eval do
 
     WillPaginate::Collection.create(
       options[:page] || 1,
-      options[:per_page] || 15,
+      options[:per_page] || WillPaginate.per_page || 15,
       options[:total_entries] || self.length ) do |pager|
         pager.replace self[pager.offset, pager.per_page].to_a
         @total_pages = pager.total_entries / pager.per_page
