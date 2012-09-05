@@ -1,8 +1,12 @@
 class PaymentsController < ApplicationController
+  before_filter :authenticate_admin!
+
+  helper_method :sort_column, :sort_direction
+
   # GET /payments
   # GET /payments.json
   def index
-    @payments = Payment.all
+    @payments = Payment.order(sort_column + ' ' + sort_direction)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -99,4 +103,15 @@ class PaymentsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+
+  def sort_column
+        Payment.column_names.include?(params[:sort]) ? params[:sort] : "date"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+  end
+
 end
