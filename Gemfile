@@ -31,6 +31,7 @@ gem 'jquery_datepicker', :git => 'git://github.com/cure/jquery_datepicker.git'
 
 gem 'comma'
 gem 'will_paginate'
+gem 'unicode'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
