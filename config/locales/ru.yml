@@ -1,0 +1,37 @@
+ru:
+  members:
+    index:
+      search: "Найти"
+      find_by_lastname: "Искать по первым буквам фамилии"
+    list:
+      full_name: "Фамилия, имя, отчество"
+      app_abbr: "З."
+      join_abbr: "Вст."
+      actions: "Действия"
+      debtor!: "Должок!"
+  activerecord:
+    attributes:
+      member:
+        address: "Адрес регистрации"
+        application_date: "Дата заявления"
+        application_exists: "Имеется заявление"
+        card_number: "Номер билета"
+        date_of_birth: "Дата рождения"
+        email: "E-mail"
+        given_names: "Имя Отчество"
+        join_date: "Дата вступления"
+        joined: "Вступил"
+        join_protocol: "Протокол вступления"
+        last_name: "Фамилия"
+        payments: "Платежи"
+        phone: "Телефон"
+        postal_address: "Адрес для почты"
+        site_user_creation_date: "Дата регистрации на сайте"
+        site_user: "Логин на сайте"
+      payment:
+        date: "Дата"
+        amount: "Сумма"
+        start_date: "Дата начала"
+        end_date: "Дата конца"
+        note: "Примечание"
+      

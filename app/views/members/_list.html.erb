@@ -23,26 +23,26 @@
   <tr>
     <th><%= check_box_tag 'check_all', 'check_all', checked_all %></th>
     <th>#</th>
-    <th><%= sortable 'last_name', "Фамилия, имя, отчество" %></th>
-    <th><%= sortable 'date_of_birth', "Birth date" %></th>
-    <th><%= sortable 'address', "Address" %></th>
-    <th><%= sortable 'email', "E-mail" %></th>
-    <th><%= sortable 'application_date', "A." %></th>
-    <th><%= sortable 'application_date', "App date" %></th>
-    <th><%= sortable 'site_user', "Site user" %></th>
-    <th><%= sortable 'payments', "Fees" %></th>
-    <th>Actions</th>
+    <th><%= sortable 'last_name', t(".full_name") %></th>
+    <th><%= sortable 'date_of_birth', m_attr_name('date_of_birth')  %></th>
+    <th><%= sortable 'address', m_attr_name('address') %></th>
+    <th><%= sortable 'email', m_attr_name('email') %></th>
+    <th><%= sortable 'application_date', t(".app_abbr") %></th>
+    <th><%= sortable 'application_date', m_attr_name('application_date') %></th>
+    <th><%= sortable 'site_user', m_attr_name('site_user') %></th>
+    <th><%= sortable 'payments', m_attr_name('payments') %></th>
+    <th><%= t '.actions' %></th>
   </tr>
   <tr>
     <th></th>
     <th></th>
-    <th class="shifted"><%= sortable 'card_number', "Card #" %></th>
+    <th class="shifted"><%= sortable 'card_number', m_attr_name('card_number') %></th>
     <th></th>
-    <th><%= sortable 'postal_address', "Postal address" %></th>
-    <th class="shifted"><%= sortable 'phone', "Phone" %></th>
-    <th><%= sortable 'join_date', "J." %></th>
-    <th><%= sortable 'join_date', "Join date" %></th>
-    <th class="shifted"><%= sortable 'site_user_creation_date', "Registration date" %></th>
+    <th><%= sortable 'postal_address', m_attr_name('postal_address') %></th>
+    <th class="shifted"><%= sortable 'phone', m_attr_name('phone') %></th>
+    <th><%= sortable 'join_date', t('.join_abbr') %></th>
+    <th><%= sortable 'join_date', m_attr_name('join_date') %></th>
+    <th class="shifted"><%= sortable 'site_user_creation_date', m_attr_name('site_user_creation_date') %></th>
     <th></th>
     <th></th>
   </tr>
@@ -79,7 +79,7 @@
       <td><%= member.joined ? '✓' : '' %></td>
       <td title="<%= member.join_date %>, <%= member.join_protocol %>"><%= member.join_date %></td>
       <td class="shifted"><%= member.site_user_creation_date %></td>
-      <td><%= 'debtor!' if debtor %></td>
+      <td><%= t '.debtor!' if debtor %></td>
       <td></td>
     </tr>
   <% end %>
