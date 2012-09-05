@@ -32,9 +32,16 @@ table.members tr:nth-child(4n) * {
   border-bottom-width: 1px;
 }
 
-table.members tr:nth-child(4n+1) * {
+table.members tr:nth-child(4n+1) td {
   background:#e5ecf9;
   border-top-width: 1px;
+}
+
+table.members tr:nth-child(4n+1) th {
+  background:#e5ecf9;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-bottom-style: dotted;
 }
 
 table.members tr:nth-child(4n+2) * {
@@ -73,7 +80,10 @@ tr.debtor {
 }
 
 table.members th, table.members td {
-  padding: 4px 4px 4px 5px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 1px;
+  padding-bottom: 1px;
 }
 
 label:after {
