@@ -69,10 +69,10 @@
       <td><%= member.payments.size %></td>
       <td><%= link_to 'Show', member_path(member) %> | <%= link_to 'Edit', edit_member_path(member) %> | <%= link_to 'Pay', new_payment_for_path(member) %></td>
     </tr>
-    <tr <%= row_class -%> class="secondary_row">
+    <tr <%= row_class -%>>
       <td></td>
       <td></td>
-      <td class="shifted"><%= sprintf("%06u", member.card_number) unless member.card_number.nil? %></td>
+      <td class="shifted"><strong><%= sprintf("%06u", member.card_number) unless member.card_number.nil? %></strong></td>
       <td></td>
       <td><%= member.postal_address %></td>
       <td class="shifted"><%= member.phone %></td>
