@@ -71,6 +71,13 @@ class Member < ActiveRecord::Base
     site_user_creation_date
   end
 
+  def self.search(search)
+    if search
+      where('UPPER(last_name) LIKE ?', "%#{search.upcase}%")
+    else
+      scoped
+    end
+  end
 
   def site_user_normalized
     tmp = site_user.gsub(/[_.]/, "")

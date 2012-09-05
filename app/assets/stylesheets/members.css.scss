@@ -3,6 +3,54 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 /* User show page */
 
+
+table.members {
+  border-width: 1px;
+  border-color: gray;
+  border-style: solid;
+  border-collapse: collapse;
+}
+
+table.members td, table.members th {
+  border-width: 0px;
+  border-left-width: 1px;
+  border-right-width: 1px;
+  border-color: gray;
+  border-style: solid;
+}
+
+table.members tr th {
+  background: #e5ecf9;
+}
+
+table.members tr th a {
+  text-decoration: none;
+}
+
+table.members tr:nth-child(4n) * {
+  background:none;
+  border-bottom-width: 1px;
+}
+
+table.members tr:nth-child(4n+1) * {
+  background:#e5ecf9;
+  border-top-width: 1px;
+}
+
+table.members tr:nth-child(4n+2) * {
+  background:#e5ecf9;
+  border-bottom-width: 1px;
+}
+
+table.members tr:nth-child(4n+3) * {
+  background:none;
+  border-top-width: 1px;
+}//table.members tbody tr:nth-child(even) td, table.members tbody tr.even td {background:none;}
+
+table.members tr .shifted {
+  text-align: right;
+}
+
 table.member_info {
   width: 100%;
   margin-bottom: 0;

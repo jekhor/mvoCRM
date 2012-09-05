@@ -6,15 +6,16 @@ class MembersController < ApplicationController
 
   before_filter :authenticate_admin!
 
+  helper_method :sort_column, :sort_direction
+
   # GET /members
   # GET /members.json
   def index
     @title = "Members"
-    params[:sort] ||= 'last_name'
     if params[:sort] == 'payments'
-      @members = Member.find(:all, :include => :payments).sort_by {|m| m.payments.size}.page(params[:page])
+      @members = Member.search(params[:search]).all(:include => :payments).sort_by {|m| m.payments.size * (sort_direction == 'asc' ? 1 : -1)}.paginate(:page => params[:page])
     else
-      @members = Member.page(params[:page]).order(params[:sort])
+      @members = Member.search(params[:search]).page(params[:page]).order(sort_column + ' ' + sort_direction)
     end
 
     respond_to do |format|
@@ -185,4 +186,15 @@ class MembersController < ApplicationController
 
     redirect_to members_path, :notice => notice
   end
+
+  private
+
+  def sort_column
+    (%w[payments] + Member.column_names).include?(params[:sort]) ? params[:sort] : "last_name"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+
 end

@@ -1,3 +1,10 @@
+<%= form_tag members_path, :method => 'get' do %>
+  <p>
+  <%= text_field_tag :search, params[:search] %>
+  <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
 <%= link_to 'New Member', new_member_path %>
 <%= link_to 'Export as CSV', members_path(:format => :csv) %>
 <%= form_tag members_accept_selected_path, :method => :post, :multipart => true do -%>

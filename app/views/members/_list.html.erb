@@ -23,24 +23,29 @@
   <tr>
     <th><%= check_box_tag 'check_all', 'check_all', checked_all %></th>
     <th>#</th>
-    <th><%= link_to "Фамилия, имя, отчество", :sort => 'last_name' %></th>
-    <th><%= link_to "Birth date", :sort => 'date_of_birth' %></th>
-    <% if importing -%>
-      <th><%= link_to "Address", :sort => 'address' %></th>
-    <% end -%>
-    <th><%= link_to "E-mail", :sort => 'email' %></th>
-    <th><%= link_to "Phone", :sort => 'phone' %></th>
-    <th><%= link_to "A.", :sort => 'application_date' %></th>
-    <th><%= link_to "J.", :sort => 'join_date' %></th>
-    <th><%= link_to "Card #", :sort => 'card_number' %></th>
-    <% if !importing -%>
-      <th><%= link_to "Fees", :sort => 'payments' %></th>
-    <% end -%>
-    <th><%= link_to "Site user", :sort => 'site_user' %></th>
-    <th><%= link_to "Registration date", :sort => 'site_user_creation_date' %></th>
+    <th><%= sortable 'last_name', "Фамилия, имя, отчество" %></th>
+    <th><%= sortable 'date_of_birth', "Birth date" %></th>
+    <th><%= sortable 'address', "Address" %></th>
+    <th><%= sortable 'email', "E-mail" %></th>
+    <th><%= sortable 'application_date', "A." %></th>
+    <th><%= sortable 'application_date', "App date" %></th>
+    <th><%= sortable 'site_user', "Site user" %></th>
+    <th><%= sortable 'payments', "Fees" %></th>
     <th>Actions</th>
   </tr>
-  <tr class="secondary_row"></tr>
+  <tr>
+    <th></th>
+    <th></th>
+    <th class="shifted"><%= sortable 'card_number', "Card #" %></th>
+    <th></th>
+    <th><%= sortable 'postal_address', "Postal address" %></th>
+    <th class="shifted"><%= sortable 'phone', "Phone" %></th>
+    <th><%= sortable 'join_date', "J." %></th>
+    <th><%= sortable 'join_date', "Join date" %></th>
+    <th class="shifted"><%= sortable 'site_user_creation_date', "Registration date" %></th>
+    <th></th>
+    <th></th>
+  </tr>
 
   <% @members.each_with_index do |member, i| %>
     <% if !importing -%>
@@ -55,34 +60,24 @@
       <td><%= i+1 %></td>
       <td><%= member.last_name %> <%= member.given_names %></td>
       <td><%= member.date_of_birth %></td>
-      <% if importing -%>
-        <td><%= member.address %></td>
-      <% end -%>
+      <td><%= member.address %></td>
       <td><%= member.email %></td>
-      <td><%= member.phone %></td>
-      <td title="<%= member.application_date %>"><%= member.application_exists ? '✓' : '' %></td>
-      <td title="<%= member.join_date %>, <%= member.join_protocol %>"><%= member.joined ? '✓' : '' %></td>
-      <td><%= sprintf("%06u", member.card_number) unless member.card_number.nil? %></td>
-      <% if !importing -%>
-        <td><%= member.payments.size %></td>
-      <% end -%>
-      <td><%= link_to member.site_user, "http://bike.org.by/users/#{member.site_user_normalized}" unless member.site_user.nil? or member.site_user.blank? %></td>
-      <td><%= member.site_user_creation_date %></td>
+      <td><%= member.application_exists ? '✓' : '' %></td>
+      <td><%= member.application_date %></td>
+      <td><%= link_to member.site_user, "http://bike.org.by/users/#{member.site_user_normalized}" unless member.site_user.blank? %></td>
+      <td><%= member.payments.size %></td>
       <td><%= link_to 'Show', member_path(member) %> | <%= link_to 'Edit', edit_member_path(member) %> | <%= link_to 'Pay', new_payment_for_path(member) %></td>
     </tr>
     <tr <%= row_class -%> class="secondary_row">
       <td></td>
       <td></td>
-      <td><%= member.address %></td>
+      <td class="shifted"><%= sprintf("%06u", member.card_number) unless member.card_number.nil? %></td>
       <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td><%= member.postal_address %></td>
+      <td class="shifted"><%= member.phone %></td>
+      <td><%= member.joined ? '✓' : '' %></td>
+      <td title="<%= member.join_date %>, <%= member.join_protocol %>"><%= member.join_date %></td>
+      <td class="shifted"><%= member.site_user_creation_date %></td>
       <td></td>
       <td></td>
     </tr>
