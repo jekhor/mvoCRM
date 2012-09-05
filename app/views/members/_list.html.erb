@@ -52,6 +52,7 @@
       <% row_class = ''
         p = member.payments.find(:last, :conditions => {:end_date => Time.now.to_date..('9999-01-01'.to_date) })
       row_class = 'class=debtor' if p.nil?
+      debtor = p.nil?
     -%>
 
     <% end -%>
@@ -78,7 +79,7 @@
       <td><%= member.joined ? '✓' : '' %></td>
       <td title="<%= member.join_date %>, <%= member.join_protocol %>"><%= member.join_date %></td>
       <td class="shifted"><%= member.site_user_creation_date %></td>
-      <td></td>
+      <td><%= 'debtor!' if debtor %></td>
       <td></td>
     </tr>
   <% end %>
