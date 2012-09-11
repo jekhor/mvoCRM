@@ -12,8 +12,11 @@ class MembersController < ApplicationController
   # GET /members.json
   def index
     @title = "Members"
-    if params[:sort] == 'payments'
+    case sort_column
+    when 'payments'
       @members = Member.search(params[:search]).all(:include => :payments).sort_by {|m| m.payments.size * (sort_direction == 'asc' ? 1 : -1)}.paginate(:page => params[:page])
+    when 'debtor?'
+      @members = Member.search(params[:search]).all(:include => :payments).sort_by {|m| (m.debtor? ? 1 : 0) * (sort_direction == 'asc' ? 1 : -1)}.paginate(:page => params[:page])
     else
       @members = Member.search(params[:search]).page(params[:page]).order(sort_column + ' ' + sort_direction)
     end
@@ -191,7 +194,7 @@ class MembersController < ApplicationController
   private
 
   def sort_column
-    (%w[payments] + Member.column_names).include?(params[:sort]) ? params[:sort] : "last_name"
+    (%w[payments debtor?] + Member.column_names).include?(params[:sort]) ? params[:sort] : "last_name"
   end
 
   def sort_direction

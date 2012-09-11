@@ -95,6 +95,12 @@ class Member < ActiveRecord::Base
     end
   end
 
+  def debtor?
+    p = self.payments.find(:last,
+                             :conditions => {:end_date => Time.now.to_date..('9999-01-01'.to_date) })
+    p.nil?
+  end
+
   private
 
   def set_nil
