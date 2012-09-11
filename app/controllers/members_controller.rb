@@ -42,6 +42,7 @@ class MembersController < ApplicationController
   def new
     @title = "New Member"
     @member = Member.new
+    @member.phone = "+375"
 
     respond_to do |format|
       format.html # new.html.erb
