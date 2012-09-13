@@ -35,4 +35,7 @@ ru:
         start_date: "Дата начала"
         end_date: "Дата конца"
         note: "Примечание"
-      
+  will_paginate:
+    previous_label: "&#8592;"
+    next_label: "&#8594;"
+    page_gap: "&hellip;"
