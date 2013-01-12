@@ -30,20 +30,20 @@ class PaymentsController < ApplicationController
   def new
     @payment = Payment.new
     @payment.member = Member.find(params[:for_member]) unless params[:for_member].nil?
-    @payment.date = Time.now.to_date
+    @payment.date = Date.today
 
-    @payment.start_date = Time.now.to_date
-    @payment.end_date = 1.year.from_now.to_date
 
     unless @payment.member.nil?
       last_payment = @payment.member.payments.order(:end_date).last
       if last_payment.nil?
-        @payment.start_date = @payment.member.site_user_creation_date unless @payment.member.site_user_creation_date.nil?
+        @payment.start_date = @payment.member.site_user_creation_date unless @payment.member.site_user_creation_date.blank?
       else
-        @payment.start_date = last_payment.end_date
+        @payment.start_date = Date.today.beginning_of_year
       end
-      @payment.end_date = 1.year.since @payment.start_date
     end
+
+    @payment.start_date = Date.today if @payment.start_date.nil?
+    @payment.end_date = @payment.start_date.end_of_year
 
     @members = Member.all
 
