@@ -62,6 +62,8 @@ class MembersController < ApplicationController
   # POST /members.json
   def create
     @member = Member.new(params[:member])
+    @member.phone = nil if @member.phone == "+375"
+
     if @member.joined.nil?
       @member.join_date = nil
       @member.join_protocol = nil
@@ -73,7 +75,7 @@ class MembersController < ApplicationController
 
     respond_to do |format|
       if @member.save
-        format.html { redirect_to members_url, notice: 'Member was successfully created.' }
+        format.html { redirect_to new_payment_for_url(@member), notice: 'Member was successfully created.' }
         format.json { render json: @member, status: :created, location: @member }
       else
         format.html { render action: "new" }
