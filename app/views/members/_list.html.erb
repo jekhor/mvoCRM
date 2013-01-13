@@ -1,5 +1,4 @@
 <% checked_all ||= false -%>
-<% importing ||= false -%>
 
 <%= content_tag 'div', :class => 'pagination' do %>
   <%= will_paginate @members, :container => false %>
@@ -13,9 +12,6 @@
     <col/>
     <col style="width: 13em;"/>
     <col/>
-    <% if importing -%>
-      <col style="width: 10em;"/>
-    <% end -%>
     <col/>
     <col style="width: 8em;"/>
     <col/>
@@ -52,16 +48,14 @@
   </tr>
 
   <% @members.each_with_index do |member, i| %>
-    <% if !importing -%>
-      <% row_class = ''
-        p = member.payments.find(:last, :conditions => {:end_date => Time.now.to_date..('9999-01-01'.to_date) })
-      row_class = 'class=debtor' if p.nil?
-      debtor = p.nil?
-    -%>
+    <% row_class = ''
+    p = member.payments.find(:last, :conditions => {:end_date => Time.now.to_date..('9999-01-01'.to_date) })
+    row_class = 'class=debtor' if p.nil?
+    debtor = p.nil?
+  -%>
 
-    <% end -%>
     <tr <%= row_class %>>
-      <td><%= check_box 'selected_members', 'id', {:multiple => true, :class => 'check', :checked => checked_all}, importing ? i : member.id, nil %></td>
+      <td><%= check_box 'selected_members', 'id', {:multiple => true, :class => 'check', :checked => checked_all}, member.id, nil %></td>
       <td><%= i + 1 + @skipped_members_count %></td>
       <td><%= member.last_name %> <%= member.given_names %></td>
       <td><%= member.date_of_birth %></td>
