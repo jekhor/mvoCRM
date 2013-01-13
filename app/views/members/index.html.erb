@@ -2,12 +2,11 @@
   <p>
   <%= label_tag t('.find_by_lastname') %>
   <%= text_field_tag :search, params[:search] %>
-  <%= submit_tag t(".search"), :name => nil %>
+  <%= submit_tag t(".search"), :name => nil, :class => 'button' %>
   </p>
 <% end %>
 
-<%= link_to 'New Member', new_member_path %>
-<%= link_to 'Export as CSV', members_path(:format => :csv) %>
+<%= link_to t('.new_member'), new_member_path, :class => 'button' %>
 <%= form_tag members_accept_selected_path, :method => :post, :multipart => true do -%>
   <%= render 'list', :checked_all => false %>
   <br/>
@@ -18,4 +17,5 @@
 
 
 <%= link_to 'New Member', new_member_path %> |
+<%= link_to 'Export as CSV', members_path(:format => :csv) %> |
 <%= link_to "Import members from CSV", members_import_csv_path %>

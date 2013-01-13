@@ -3,6 +3,7 @@ ru:
     index:
       search: "Найти"
       find_by_lastname: "Искать по первым буквам фамилии"
+      new_member: "Добавить"
     list:
       full_name: "Фамилия, имя, отчество"
       app_abbr: "З."
