@@ -21,6 +21,8 @@ class MembersController < ApplicationController
       @members = Member.search(params[:search]).page(params[:page]).order(sort_column + ' ' + sort_direction)
     end
 
+    @skipped_members_count = params[:page].nil? ? 0 : (params[:page].to_i - 1) * Member.per_page
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @members }
