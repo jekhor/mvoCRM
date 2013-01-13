@@ -1,7 +1,11 @@
 <% checked_all ||= false -%>
 <% importing ||= false -%>
 
-<%= will_paginate @members %>
+<%= content_tag 'div', :class => 'pagination' do %>
+  <%= will_paginate @members, :container => false %>
+  <span><%= t('.records_per_page') %></span>
+  <%= per_page_links [10, 30, 50, 100], :include_all => true, :current => Member.per_page %>
+<% end %>
 
 <table class="members">
   <colgroup>

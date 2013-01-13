@@ -10,6 +10,7 @@ ru:
       join_abbr: "Вст."
       actions: "Действия"
       debtor!: "Должок!"
+      records_per_page: "Записей на страницу:"
   activerecord:
     attributes:
       member:

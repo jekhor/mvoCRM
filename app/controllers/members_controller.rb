@@ -12,6 +12,13 @@ class MembersController < ApplicationController
   # GET /members.json
   def index
     @title = "Members"
+
+    if params[:per_page] == 'all'
+      Member.per_page = 100000
+    else
+      Member.per_page = params[:per_page] || 30
+    end
+
     case sort_column
     when 'payments'
       @members = Member.search(params[:search]).all(:include => :payments).sort_by {|m| m.payments.size * (sort_direction == 'asc' ? 1 : -1)}.paginate(:page => params[:page])
