@@ -73,7 +73,7 @@ class Member < ActiveRecord::Base
 
   def self.search(search)
     if search
-      where('last_name LIKE ?', "%#{Unicode::capitalize(search)}%")
+      where('last_name LIKE ?', "#{Unicode::capitalize(search)}%")
     else
       scoped
     end
