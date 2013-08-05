@@ -69,6 +69,9 @@ class Member < ActiveRecord::Base
     joined
     site_user
     site_user_creation_date
+    debtor?
+    last_payment_date
+    last_payment_amount
   end
 
   def self.search(search)
@@ -99,6 +102,25 @@ class Member < ActiveRecord::Base
     p = self.payments.find(:last,
                              :conditions => {:end_date => Time.now.to_date..('9999-01-01'.to_date) })
     p.nil?
+  end
+
+  def last_payment_date
+    p = self.payments.find(:last)
+    if p.nil?
+      nil
+    else
+      p.date
+    end
+  end
+
+  def last_payment_amount
+    p = self.payments.find(:last)
+    if p.nil?
+      nil
+    else
+      p.amount
+    end
+
   end
 
   private
