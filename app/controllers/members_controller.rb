@@ -49,6 +49,65 @@ class MembersController < ApplicationController
     end
   end
 
+  def import_mail
+    @title = "Import member from mail"
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def parse_mail
+    text = params[:mail_text]
+
+    @member = Member.new
+    t = text.split(/\n|\r/)
+
+    t.each do |line|
+      if line =~ /Дата оплаты\s*:\s*(.*)$/
+        next
+      end
+
+      if line =~ /ФИО:\s*(.*)$/
+        @member.last_name, @member.given_names = $1.split(' ', 2)
+        next
+      end
+
+      if line =~ /Email:\s*(.*)$/
+        @member.email = $1
+        next
+      end
+
+      if line =~ /Дата рождения:\s*(.*)$/
+        @member.date_of_birth = Date.strptime($1, '%d.%m.%Y')
+        next
+      end
+
+      if line =~ /Адрес регистрации \(прописки\):\s*(.*)$/
+        @member.address = $1
+        next
+      end
+
+      if line =~ /Адрес для почтовых отправлений:\s*(.*)$/
+        @member.postal_address = $1
+        next
+      end
+
+      if line =~ /Телефон:\s*(.*)$/
+        @member.phone = $1.gsub(/\s|-/, '')
+        next
+      end
+
+      if line =~ /Предпочитаемое имя аккаунта на сайте bike.org.by \(никнейм\):\s*(.*)/
+        @member.site_user = $1
+        next
+      end
+    end
+
+    respond_to do |format|
+      format.html { render 'new' }
+    end
+  end
+
   # GET /members/new
   # GET /members/new.json
   def new

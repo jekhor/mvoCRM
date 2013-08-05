@@ -5,8 +5,10 @@
   <%= submit_tag t(".search"), :name => nil, :class => 'button' %>
   </p>
 <% end %>
-
+<p>
 <%= link_to t('.new_member'), new_member_path, :class => 'button' %>
+<%= link_to t('.import_mail'), members_import_mail_path, :class => 'button' %>
+</p>
 <%= form_tag members_accept_selected_path, :method => :post, :multipart => true do -%>
   <%= render 'list', :checked_all => false %>
   <br/>
