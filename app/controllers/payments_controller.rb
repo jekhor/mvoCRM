@@ -30,7 +30,9 @@ class PaymentsController < ApplicationController
   def new
     @payment = Payment.new
     @payment.member = Member.find(params[:for_member]) unless params[:for_member].nil?
+    @payment.member = Member.where("card_number = ?", params[:card_no]).first unless params[:card_no].nil?
     @payment.date = Date.today
+    @payment.amount = params[:amount]
 
 
     unless @payment.member.nil?

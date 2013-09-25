@@ -1,0 +1,10 @@
+<%= form_tag members_url, :method => 'GET' do %>
+    <fieldset>
+    <legend>Find member</legend>
+    <div class="field">
+      <%= label_tag 'search', 'Part of last name or card №' %><br/>
+      <%= text_field_tag 'search' %>
+    </div>
+    <%= submit_tag 'Search' %>
+    </fieldset>
+  <% end %>
