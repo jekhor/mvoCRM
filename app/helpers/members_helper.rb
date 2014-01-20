@@ -7,7 +7,9 @@ module MembersHelper
 
   def per_page_links(items, options={})
     items << 'all' if options[:include_all]
-    current_page = request.query_parameters[:page].to_i || 1
+
+    current_page = request.query_parameters[:page] || 1
+    current_page = current_page.to_i
 
     items.each {|item|
       if item == request.query_parameters[:per_page] or item == options[:current]
