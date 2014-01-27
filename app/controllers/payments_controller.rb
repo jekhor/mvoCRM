@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class PaymentsController < ApplicationController
   before_filter :authenticate_admin!
 
@@ -106,6 +108,35 @@ class PaymentsController < ApplicationController
     end
   end
 
+  def import_hg
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def parse_hg
+    @payment = parse_hutkigrosh_mail(params[:mail_text])
+
+    unless @payment.member.nil?
+      last_payment = @payment.member.payments.order(:end_date).last
+      if last_payment.nil?
+        @payment.start_date = @payment.member.site_user_creation_date unless @payment.member.site_user_creation_date.blank?
+      else
+        @payment.start_date = Date.today.beginning_of_year
+      end
+    end
+
+    @payment.start_date = Date.today if @payment.start_date.nil?
+    @payment.end_date = @payment.start_date.end_of_year
+
+    @members = Member.all
+
+    respond_to do |format|
+      format.html { render 'new' }
+    end
+
+  end
+
   private
 
   def sort_column
@@ -115,5 +146,61 @@ class PaymentsController < ApplicationController
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
+
+  def parse_hutkigrosh_mail(text)
+    payment = Payment.new
+
+    type = nil
+    date_of_birth = nil
+    member_card_no = nil
+
+    t = text.split(/\n|\r/)
+    t.each do |line|
+      line.chomp!
+
+      logger.debug line
+
+      if line =~ /\s*Cумма счета ([0-9.]+)\s*BYR/
+        payment.amount = $1.to_i
+      end
+
+      if line =~ /\s*Cчет №\s*([0-9]{2})([0-9]{2})([0-9]{4})/
+        date_of_birth = Time.mktime($3, $2, $1).to_date
+      end
+
+      if line =~ /\s*Cчет №\s*([0-9]{6})/
+        member_card_no = $1.to_i
+      end
+
+      if line =~ /\s*Дата совершения платежа\s+(.*)/
+        payment.date = $1.to_date
+      end
+
+      if line =~ /\s*Услуга.*\( ([0-9]+) \)/
+        case $1
+        when '10051001'
+          type = :member
+        when '10051002'
+          type = :initial
+        end
+      end
+
+    end
+
+    m = nil
+
+    case type
+    when :member
+      m = Member.where(:card_number => member_card_no).first
+    when :initial
+      m = Member.where(:date_of_birth => date_of_birth).order('created_at DESC').first
+    end
+
+    payment.member = m
+    payment.note = text
+
+    payment
+  end
+
 
 end
