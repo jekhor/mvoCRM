@@ -11,7 +11,7 @@
 
   <strong>Valid: from</strong> <%= @payment.start_date %> <strong>to</strong> <%= @payment.end_date %><br/>
 
-  <strong>Note:</strong> <%= @payment.note unless @payment.note.nil? %><br/>
+  <strong>Note:</strong> <%= simple_format @payment.note unless @payment.note.nil? %><br/>
  
 <%= link_to 'Edit', edit_payment_path(@payment) %> |
 <%= link_to 'Back', payments_path %>

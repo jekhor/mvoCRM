@@ -24,7 +24,7 @@
     <td><%= payment.amount %></td>
     <td><%= payment.start_date %></td>
     <td><%= payment.end_date %></td>
-    <td><%= payment.note unless payment.note.nil? %></td>
+    <td><%= payment.note[0..20] unless payment.note.nil? %></td>
     <td><%= link_to 'Show', payment %></td>
     <td><%= link_to 'Edit', edit_payment_path(payment) %></td>
     <td><%= link_to 'Destroy', payment, confirm: 'Are you sure?', method: :delete %></td>
