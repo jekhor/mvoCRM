@@ -49,7 +49,7 @@ class PaymentsController < ApplicationController
     @payment.start_date = Date.today if @payment.start_date.nil?
     @payment.end_date = @payment.start_date.end_of_year
 
-    @members = Member.all
+    @members = Member.order('last_name ASC').all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -126,10 +126,10 @@ class PaymentsController < ApplicationController
       end
     end
 
-    @payment.start_date = Date.today if @payment.start_date.nil?
+    @payment.start_date = @payment.date if @payment.start_date.nil?
     @payment.end_date = @payment.start_date.end_of_year
 
-    @members = Member.all
+    @members = Member.order('last_name ASC').all
 
     respond_to do |format|
       format.html { render 'new' }
