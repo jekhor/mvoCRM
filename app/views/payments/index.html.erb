@@ -6,6 +6,7 @@
     <th>Card #</th>
     <th>Member</th>
     <th><%= sortable 'date' %></th>
+    <th><%= 'Number' %></th>
     <th><%= sortable 'amount' %></th>
     <th><%= sortable 'start_date' %></th>
     <th><%= sortable 'end_date' %></th>
@@ -21,6 +22,7 @@
     <td><%= payment.member.card_number_str unless payment.member.nil? %></td>
     <td><%= payment.member.full_name unless payment.member.nil? %></td>
     <td><%= payment.date %></td>
+    <td><%= payment.number %></td>
     <td><%= payment.amount %></td>
     <td><%= payment.start_date %></td>
     <td><%= payment.end_date %></td>

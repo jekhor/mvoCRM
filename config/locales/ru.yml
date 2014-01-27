@@ -38,6 +38,7 @@ ru:
         start_date: "Дата начала"
         end_date: "Дата конца"
         note: "Примечание"
+        number: "Номер платежа"
   will_paginate:
     previous_label: "&#8592;"
     next_label: "&#8594;"

@@ -176,6 +176,10 @@ class PaymentsController < ApplicationController
         payment.date = $1.to_date
       end
 
+      if line =~ /\s*Идентификатор операции у расчётного агента\s*([^\s]+)/
+        payment.number = $1
+      end
+
       if line =~ /\s*Услуга.*\( ([0-9]+) \)/
         case $1
         when '10051001'
