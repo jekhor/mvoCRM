@@ -1,0 +1,31 @@
+<h1>Listing donations</h1>
+
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Document number</th>
+    <th>Amount</th>
+    <th>Donor</th>
+    <th>Note</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @donations.each do |donation| %>
+  <tr>
+    <td><%= donation.date %></td>
+    <td><%= donation.document_number %></td>
+    <td><%= donation.amount %></td>
+    <td><%= donation.donor %></td>
+    <td><%= donation.note %></td>
+    <td><%= link_to 'Show', donation %></td>
+    <td><%= link_to 'Edit', edit_donation_path(donation) %></td>
+    <td><%= link_to 'Destroy', donation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Donation', new_donation_path %>

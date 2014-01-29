@@ -1,0 +1,6 @@
+<%= form_tag donations_parse_ipay_path do -%>
+  <label for="notification">Text to import</label><br/>
+  <%= text_area_tag 'notification', nil, { :size => '150x20', :escape => false, :class => 'span-24 last' } %><br/>
+
+  <%= submit_tag 'Import' %>
+<% end -%>
