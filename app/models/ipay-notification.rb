@@ -11,7 +11,7 @@ class IPayNotification
     @header = Hash.new
     @records = Array.new
 
-    lines = text.split(/\r|\n/)
+    lines = text.force_encoding("CP1251").encode("UTF-8").split(/\r|\n/)
 
     lines.each {|line|
       line.chomp!
@@ -30,9 +30,6 @@ class IPayNotification
         next
       end
     }
-
-    STDERR.puts "Header: #{@header.inspect}"
-    STDERR.puts "Records: #{@records.inspect}"
   end
 
   private

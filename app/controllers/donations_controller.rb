@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'ipay-notification'
 
 class DonationsController < ApplicationController
@@ -89,17 +91,45 @@ class DonationsController < ApplicationController
     end
   end
 
+  require 'scanf'
+
   def parse_ipay
     @notification = IPayNotification.new(params[:notification])
-    r = @notification.records.first
-    @donation = Donation.new
-    @donation.amount = r['transferred']
-    @donation.donor = r['client_id']
-    @donation.document_number = @notification.header['doc_num']
+    @donations = Array.new
 
+    @notification.records.each { |r|
+      donation = Donation.new
+      donation.amount = r['transferred']
+      donation.donor = r['client_id']
+      donation.document_number = @notification.header['doc_num']
+      donation.payment_id = r['payment_id']
+      donation.datetime = Time.local *(r['payment_date'].scanf("%04d%02d%02d%02d%02d%02d"))
+
+      @donations << donation
+    }
 
     respond_to do |format|
-      format.html { render 'new' }
+      if params[:auto]
+
+        success = true
+        Donation.transaction do
+          begin
+            @donations.each {|d| d.save!}
+          rescue
+            success = false
+            raise ActiveRecord::Rollback
+          end
+        end
+
+        if success
+          format.json { render json: @donations, status: :created }
+        else
+          format.json { render json: @donations.map {|d| { errors: d.errors } }, status: :unprocessable_entity }
+        end
+      else
+        format.html { render 'new' }
+      end
     end
+
   end
 end

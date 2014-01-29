@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140128215236) do
+ActiveRecord::Schema.define(:version => 20140129220538) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -32,14 +32,17 @@ ActiveRecord::Schema.define(:version => 20140128215236) do
   add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
 
   create_table "donations", :force => true do |t|
-    t.date     "date"
     t.string   "document_number"
     t.integer  "amount"
     t.string   "donor"
     t.text     "note"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.integer  "payment_id",      :default => 0, :null => false
+    t.datetime "datetime"
   end
+
+  add_index "donations", ["payment_id"], :name => "index_donations_on_payment_id", :unique => true
 
   create_table "members", :force => true do |t|
     t.string   "given_names"
