@@ -1,0 +1,20 @@
+Обработана анкета о вступлении в МВО.
+<% unless @member.errors.empty? -%>
+  
+Ошибки:
+<% @member.errors.full_messages.each do |msg| %>
+<%= msg %>
+<% end %>
+<% end -%>
+
+Данные:
+<% [:last_name, :given_names, :date_of_birth, :address, :postal_address, :phone, :email, :site_user].each do |attr| -%>
+  <%= Member.human_attribute_name(attr) %>: <%= @member.send(attr) %>
+<% end -%>
+
+Текст исходного уведомления о заполнении анкеты:
+
+------------------------------------------------------------------
+<%= @src_mail %>
+------------------------------------------------------------------
+
