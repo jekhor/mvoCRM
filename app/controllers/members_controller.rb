@@ -59,52 +59,20 @@ class MembersController < ApplicationController
   def parse_mail
     text = params[:mail_text]
 
-    @member = Member.new
-    t = text.split(/\n|\r/)
-
-    t.each do |line|
-      if line =~ /Дата оплаты\s*:\s*(.*)$/
-        next
-      end
-
-      if line =~ /ФИО:\s*(.*)$/
-        @member.last_name, @member.given_names = $1.split(' ', 2)
-        next
-      end
-
-      if line =~ /Email:\s*(.*)$/
-        @member.email = $1
-        next
-      end
-
-      if line =~ /Дата рождения:\s*(.*)$/
-        @member.date_of_birth = Date.strptime($1, '%d.%m.%Y')
-        next
-      end
-
-      if line =~ /Адрес регистрации \(прописки\):\s*(.*)$/
-        @member.address = $1
-        next
-      end
-
-      if line =~ /Адрес для почтовых отправлений:\s*(.*)$/
-        @member.postal_address = $1
-        next
-      end
-
-      if line =~ /Телефон:\s*(.*)$/
-        @member.phone = $1.gsub(/\s|-/, '')
-        next
-      end
-
-      if line =~ /Предпочитаемое имя аккаунта на сайте bike.org.by \(никнейм\):\s*(.*)/
-        @member.site_user = $1
-        next
-      end
-    end
+    @member = parse_new_member_mail(text)
 
     respond_to do |format|
-      format.html { render 'new' }
+      if params[:auto]
+        if @member.save
+          format.json { render json: @member, status: :created }
+        else
+          format.json { render json: @member.errors, status: :unprocessable_entity }
+        end
+
+        CrmMailer.member_parsed_email(@member, text)
+      else
+        format.html { render 'new' }
+      end
     end
   end
 
@@ -269,6 +237,57 @@ class MembersController < ApplicationController
 
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+
+  def parse_new_member_mail(text)
+    member = Member.new
+    text.gsub!(/(\n|\r)([а-я0-9a-z-])/, ' \2')
+    t = text.split(/\n|\r/)
+
+    logger.debug text
+
+    t.each do |line|
+      if line =~ /Дата оплаты\s*:\s*(.*)$/
+        next
+      end
+
+      if line =~ /ФИО:\s*(.*)$/
+        member.last_name, member.given_names = $1.split(' ', 2)
+        next
+      end
+
+      if line =~ /Email:\s*(.*)$/
+        member.email = $1
+        next
+      end
+
+      if line =~ /Дата рождения:\s*(.*)$/
+        member.date_of_birth = Date.strptime($1, '%d.%m.%Y')
+        next
+      end
+
+      if line =~ /Адрес регистрации \(прописки\):\s*(.*)$/
+        member.address = $1
+        next
+      end
+
+      if line =~ /Адрес для почтовых отправлений:\s*(.*)$/
+        member.postal_address = $1
+        next
+      end
+
+      if line =~ /Телефон:\s*(.*)$/
+        member.phone = $1.gsub(/\s|-/, '')
+        next
+      end
+
+      if line =~ /Предпочитаемое имя аккаунта на сайте bike.org.by \(никнейм\):\s*(.*)/
+        member.site_user = $1
+        next
+      end
+    end
+
+    member
   end
 
 end
