@@ -130,11 +130,21 @@ class PaymentsController < ApplicationController
     @payment.end_date = @payment.start_date.end_of_year
 
     @members = Member.order('last_name ASC').all
-
+   
     respond_to do |format|
-      format.html { render 'new' }
-    end
 
+      if params[:auto]
+        if @payment.save
+          format.json { render json: @payment, status: :created }
+        else
+          format.json {render json: @payment.errors, status: :unprocessable_entity }
+        end
+
+        CrmMailer.payment_parsed_email(@payment, params[:mail_text])
+      else
+        format.html { render 'new' }
+      end
+    end
   end
 
   private
@@ -158,26 +168,31 @@ class PaymentsController < ApplicationController
     t.each do |line|
       line.chomp!
 
-      logger.debug line
-
       if line =~ /\s*Cумма счета ([0-9.]+)\s*BYR/
         payment.amount = $1.to_i
+        next
       end
 
-      if line =~ /\s*Cчет №\s*([0-9]{2})([0-9]{2})([0-9]{4})/
-        date_of_birth = Time.mktime($3, $2, $1).to_date
+      if line =~ /\s*Cчет №\s*(([0-9]{2})([0-9]{2})([0-9]{4}))/
+        date_of_birth = Time.mktime($4, $3, $2).to_date
+        payment.user_account = $1
+        next
       end
 
-      if line =~ /\s*Cчет №\s*([0-9]{6})/
+      if line =~ /\s*Cчет №\s*([0-9]{6})\s*$/
         member_card_no = $1.to_i
+        payment.user_account = $1
+        next
       end
 
       if line =~ /\s*Дата совершения платежа\s+(.*)/
         payment.date = $1.to_date
+        next
       end
 
       if line =~ /\s*Идентификатор операции у расчётного агента\s*([^\s]+)/
         payment.number = $1
+        next
       end
 
       if line =~ /\s*Услуга.*\( ([0-9]+) \)/
@@ -187,6 +202,7 @@ class PaymentsController < ApplicationController
         when '10051002'
           type = :initial
         end
+        next
       end
 
     end

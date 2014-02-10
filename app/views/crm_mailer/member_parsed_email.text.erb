@@ -12,8 +12,18 @@
   <%= Member.human_attribute_name(attr) %>: <%= @member.send(attr) %>
 <% end -%>
 
-Текст исходного уведомления о заполнении анкеты:
+<% unless @member.payments.empty?
+     payment = @member.payments.first
+-%>
+Платёж:
+  Номер: <%= payment.number %>
+  Дата: <%= payment.date %>
+  Сумма: <%= payment.amount %> BYR
+  Срок действия: от <%= payment.start_date %> до <%= payment.end_date %>
+  
+<% end %>
 
+Текст исходного уведомления о заполнении анкеты:
 ------------------------------------------------------------------
 <%= @src_mail %>
 ------------------------------------------------------------------

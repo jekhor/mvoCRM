@@ -1,0 +1,23 @@
+Обработано уведомление об уплате взноса в МВО.
+<% unless @payment.errors.empty? -%>
+  
+Ошибки:
+<% @payment.errors.full_messages.each do |msg| %>
+<%= msg %>
+<% end %>
+<% end -%>
+
+Платёж:
+  Член МВО: <%= "#{@payment.member.full_name} (билет №#{@payment.member.card_number})" unless @payment.member.nil? %>
+  Дата рождения или номер билета: <%= @payment.user_account %>
+  Номер: <%= @payment.number %>
+  Дата: <%= @payment.date %>
+  Сумма: <%= @payment.amount %> BYR
+  Срок действия: от <%= @payment.start_date %> до <%= @payment.end_date %>
+  
+
+Текст исходного уведомления о платеже:
+------------------------------------------------------------------
+<%= @src_mail %>
+------------------------------------------------------------------
+

@@ -246,8 +246,11 @@ class MembersController < ApplicationController
 
     logger.debug text
 
+    payment_date = nil
+
     t.each do |line|
       if line =~ /Дата оплаты\s*:\s*(.*)$/
+        payment_date = Date.strptime($1, '%d.%m.%Y')
         next
       end
 
@@ -285,6 +288,11 @@ class MembersController < ApplicationController
         member.site_user = $1
         next
       end
+    end
+
+    payments = Payment.where(member_id: nil, date: payment_date, user_account: member.date_of_birth.strftime('%d%m%Y'))
+    if payments.size == 1
+      member.payments << payments.first
     end
 
     member
