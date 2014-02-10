@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+require 'csv'
+
 class PaymentsController < ApplicationController
   before_filter :authenticate_admin!
 
@@ -13,6 +15,7 @@ class PaymentsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @payments }
+      format.csv { render csv: @payments, :filename => 'payments' }
     end
   end
 
