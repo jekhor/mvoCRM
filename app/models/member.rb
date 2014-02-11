@@ -90,6 +90,10 @@ class Member < ActiveRecord::Base
     self.last_name + " " + self.given_names
   end
 
+  def first_name
+    self.given_names.split(/\s/, 2)[0]
+  end
+
   def card_number_str
     unless self.card_number.nil?
       sprintf("%06d", self.card_number)

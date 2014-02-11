@@ -73,6 +73,8 @@ class PaymentsController < ApplicationController
 
     respond_to do |format|
       if @payment.save
+        CrmMailer.thank_for_payment(@payment)
+
         format.html { redirect_to @payment, notice: 'Payment was successfully created.' }
         format.json { render json: @payment, status: :created, location: @payment }
       else
@@ -133,7 +135,7 @@ class PaymentsController < ApplicationController
     @payment.end_date = @payment.start_date.end_of_year
 
     @members = Member.order('last_name ASC').all
-   
+
     respond_to do |format|
 
       if params[:auto]
@@ -144,6 +146,7 @@ class PaymentsController < ApplicationController
         end
 
         CrmMailer.payment_parsed_email(@payment, params[:mail_text])
+        CrmMailer.thank_for_payment(@payment)
       else
         format.html { render 'new' }
       end
