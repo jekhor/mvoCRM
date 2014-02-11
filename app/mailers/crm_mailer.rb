@@ -47,7 +47,7 @@ class CrmMailer < ActionMailer::Base
       cc = nil
     end
 
-    mail(to: to, cc: cc, subject: subj).deliver
+    mail(to: to, cc: nil, subject: subj).deliver
   end
 
   def mailer_options
