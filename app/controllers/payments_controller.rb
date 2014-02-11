@@ -140,13 +140,13 @@ class PaymentsController < ApplicationController
 
       if params[:auto]
         if @payment.save
+          CrmMailer.thank_for_payment(@payment)
           format.json { render json: @payment, status: :created }
         else
           format.json {render json: @payment.errors, status: :unprocessable_entity }
         end
 
         CrmMailer.payment_parsed_email(@payment, params[:mail_text])
-        CrmMailer.thank_for_payment(@payment)
       else
         format.html { render 'new' }
       end
