@@ -79,6 +79,10 @@ tr.debtor {
   color: gray;
 }
 
+tr.paused {
+  text-decoration: line-through;
+}
+
 table.members th, table.members td {
   padding-left: 4px;
   padding-right: 4px;

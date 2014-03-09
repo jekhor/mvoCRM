@@ -25,6 +25,7 @@ class Member < ActiveRecord::Base
   attr_accessible :given_names, :last_name, :date_of_birth, :address, :email, :phone
   attr_accessible :application_exists, :join_date, :join_protocol, :card_number, :joined
   attr_accessible :postal_address, :application_date, :site_user, :site_user_creation_date
+  attr_accessible :membership_paused, :membership_pause_note
 
   validates :given_names, :presence => true,
                           :length => {:maximum => 50}
@@ -50,6 +51,8 @@ class Member < ActiveRecord::Base
 
   validates :site_user, :uniqueness => {:allow_nil => true}
 
+  validates :membership_pause_note, :presence => {:if => :membership_paused}
+
   before_validation :set_nil
   before_save :set_nil
 
@@ -72,6 +75,8 @@ class Member < ActiveRecord::Base
     debtor?
     last_payment_date
     last_payment_amount
+    membership_paused
+    membership_pause_note
   end
 
   def self.search(search)

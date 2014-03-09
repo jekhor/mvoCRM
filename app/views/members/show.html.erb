@@ -15,6 +15,10 @@
       <strong>Address</strong>
       <%= @member.address %><br/>
 
+      <% if @member.membership_paused %>
+        <strong>Membership is paused!</strong> Cause: <%= @member.membership_pause_note %><br/>
+      <% end %>
+
       <% unless @member.postal_address.blank? -%>
         <strong>Postal address</strong>
         <%= @member.postal_address %><br/>

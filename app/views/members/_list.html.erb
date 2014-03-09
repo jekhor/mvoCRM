@@ -50,11 +50,12 @@
   <% @members.each_with_index do |member, i| %>
     <% row_class = ''
     p = member.payments.find(:last, :conditions => {:end_date => Time.now.to_date..('9999-01-01'.to_date) })
-    row_class = 'class=debtor' if p.nil?
+    row_class = 'debtor' if p.nil?
+    row_class += ' paused' if member.membership_paused
     debtor = p.nil?
   -%>
 
-    <tr <%= row_class %>>
+    <tr class="<%= row_class %>">
       <td><%= check_box 'selected_members', 'id', {:multiple => true, :class => 'check', :checked => checked_all}, member.id, nil %></td>
       <td><%= i + 1 + @skipped_members_count %></td>
       <td><%= member.last_name %> <%= member.given_names %></td>

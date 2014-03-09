@@ -31,7 +31,14 @@
       <%= f.label :application_date %><br/>
       <%= datepicker_su f, :application_date, :changeYear => true, :yearRange => '2011:+0' %>
     </div>
-
+    <div class="field">
+      <%= f.label 'Is membership paused?' %><br/>
+      <%= f.check_box :membership_paused %>
+    </div>
+    <div class="field" id="membership_pause_note_field" style="display: <%= @member.membership_paused ? '':'none' %>">
+      <%= f.label :membership_pause_note %><br/>
+      <%= f.text_field :membership_pause_note %>
+    </div>
   </div>
 
   <div class="span-8">

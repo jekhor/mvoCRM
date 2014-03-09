@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140130131259) do
+ActiveRecord::Schema.define(:version => 20140309231131) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(:version => 20140130131259) do
     t.date     "application_date"
     t.string   "site_user"
     t.date     "site_user_creation_date"
+    t.boolean  "membership_paused"
+    t.text     "membership_pause_note"
   end
 
   add_index "members", ["email"], :name => "index_members_on_email", :unique => true
