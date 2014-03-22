@@ -248,45 +248,71 @@ class MembersController < ApplicationController
 
     payment_date = nil
 
+    state = nil
+
     t.each do |line|
+      line.chomp!
+
       if line =~ /Дата оплаты\s*:\s*(.*)$/
         payment_date = Date.strptime($1, '%d.%m.%Y')
+        state = nil
         next
       end
 
       if line =~ /ФИО:\s*(.*)$/
         member.last_name, member.given_names = $1.split(' ', 2)
+        state = nil
         next
       end
 
       if line =~ /Email:\s*(.*)$/
         member.email = $1
+        state = nil
         next
       end
 
       if line =~ /Дата рождения:\s*(.*)$/
         member.date_of_birth = Date.strptime($1, '%d.%m.%Y')
+        state = nil
         next
       end
 
       if line =~ /Адрес регистрации \(прописки\):\s*(.*)$/
         member.address = $1
+        state = :registration_address
         next
       end
 
       if line =~ /Адрес для почтовых отправлений:\s*(.*)$/
         member.postal_address = $1
+        state = :postal_address
         next
       end
 
       if line =~ /Телефон:\s*(.*)$/
         member.phone = $1.gsub(/\s|-/, '')
+        state = nil
         next
       end
 
       if line =~ /Предпочитаемое имя аккаунта на сайте bike.org.by \(никнейм\):\s*(.*)/
         member.site_user = $1
+        state = :site_user
         next
+      end
+
+      if line.blank?
+        state = nil
+        next
+      end
+
+      case state
+      when :postal_address
+        member.postal_address += ' ' + line
+      when :registration_address
+        member.address += ' ' + line
+      when :site_user
+        member.site_user += ' ' + line
       end
     end
 
