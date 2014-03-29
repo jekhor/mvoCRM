@@ -48,9 +48,9 @@
   </tr>
 
   <% @members.each_with_index do |member, i| %>
-    <% row_class = ''
+    <% row_class = i % 2 == 0 ? 'odd' : 'even'
     p = member.payments.find(:last, :conditions => {:end_date => Time.now.to_date..('9999-01-01'.to_date) })
-    row_class = 'debtor' if p.nil?
+    row_class += '-debtor' if p.nil?
     row_class += ' paused' if member.membership_paused
     debtor = p.nil?
   -%>
@@ -58,7 +58,7 @@
     <tr class="<%= row_class %>">
       <td><%= check_box 'selected_members', 'id', {:multiple => true, :class => 'check', :checked => checked_all}, member.id, nil %></td>
       <td><%= i + 1 + @skipped_members_count %></td>
-      <td><%= member.last_name %> <%= member.given_names %></td>
+      <td class="member_name"><%= link_to member.last_name + ' ' + member.given_names, member_path(member) %></td>
       <td><%= member.date_of_birth %></td>
       <td><%= member.address %></td>
       <td><%= member.email %></td>
@@ -66,9 +66,9 @@
       <td><%= member.application_date %></td>
       <td><%= link_to member.site_user, "http://bike.org.by/users/#{member.site_user_normalized}" unless member.site_user.blank? %></td>
       <td><%= member.payments.size %></td>
-      <td><%= link_to 'Show', member_path(member) %> | <%= link_to 'Edit', edit_member_path(member) %> | <%= link_to 'Pay', new_payment_for_path(member) %></td>
+      <td><%= link_to 'Edit', edit_member_path(member) %> | <%= link_to 'Pay', new_payment_for_path(member) %></td>
     </tr>
-    <tr <%= row_class -%>>
+    <tr class="<%= row_class -%>">
       <td></td>
       <td></td>
       <td class="shifted"><strong><%= sprintf("%06u", member.card_number) unless member.card_number.nil? %></strong></td>
