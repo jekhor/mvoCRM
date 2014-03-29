@@ -90,7 +90,12 @@ table.members th, table.members td {
   padding-bottom: 1px;
 }
 
-label:after {
+.field label:after {
   content: ':';
 }
+
+.cb label:after {
+  content: '';
+}
+
 

@@ -23,17 +23,17 @@
       <%= f.label :phone %><br/>
       <%= f.phone_field :phone %>
     </div>
-    <div class="field">
-      <%= f.label 'Does application exist?' %><br/>
+    <div class="field cb">
       <%= f.check_box :application_exists %>
+      <%= f.label :application_exists %>
     </div>
     <div class="field" id="application_date_field" style="display: <%= @member.application_exists ? '':'none' %>">
       <%= f.label :application_date %><br/>
       <%= datepicker_su f, :application_date, :changeYear => true, :yearRange => '2011:+0' %>
     </div>
-    <div class="field">
-      <%= f.label 'Is membership paused?' %><br/>
+    <div class="field cb">
       <%= f.check_box :membership_paused %>
+      <%= f.label :membership_paused %>
     </div>
     <div class="field" id="membership_pause_note_field" style="display: <%= @member.membership_paused ? '':'none' %>">
       <%= f.label :membership_pause_note %><br/>

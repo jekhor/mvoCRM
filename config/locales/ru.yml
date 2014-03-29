@@ -1,4 +1,7 @@
 ru:
+  destroy: 'Удалить'
+  show: 'Показать'
+  back: 'Назад'
   members:
     index:
       search: "Найти"
@@ -32,6 +35,8 @@ ru:
         postal_address: "Адрес для почты"
         site_user_creation_date: "Дата регистрации на сайте"
         site_user: "Логин на сайте"
+        membership_paused: "Членство приостановлено"
+        membership_pause_note: "Пояснение к приостановке членства"
       payment:
         date: "Дата"
         amount: "Сумма"
