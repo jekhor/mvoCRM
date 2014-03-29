@@ -179,7 +179,7 @@ class PaymentsController < ApplicationController
         next
       end
 
-      if line =~ /\s*Cчет №\s*(([0-9]{2})([0-9]{2})([0-9]{4}))/
+      if line =~ /\s*Cчет №\s*(([0-9]{2})\.?([0-9]{2})\.?([0-9]{4}))/
         date_of_birth = Time.mktime($4, $3, $2).to_date
         payment.user_account = $1
         next
@@ -217,9 +217,9 @@ class PaymentsController < ApplicationController
 
     case type
     when :member
-      m = Member.where(:card_number => member_card_no).first
+      m = Member.where(:card_number => member_card_no).first unless member_card_no.nil?
     when :initial
-      m = Member.where(:date_of_birth => date_of_birth).order('created_at DESC').first
+      m = Member.where(:date_of_birth => date_of_birth).order('created_at DESC').first unless date_of_birth.nil? or m.payments.empty?
     end
 
     payment.member = m
