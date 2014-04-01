@@ -4,7 +4,7 @@ require 'csv'
 
 class MembersController < ApplicationController
 
-  before_filter :authenticate_admin!
+  before_filter :authenticate_admin!, :except => :count
 
   helper_method :sort_column, :sort_direction
 
@@ -34,6 +34,15 @@ class MembersController < ApplicationController
       format.html # index.html.erb
       format.json { render json: @members }
       format.csv { render csv: @members, :filename => 'members' }
+    end
+  end
+
+  def count
+    @count = Member.where('membership_paused = ? OR membership_paused IS NULL', false).size
+
+    respond_to do |format|
+      format.json { render json: {count: @count} }
+      format.html { render layout: false }
     end
   end
 
