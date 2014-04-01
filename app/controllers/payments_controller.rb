@@ -219,7 +219,7 @@ class PaymentsController < ApplicationController
     when :member
       m = Member.where(:card_number => member_card_no).first unless member_card_no.nil?
     when :initial
-      m = Member.where(:date_of_birth => date_of_birth).order('created_at DESC').first unless date_of_birth.nil? or m.payments.empty?
+      m = Member.where(:date_of_birth => date_of_birth).order('created_at DESC').first unless date_of_birth.nil?
     end
 
     payment.member = m
