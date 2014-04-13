@@ -238,6 +238,15 @@ class MembersController < ApplicationController
     redirect_to members_path, :notice => notice
   end
 
+  def send_test_email
+    @count = Member.where('membership_paused = ? OR membership_paused IS NULL', false).size
+    
+    text = "Тестовое письмо от МВО CRM\n"
+    text += "В МВО сейчас состоит #{@count} человек"
+
+    CrmMailer.test_email(text)
+  end
+
   private
 
   def sort_column

@@ -10,11 +10,13 @@ MvoCRM::Application.routes.draw do
   post "donations/parse_ipay"
   resources :donations
 
+  get "payments/remind_debtors"
   get "payments/import_hg"
   post "payments/parse_hg"
   resources :payments
   get "payments/new/:for_member(.:format)" => 'payments#new', :as => :new_payment_for
 
+  get "members/send_test_email"
   get "members/count"
   get "members/import_mail"
   get "members/import_csv"

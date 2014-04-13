@@ -34,20 +34,31 @@ class CrmMailer < ActionMailer::Base
     notify_member(payment.member, "Ваш членский взнос в МВО получен")
   end
 
+  def remind_about_payment(member)
+    @last_payment = Payment.where(:member_id => member.id).order("date DESC").first
+
+    notify_member(member, "МВО: напоминание об уплате членского взноса")
+  end
+
+  def test_email(text)
+    @text = text
+    mail(to: "Администратор МВО CRM <#{mailer_options[:admin_email]}>").deliver
+  end
+
   private
 
   def notify_member(member, subj)
     @member = member
 
     if mailer_options[:deliver_to_users]
-      to = member.email
-      cc = mailer_options[:admin_email]
+      @to = "#{member.full_name} <#{member.email}>"
+      cc = "Администратор МВО CRM <#{mailer_options[:admin_email]}>"
     else
-      to = mailer_options[:admin_email]
+      @to = "Администратор МВО CRM <#{mailer_options[:admin_email]}>"
       cc = nil
     end
 
-    mail(to: to, cc: nil, subject: subj).deliver
+    mail(to: @to, cc: nil, subject: subj).deliver
   end
 
   def mailer_options

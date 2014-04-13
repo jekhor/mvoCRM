@@ -153,6 +153,16 @@ class PaymentsController < ApplicationController
     end
   end
 
+  def remind_debtors
+    @members = Member.where('membership_paused = ? OR membership_paused IS NULL', false).all(:include => :payments)
+
+    @members.each {|m| CrmMailer.remind_about_payment(m)}
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
   private
 
   def sort_column
