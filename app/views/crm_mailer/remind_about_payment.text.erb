@@ -1,5 +1,5 @@
 <% unless Rails.configuration.crm_mailer_options[:deliver_to_users] -%>
-Адресат: <%= raw "#{member.full_name} <#{member.email}>" %>
+Адресат: <%= raw "#{@member.full_name} <#{@member.email}>" %>
 
 <% end -%>
 Здравствуйте, <%= @member.first_name %>!
