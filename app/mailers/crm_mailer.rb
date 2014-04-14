@@ -48,6 +48,7 @@ class CrmMailer < ActionMailer::Base
   private
 
   def notify_member(member, subj)
+    return if member.email.blank?
     @member = member
 
     if mailer_options[:deliver_to_users]
