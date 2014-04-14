@@ -156,7 +156,8 @@ class PaymentsController < ApplicationController
   def remind_debtors
     @members = Member.where('membership_paused = ? OR membership_paused IS NULL', false).all(:include => :payments)
 
-    @members.each { |m| CrmMailer.remind_about_payment(m) if m.debtor? }
+    @members.delete_if { |m| !m.debtor? }
+    @members.each { |m| CrmMailer.remind_about_payment(m) }
 
     respond_to do |format|
       format.html
