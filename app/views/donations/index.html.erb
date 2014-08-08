@@ -14,7 +14,7 @@
 
 <% @donations.each do |donation| %>
   <tr>
-    <td><%= donation.date %></td>
+    <td><%= donation.datetime.to_date %></td>
     <td><%= donation.document_number %></td>
     <td><%= donation.amount %></td>
     <td><%= donation.donor %></td>
