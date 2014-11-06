@@ -1,0 +1,14 @@
+  <%= form_tag new_payment_url, :method => 'GET' do %>
+    <fieldset>
+    <legend>Pay by card number</legend>
+    <div class="form-group">
+      <%= label_tag 'card_no', 'Card number', class: 'label-control' %><br/>
+      <%= text_field_tag 'card_no', '', class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= label 'amount', 'Amount', class: 'label-control' %><br/>
+      <%= text_field_tag 'amount', '', class: 'form-control' %>
+    </div>
+    <%= submit_tag 'Pay', class: 'btn btn-default' %>
+    </fieldset>
+  <% end %>

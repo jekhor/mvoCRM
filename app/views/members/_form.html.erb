@@ -1,4 +1,4 @@
-<%= form_for(@member) do |f| %>
+<%= simple_form_for(@member) do |f| %>
   <% if @member.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@member.errors.count, "error") %> prohibited this member from being saved:</h2>
@@ -10,66 +10,44 @@
       </ul>
     </div>
   <% end %>
-  <div class="span-8">
-    <div class="field span-8">
-      <%= f.label :last_name %><br/>
-      <%= f.text_field :last_name %>
+  <div class="row">
+    <div class="col-lg-3">
+      <%= f.input :last_name %>
+      <%= f.input :address %>
+      <%= f.input :phone, :as => :phone %>
     </div>
-    <div class="field">
-      <%= f.label :address %><br/>
-      <%= f.text_field :address %>
+
+    <div class="col-lg-3">
+      <%= f.input :given_names %>
+      <%= f.input :postal_address %>
+      <%= f.input :email %>
+
     </div>
-    <div class="field">
-      <%= f.label :phone %><br/>
-      <%= f.phone_field :phone %>
+    <div class="col-lg-2">
+      <%= f.input :date_of_birth, :as => :date_picker %>
+      <%= f.input :card_number, input_html: { size: 6 } %>
+      <%= f.input :site_user %>
+      <%= f.input :site_user_creation_date %>
     </div>
-    <div class="field cb">
-      <%= f.check_box :membership_paused %>
-      <%= f.label :membership_paused %>
+
+  </div>
+  <div class="row">
+    <div class="col-lg-3">
+      <%= f.input :membership_paused %>
     </div>
-    <div class="field" id="membership_pause_note_field" style="display: <%= @member.membership_paused ? '':'none' %>">
-      <%= f.label :membership_pause_note %><br/>
-      <%= f.text_field :membership_pause_note %>
+    <div class="col-lg-5">
+      <div id="membership_pause_note_field" style="display: <%= @member.membership_paused ? '':'none' %>">
+        <%= f.input :membership_pause_note %>
+      </div>
     </div>
   </div>
 
-  <div class="span-8">
-    <div class="field span-8 last">
-      <%= f.label :given_names %><br/>
-      <%= f.text_field :given_names %>
-    </div>
-    <div class="field">
-      <%= f.label :postal_address %><br/>
-      <%= f.text_field :postal_address %>
-    </div>
-    <div class="field">
-      <%= f.label :email %><br/>
-      <%= f.text_field :email %>
-    </div>
-  </div>
 
-  <div class="span-8 last">
-    <div class="field">
-      <%= f.label :date_of_birth %><br/>
-      <%= datepicker_su f, :date_of_birth, :changeYear => true, :yearRange => '-90:-13' %>
-    </div>
-    <div class="field">
-      <%= f.label :card_number %><br/>
-      <%= f.text_field :card_number, :size => 6 %>
-    </div>
-    <div class="field">
-      <%= f.label :site_user %><br/>
-      <%= f.text_field :site_user, :size => 10 %>
-    </div>
-    <div class="field">
-      <%= f.label :site_user_creation_date %><br/>
-      <%= datepicker_su f, :site_user_creation_date %>
-    </div>
-  </div>
-
-  <div class="span-24">
-    <div class="actions">
-      <%= f.submit %>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="actions">
+        <%= f.submit %>
+      </div>
     </div>
   </div>
 

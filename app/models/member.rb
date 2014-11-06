@@ -71,7 +71,7 @@ class Member < ActiveRecord::Base
     if search
       where('last_name LIKE ? OR card_number = ?', "#{Unicode::capitalize(search)}%", search.to_i)
     else
-      scoped
+      all
     end
   end
 

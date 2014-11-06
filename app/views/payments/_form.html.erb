@@ -1,4 +1,4 @@
-<%= form_for(@payment) do |f| %>
+<%= simple_form_for(@payment) do |f| %>
   <% if @payment.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
@@ -13,50 +13,40 @@
 
   <%= f.hidden_field :user_account %>
 
-  <div class="span-24 last">
-    <div class="field">
+  <div class="field">
       <%= f.label 'Type' %><br/>
       <%= f.select :payment_type, [['Вступительный взнос', 'initial'], ['Членский взнос', 'membership'], ['Пожертвование', 'donation']] %>
     </div>
 
-    <div class="field">
-      <%= f.label 'Member' %><br/>
-      <%= f.select :member_id, @members.map {|m| ["#{sprintf("%06d", m.card_number.nil? ? 0 : m.card_number)} " + m.full_name, m.id]}, :include_blank => true %>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <%= f.association :member, value_method: :id, label_method: Proc.new {|m| "#{sprintf("%06d", m.card_number.nil? ? 0 : m.card_number)} " + m.full_name }  %>
     </div>
   </div>
 
+  <div class="row">
+    <div class="col-lg-3">
+      <%= f.input :date, as: :date_picker %>
+      <%= f.input :start_date, as: :date_picker %>
+      <%= f.input :number %>
+    </div>
 
-  <div class="span-5">
-    <div class="field">
-      <%= f.label :date %><br/>
-      <%= datepicker_su f, :date %>
-    </div>
-    <div class="field">
-      <%= f.label :start_date %><br/>
-      <%= datepicker_su f, :start_date %>
-    </div>
-    <div class="field">
-      <%= f.label :number %><br/>
-      <%= f.text_field :number, :size => 10 %>
+    <div class="col-lg-3">
+      <%= f.input :amount %>
+      <%= f.input :end_date, as: :date_picker %>
     </div>
   </div>
 
-  <div class="span-5 last">
-    <div class="field">
-      <%= f.label :amount %><br/>
-      <%= f.number_field :amount, :size => 10 %>
+  <div class="row">
+    <div class="col-lg-6">
+      <%= f.input :note %>
     </div>
-    <div class="field">
-      <%= f.label :end_date %><br/>
-      <%= datepicker_su f, :end_date, :changeYear => true, :yearRange => '-1:+2' %>
-    </div>
-  </div>
-  <div class="span-24 last">
-    <%= f.label :note %><br/>
-    <%= f.text_area :note, :size => '20x3', :class => 'span-8' %>
   </div>
 
-  <div class="actions span-24 last">
-    <%= f.submit %>
+  <div class="row">
+    <div class="col-lg-3">
+      <%= f.button :submit %>
+    </div>
   </div>
 <% end %>

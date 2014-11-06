@@ -1,9 +1,4 @@
-<div class="span-6"><%= render 'members/member-fee' %></div>
-<div class="span-6"><%= render 'members/find-member' %></div>
-<div class="span-6">
-  <fieldset>
-    <legend>Быстрые действия</legend>
-  <%= link_to "Импорт платежа", payments_import_hg_path %><br/>
-  <%= link_to "Импорт анкеты", members_import_mail_path %>
-</fieldset>
+<div class="row">
+<div class="col-lg-3"><%= render 'members/member_fee' %></div>
+<div class="col-lg-3"><%= render 'members/find_member' %></div>
 </div>

@@ -77,7 +77,7 @@ MvoCRM::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => 'pages#home'
-  match '/help' => 'pages#help'
+  get '/help' => 'pages#help'
 
   # See how all your routes lay out with "rake routes"
 
