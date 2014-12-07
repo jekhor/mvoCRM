@@ -1,0 +1,18 @@
+<%= form_tag 'letter.pdf' do -%>
+  <div class="field">
+    <%= label :subject, "Тема" %><br/>
+    <%= text_field nil, :subject %>
+  </div>
+  <div class="field">
+    <%= label :address, "Адрес" %><br/>
+    <%= text_field nil, :address %>
+  </div>
+  <div class="field">
+    <%= label :text, "Тема" %><br/>
+    <%= text_area nil, :text %>
+  </div>
+  <div class="actions">
+    <%= submit_tag "Submit" %>
+  </div>
+
+<% end %>

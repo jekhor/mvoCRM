@@ -26,6 +26,10 @@ MvoCRM::Application.routes.draw do
   post "members/accept_selected"
   resources :members
 
+  get "letters/make_letter" => "letters#make_letter"
+  post "letters/letter" => "letters#letter"
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
