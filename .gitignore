@@ -16,5 +16,4 @@
 .*.swp
 /bin
 
-Gemfile.lock
 .sass-cache
