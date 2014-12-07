@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class Letter
   attr_accessor :subject, :text, :address
 
