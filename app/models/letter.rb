@@ -1,13 +1,15 @@
 # encoding: utf-8
 
 class Letter
-  attr_accessor :subject, :text, :address
+  attr_accessor :subject, :text, :address, :number, :date
 
   def initialize(options)
     unless options.nil?
       @subject = options[:subject]
       @text = options[:text]
       @address = options[:address]
+      @number = options[:number]
+      @date = options[:date]
     end
   end
 
@@ -33,7 +35,7 @@ class Letter
   private
 
   def parse_template(tmpl)
-    tmpl.gsub("_SUBJECT_", text2tex(@subject)).gsub("_ADDRESS_", text2tex(@address)).gsub("_BODY_", text2tex(@text))
+    tmpl.gsub("_SUBJECT_", text2tex(@subject)).gsub("_ADDRESS_", text2tex(@address)).gsub("_BODY_", text2tex(@text)).gsub("_DATE_", @date.strftime("%d.%m.%Y")).gsub("_NUMBER_", @number.to_s)
   end
 
   MAP = {

@@ -1,7 +1,7 @@
 class LettersController < ApplicationController
 
   def letter
-    l = Letter.new({subject: params[:subject], address: params[:address], text: params[:text]})
+    l = Letter.new({subject: params[:subject], address: params[:address], text: params[:text], date: Date.today, number: params[:number]})
 
     pdf = l.to_pdf
 

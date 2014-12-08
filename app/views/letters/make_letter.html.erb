@@ -1,5 +1,9 @@
 <%= form_tag 'letter.pdf' do -%>
   <div class="field">
+    <%= label :number, "Номер" %><br/>
+    <%= text_field nil, :number %>
+  </div>
+  <div class="field">
     <%= label :subject, "Тема" %><br/>
     <%= text_field nil, :subject %>
   </div>
