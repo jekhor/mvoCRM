@@ -196,7 +196,7 @@ class PaymentsController < ApplicationController
         next
       end
 
-      if line =~ /\s*Cчет №\s*([0-9]{6})\s*$/
+      if line =~ /\s*Cчет №\s*([0-9]{1,6})\s*$/
         member_card_no = $1.to_i
         payment.user_account = $1
         next
