@@ -50,7 +50,7 @@ MvoCRM::Application.configure do
 #  }
 
   config.action_mailer.perform_deliveries = true
-  config.crm_mailer_options = { admin_email: "jekhor@bike.org.by", deliver_to_users: false }
+  config.crm_mailer_options = { admin_email: ["jekhor@bike.org.by", "jek@localhost"], deliver_to_users: false }
 end
 
 ActionMailer::Base.default from: "Минское велосипедное общество <membership@bike.org.by>"

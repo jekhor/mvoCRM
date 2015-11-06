@@ -42,7 +42,7 @@ class CrmMailer < ActionMailer::Base
 
   def test_email(text)
     @text = text
-    mail(to: "Администратор МВО CRM <#{mailer_options[:admin_email]}>").deliver
+    mail(to: mailer_options[:admin_email]).deliver
   end
 
   private
@@ -53,9 +53,9 @@ class CrmMailer < ActionMailer::Base
 
     if mailer_options[:deliver_to_users]
       @to = "#{member.full_name} <#{member.email}>"
-      cc = "Администратор МВО CRM <#{mailer_options[:admin_email]}>"
+      cc = mailer_options[:admin_email]
     else
-      @to = "Администратор МВО CRM <#{mailer_options[:admin_email]}>"
+      @to = mailer_options[:admin_email]
       cc = nil
     end
 
