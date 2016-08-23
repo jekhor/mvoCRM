@@ -1,7 +1,10 @@
 source 'https://rubygems.org'
 
+#ruby '2.2.3'
+
 gem 'rails', '>= 3.2.11'
 gem 'rails-i18n'
+gem 'jquery-ui-rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -47,14 +50,15 @@ gem 'unicode'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+group :development, :test do
+  gem 'rspec-rails'
+end
 
 group :development do
-  gem 'rspec-rails'
   gem 'annotate', '~> 2.4.1.beta'
 end
 
 group :test do
-  gem 'rspec-rails'
   gem 'webrat'
   gem 'factory_girl_rails'
 end
