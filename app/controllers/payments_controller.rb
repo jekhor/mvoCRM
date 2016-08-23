@@ -185,8 +185,8 @@ class PaymentsController < ApplicationController
     t.each do |line|
       line.chomp!
 
-      if line =~ /\s*Cумма счета ([0-9. ]+)\s*BYR/
-        payment.amount = $1.delete(' ').to_i
+      if line =~ /\s*Оплачено ([0-9., ]+)\s*BYN/
+        payment.amount = $1.gsub(',', '.').delete(' ').to_f
         next
       end
 
