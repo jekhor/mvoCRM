@@ -8,8 +8,13 @@
 <% end -%>
 
 Платёж:
+<%- if @payment.payment_type == 'donation' %>
+  Пожертвование
+  Номер проекта: <%= @payment.user_account %>
+<%- else %>
   Член МВО: <%= "#{@payment.member.full_name} (билет №#{@payment.member.card_number})" unless @payment.member.nil? %>
   Дата рождения или номер билета: <%= @payment.user_account %>
+<%- end %>
   Номер: <%= @payment.number %>
   Дата: <%= @payment.date %>
   Сумма: <%= @payment.amount %> BYN
