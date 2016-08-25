@@ -3,6 +3,7 @@
 <table>
   <tr>
     <th></th>
+    <th>Type</th>
     <th>Card #</th>
     <th>Member</th>
     <th><%= sortable 'date' %></th>
@@ -19,6 +20,7 @@
 <% @payments.each_with_index do |payment, i| %>
   <tr>
     <td><%= i+1 %></td>
+    <td><%= payment_type_human(payment.payment_type) unless payment.payment_type.nil? %></td>
     <td><%= payment.member.card_number_str unless payment.member.nil? %></td>
     <td><%= payment.member.full_name unless payment.member.nil? %></td>
     <td><%= payment.date %></td>

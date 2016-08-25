@@ -15,6 +15,11 @@
 
   <div class="span-24 last">
     <div class="field">
+      <%= f.label 'Type' %><br/>
+      <%= f.select :payment_type, [['Вступительный взнос', 'initial'], ['Членский взнос', 'membership'], ['Пожертвование', 'donation']] %>
+    </div>
+
+    <div class="field">
       <%= f.label 'Member' %><br/>
       <%= f.select :member_id, @members.map {|m| ["#{sprintf("%06d", m.card_number.nil? ? 0 : m.card_number)} " + m.full_name, m.id]}, :include_blank => true %>
     </div>

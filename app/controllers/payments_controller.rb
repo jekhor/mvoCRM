@@ -38,6 +38,7 @@ class PaymentsController < ApplicationController
     @payment.member = Member.where("card_number = ?", params[:card_no]).first unless params[:card_no].nil?
     @payment.date = Date.today
     @payment.amount = params[:amount]
+    @payment.type = 'membership'
 
 
     unless @payment.member.nil?
@@ -215,9 +216,11 @@ class PaymentsController < ApplicationController
       if line =~ /\s*Услуга.*\( ([0-9]+) \)/
         case $1
         when '10051001'
-          type = :member
+          type = :membership
         when '10051002'
           type = :initial
+        when '10051003'
+          type = :donation
         end
         next
       end
@@ -227,12 +230,15 @@ class PaymentsController < ApplicationController
     m = nil
 
     case type
-    when :member
+    when :membership
       m = Member.where(:card_number => member_card_no).first unless member_card_no.nil?
     when :initial
       m = Member.where(:date_of_birth => date_of_birth).order('created_at DESC').first unless date_of_birth.nil?
+    when :donation
+
     end
 
+    payment.payment_type = type.to_s
     payment.member = m
     payment.note = text
 

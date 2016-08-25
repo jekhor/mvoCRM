@@ -24,4 +24,13 @@ module ApplicationHelper
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
     link_to title, request.query_parameters.merge({:sort => column, :direction => direction}), {:class => css_class}
   end
+
+  PAYMENT_TYPES = {'initial' => 'Вступительный взнос',
+                   'membership' => 'Членский взнос',
+                   'donation' => 'Пожертвование'
+  }
+  def payment_type_human(type)
+    puts PAYMENT_TYPES.inspect
+    PAYMENT_TYPES[type]
+  end
 end

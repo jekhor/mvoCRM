@@ -1,20 +1,23 @@
 <p id="notice"><%= notice %></p>
 
-  <strong>Member:</strong>
-  <%= @payment.member.full_name unless @payment.member.nil? %><br/>
-  
-  <strong>Date:</strong>
-  <%= @payment.date %><br/>
+<strong>Type:</strong>
+<%= @payment.payment_type %><br/>
 
-  <strong>Number:</strong>
-  <%= @payment.number %><br/>
+<strong>Member:</strong>
+<%= @payment.member.full_name unless @payment.member.nil? %><br/>
 
-  <strong>Amount:</strong>
-  <%= @payment.amount %><br/>
+<strong>Date:</strong>
+<%= @payment.date %><br/>
 
-  <strong>Valid: from</strong> <%= @payment.start_date %> <strong>to</strong> <%= @payment.end_date %><br/>
+<strong>Number:</strong>
+<%= @payment.number %><br/>
 
-  <strong>Note:</strong> <%= simple_format @payment.note unless @payment.note.nil? %><br/>
- 
+<strong>Amount:</strong>
+<%= @payment.amount %><br/>
+
+<strong>Valid: from</strong> <%= @payment.start_date %> <strong>to</strong> <%= @payment.end_date %><br/>
+
+<strong>Note:</strong> <%= simple_format @payment.note unless @payment.note.nil? %><br/>
+
 <%= link_to 'Edit', edit_payment_path(@payment) %> |
 <%= link_to 'Back', payments_path %>
