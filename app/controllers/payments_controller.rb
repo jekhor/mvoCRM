@@ -38,7 +38,7 @@ class PaymentsController < ApplicationController
     @payment.member = Member.where("card_number = ?", params[:card_no]).first unless params[:card_no].nil?
     @payment.date = Date.today
     @payment.amount = params[:amount]
-    @payment.type = 'membership'
+    @payment.payment_type = 'membership'
 
 
     unless @payment.member.nil?
