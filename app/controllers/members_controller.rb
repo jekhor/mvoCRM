@@ -33,7 +33,7 @@ class MembersController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @members }
-      format.csv { render csv: @members, :filename => 'members' }
+      format.csv { render csv: Member.all, :filename => 'members' }
     end
   end
 
