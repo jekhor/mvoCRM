@@ -133,7 +133,7 @@ class PaymentsController < ApplicationController
     end
 
     @payment.start_date = @payment.date if @payment.start_date.nil?
-    @payment.end_date = @payment.start_date.end_of_year
+    @payment.end_date = @payment.start_date.end_of_year unless @payment.start_date.nil?
 
     @members = Member.order('last_name ASC').all
 
@@ -186,7 +186,7 @@ class PaymentsController < ApplicationController
     t.each do |line|
       line.chomp!
 
-      if line =~ /\s*Оплачено ([0-9., ]+)\s*BYN/
+      if line =~ /\s*Оплачено:?\s+([0-9., ]+)\s*BYN/
         payment.amount = $1.gsub(',', '.').delete(' ').to_f
         next
       end
@@ -203,12 +203,12 @@ class PaymentsController < ApplicationController
         next
       end
 
-      if line =~ /\s*Дата совершения платежа\s+(.*)/
+      if line =~ /\s*Дата совершения платежа:?\s+(.*)/
         payment.date = $1.to_date
         next
       end
 
-      if line =~ /\s*Идентификатор операции у расчётного агента\s*([^\s]+)/
+      if line =~ /\s*Идентификатор операции у расчётного агента:?\s*([^\s]+)/
         payment.number = $1
         next
       end
