@@ -3,14 +3,6 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $ ->
-  $('#member_joined').click ->
-    $('#joined_member_fields').toggle()
-
-$ ->
-  $('#member_application_exists').click ->
-    $('#application_date_field').toggle()
-
-$ ->
   $('#member_membership_paused').click ->
     $('#membership_pause_note_field').toggle()
 

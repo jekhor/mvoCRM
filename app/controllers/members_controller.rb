@@ -109,11 +109,6 @@ class MembersController < ApplicationController
     @member = Member.new(params[:member])
     @member.phone = nil if @member.phone == "+375"
 
-    if @member.joined.nil?
-      @member.join_date = nil
-      @member.join_protocol = nil
-    end
-
     if @member.site_user.blank?
       @member.site_user = nil
     end
@@ -158,11 +153,6 @@ class MembersController < ApplicationController
     end
   end
 
-  # GET /members/import_from_csv
-  def import_csv
-    @title = "Import members from CSV"
-  end
-
   # POST /members/parse_csv
   def parse_csv
     file = params[:file]
@@ -174,7 +164,6 @@ class MembersController < ApplicationController
       begin
         h = row.to_hash
         m = Member.new(h)
-        m.application_exists = true unless h['application_date'].nil? or h['application_date'].blank?
 
         if m.valid?
           @members << m
@@ -191,51 +180,6 @@ class MembersController < ApplicationController
     end
 
     session[:imported_members] = @members
-  end
-
-  # POST /members/import_parsed_csv
-  def import_parsed_csv
-    imported_members = session[:imported_members]
-    selection = params['selected_members']['id']
-    successfully = 0
-    unless imported_members.nil?
-      selection.each do |idx|
-        next if idx.blank?
-        idx = idx.to_i
-        m = imported_members[idx]
-        begin
-          m.save
-          successfully += 1
-        rescue
-          flash.now[:errors] = Array.new if flash.now[:errors].nil?
-          flash.now[:errors] << "'#{m.last_name} #{m.given_names}' failed to import: #{m.errors.any? ? m.errors.full_messages.join(', ') : 'unknown reason'}"
-        end
-      end
-    end
-    flash[:notices] = ["#{successfully} members have been imported"]
-    session[:imported_members] = nil
-    redirect_to members_path
-  end
-
-  def accept_selected
-    if params[:selected_people][:join_protocol].blank?
-      redirect_to members_path, :alert => "You should provide protocol date and number."
-      return
-    end
-
-    notice = ""
-
-    params[:selected_members][:id].each do |id|
-      next if id.blank?
-      m = Member.find(id)
-      m.update_attributes(params[:selected_people])
-      m.joined = true
-
-      m.save
-      notice += "#{m.last_name} #{m.given_names} was accepted officially by protocol ##{m.join_protocol} at #{m.join_date}<br/>\n"
-    end
-
-    redirect_to members_path, :notice => notice
   end
 
   def send_test_email

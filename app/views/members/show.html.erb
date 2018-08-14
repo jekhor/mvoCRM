@@ -30,20 +30,6 @@
       <strong>e-mail</strong>
       <%= @member.email %><br/>
 
-      <strong>Application</strong>
-      <%= @member.application_exists ? 'signed' : "isn't' signed" %><br/>
-
-      <strong>Joined</strong>
-      <%= @member.joined ? 'yes' : 'no' %><br/>
-
-      <% if @member.joined %>
-        <strong>Join date</strong>
-        <%= @member.join_date %><br/>
-
-        <strong>Join protocol</strong>
-        <%= @member.join_protocol %><br/>
-      <% end %>
-
       <% unless @member.site_user.nil? or @member.site_user.blank? -%>
         <strong>Site user</strong>
         <%= link_to @member.site_user, "http://bike.org.by/users/#{@member.site_user_normalized}" %><br/>

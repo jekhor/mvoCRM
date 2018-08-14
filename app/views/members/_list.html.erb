@@ -17,8 +17,6 @@
     <col/>
     <col/>
     <col/>
-    <col/>
-    <col/>
   </colgroup>
   <tr>
     <th><%= check_box_tag 'check_all', 'check_all', checked_all %></th>
@@ -27,8 +25,6 @@
     <th><%= sortable 'date_of_birth', m_attr_name('date_of_birth')  %></th>
     <th><%= sortable 'address', m_attr_name('address') %></th>
     <th><%= sortable 'email', m_attr_name('email') %></th>
-    <th><%= sortable 'application_date', t(".app_abbr") %></th>
-    <th><%= sortable 'application_date', m_attr_name('application_date') %></th>
     <th><%= sortable 'site_user', m_attr_name('site_user') %></th>
     <th><%= sortable 'payments', m_attr_name('payments') %></th>
     <th><%= t '.actions' %></th>
@@ -40,8 +36,6 @@
     <th></th>
     <th><%= sortable 'postal_address', m_attr_name('postal_address') %></th>
     <th class="shifted"><%= sortable 'phone', m_attr_name('phone') %></th>
-    <th><%= sortable 'join_date', t('.join_abbr') %></th>
-    <th><%= sortable 'join_date', m_attr_name('join_date') %></th>
     <th class="shifted"><%= sortable 'site_user_creation_date', m_attr_name('site_user_creation_date') %></th>
     <th><%= sortable 'debtor?', m_attr_name('debtor?') %></th>
     <th></th>
@@ -62,8 +56,6 @@
       <td><%= member.date_of_birth %></td>
       <td><%= member.address %></td>
       <td><%= member.email %></td>
-      <td><%= member.application_exists ? '✓' : '' %></td>
-      <td><%= member.application_date %></td>
       <td><%= link_to member.site_user, "http://bike.org.by/users/#{member.site_user_normalized}" unless member.site_user.blank? %></td>
       <td><%= member.payments.size %></td>
       <td><%= link_to 'Edit', edit_member_path(member) %> | <%= link_to 'Pay', new_payment_for_path(member) %></td>
@@ -75,8 +67,6 @@
       <td></td>
       <td><%= member.postal_address %></td>
       <td class="shifted"><%= member.phone %></td>
-      <td><%= member.joined ? '✓' : '' %></td>
-      <td title="<%= member.join_date %>, <%= member.join_protocol %>"><%= member.join_date %></td>
       <td class="shifted"><%= member.site_user_creation_date %></td>
       <td><%= t '.debtor!' if debtor %></td>
       <td></td>

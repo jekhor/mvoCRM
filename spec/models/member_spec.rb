@@ -4,20 +4,22 @@
 #
 # Table name: members
 #
-#  id                 :integer         not null, primary key
-#  given_names        :string(255)
-#  last_name          :string(255)
-#  date_of_birth      :date
-#  address            :string(255)
-#  email              :string(255)
-#  phone              :string(255)
-#  created_at         :datetime        not null
-#  updated_at         :datetime        not null
-#  application_exists :boolean         default(FALSE)
-#  join_date          :date
-#  join_protocol      :string(255)
-#  card_number        :integer
-#  joined             :boolean
+#  id                      :integer         not null, primary key
+#  given_names             :string(255)
+#  last_name               :string(255)
+#  date_of_birth           :date
+#  address                 :string(255)
+#  email                   :string(255)
+#  phone                   :string(255)
+#  created_at              :datetime        not null
+#  updated_at              :datetime        not null
+#  join_date               :date
+#  card_number             :integer
+#  postal_address          :string(255)
+#  site_user               :string(255)
+#  site_user_creation_date :date
+#  membership_paused       :boolean
+#  membership_pause_note   :text
 #
 
 require 'spec_helper'

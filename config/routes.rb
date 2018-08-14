@@ -19,10 +19,7 @@ MvoCRM::Application.routes.draw do
   get "members/send_test_email"
   get "members/count"
   get "members/import_mail"
-  get "members/import_csv"
   post "members/parse_mail"
-  post "members/parse_csv"
-  post "members/import_parsed_csv"
   post "members/accept_selected"
   resources :members
 

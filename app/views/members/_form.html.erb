@@ -24,14 +24,6 @@
       <%= f.phone_field :phone %>
     </div>
     <div class="field cb">
-      <%= f.check_box :application_exists %>
-      <%= f.label :application_exists %>
-    </div>
-    <div class="field" id="application_date_field" style="display: <%= @member.application_exists ? '':'none' %>">
-      <%= f.label :application_date %><br/>
-      <%= datepicker_su f, :application_date, :changeYear => true, :yearRange => '2011:+0' %>
-    </div>
-    <div class="field cb">
       <%= f.check_box :membership_paused %>
       <%= f.label :membership_paused %>
     </div>
@@ -53,20 +45,6 @@
     <div class="field">
       <%= f.label :email %><br/>
       <%= f.text_field :email %>
-    </div>
-    <div class="field">
-      <%= f.label :joined %><br/>
-      <%= f.check_box :joined %>
-    </div>
-    <div id="joined_member_fields" style="display: <%= @member.joined ? 'block':'none' %>">
-      <div class="field">
-        <%= f.label :join_date %><br/>
-        <%= datepicker_su f, :join_date %>
-      </div>
-      <div class="field">
-        <%= f.label :join_protocol %><br/>
-        <%= f.text_field :join_protocol, :size => 4 %>
-      </div>
     </div>
   </div>
 

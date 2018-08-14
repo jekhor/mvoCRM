@@ -1,9 +1,0 @@
-<h1>ImportMembers#import</h1>
-
-<%= form_tag members_import_parsed_csv_path, :method => :post, :id => 'select_for_import_form' do -%>
-  <%= render 'list_import', :checked_all => true, :importing => true %>
-  <%= submit_tag "Import selected records" %>
-<% end -%>
-
-<p>Failed to import: <%= @import_failed %> rows</p>
-

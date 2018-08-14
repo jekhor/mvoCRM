@@ -2,20 +2,22 @@
 #
 # Table name: members
 #
-#  id                 :integer         not null, primary key
-#  given_names        :string(255)
-#  last_name          :string(255)
-#  date_of_birth      :date
-#  address            :string(255)
-#  email              :string(255)
-#  phone              :string(255)
-#  created_at         :datetime        not null
-#  updated_at         :datetime        not null
-#  application_exists :boolean         default(FALSE)
-#  join_date          :date
-#  join_protocol      :string(255)
-#  card_number        :integer
-#  joined             :boolean
+#  id                      :integer         not null, primary key
+#  given_names             :string(255)
+#  last_name               :string(255)
+#  date_of_birth           :date
+#  address                 :string(255)
+#  email                   :string(255)
+#  phone                   :string(255)
+#  created_at              :datetime        not null
+#  updated_at              :datetime        not null
+#  join_date               :date
+#  card_number             :integer
+#  postal_address          :string(255)
+#  site_user               :string(255)
+#  site_user_creation_date :date
+#  membership_paused       :boolean
+#  membership_pause_note   :text
 #
 
 class Member < ActiveRecord::Base
@@ -23,7 +25,7 @@ class Member < ActiveRecord::Base
   has_many :payments
 
   attr_accessible :given_names, :last_name, :date_of_birth, :address, :email, :phone
-  attr_accessible :application_exists, :join_date, :join_protocol, :card_number, :joined
+  attr_accessible :card_number
   attr_accessible :postal_address, :application_date, :site_user, :site_user_creation_date
   attr_accessible :membership_paused, :membership_pause_note
 
@@ -32,15 +34,6 @@ class Member < ActiveRecord::Base
   validates :last_name, :presence => true,
                           :length => {:maximum => 50}
 #  validates :date_of_birth, :presence => true
-
-  validates :join_protocol, :presence => {:if => :joined}
-  validates :join_date, :presence => {:if => :joined}
-
-  validates :application_date, :presence => {:if => :application_exists}
-#  validates_each :join_protocol, :join_date do |record, attr, value|
-#    record.errors.add attr, 'is not empty' if !value.nil? and !record.joined
-#    record.errors.add attr, 'is empty' if value.nil? and record.joined
-#  end
 
   validates :card_number, :inclusion => {:in => 1..999999, :allow_nil => true}
 
@@ -64,12 +57,7 @@ class Member < ActiveRecord::Base
     postal_address
     email
     phone
-    application_exists
-    application_date
-    join_date
-    join_protocol
     card_number
-    joined
     site_user
     site_user_creation_date
     debtor?
