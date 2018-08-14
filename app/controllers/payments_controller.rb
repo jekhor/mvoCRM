@@ -3,6 +3,7 @@
 require 'csv'
 
 class PaymentsController < ApplicationController
+  before_action :set_payment, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_admin!
 
   helper_method :sort_column, :sort_direction
@@ -22,8 +23,6 @@ class PaymentsController < ApplicationController
   # GET /payments/1
   # GET /payments/1.json
   def show
-    @payment = Payment.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @payment }
@@ -63,14 +62,13 @@ class PaymentsController < ApplicationController
 
   # GET /payments/1/edit
   def edit
-    @payment = Payment.find(params[:id])
     @members = Member.all
   end
 
   # POST /payments
   # POST /payments.json
   def create
-    @payment = Payment.new(params[:payment])
+    @payment = Payment.new(payment_params)
 
     respond_to do |format|
       if @payment.save
@@ -89,10 +87,8 @@ class PaymentsController < ApplicationController
   # PUT /payments/1
   # PUT /payments/1.json
   def update
-    @payment = Payment.find(params[:id])
-
     respond_to do |format|
-      if @payment.update_attributes(params[:payment])
+      if @payment.update(payment_params)
         format.html { redirect_to @payment, notice: 'Payment was successfully updated.' }
         format.json { head :no_content }
       else
@@ -105,7 +101,6 @@ class PaymentsController < ApplicationController
   # DELETE /payments/1
   # DELETE /payments/1.json
   def destroy
-    @payment = Payment.find(params[:id])
     @payment.destroy
 
     respond_to do |format|
@@ -245,5 +240,11 @@ class PaymentsController < ApplicationController
     payment
   end
 
+  def set_payment
+    @payment = Payment.find(params[:id])
+  end
 
+  def payment_params
+    params[:payment].permit(:date, :amount, :start_date, :end_date, :member_id, :note, :number, :user_account, :payment_type)
+  end
 end

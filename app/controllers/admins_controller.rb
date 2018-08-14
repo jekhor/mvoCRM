@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 class AdminsController < ApplicationController
+  before_action :set_admin, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_admin!
 
   # GET /admins
@@ -17,8 +18,6 @@ class AdminsController < ApplicationController
   # GET /admins/1
   # GET /admins/1.json
   def show
-    @admin = Admin.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @admin }
@@ -38,13 +37,12 @@ class AdminsController < ApplicationController
 
   # GET /admins/1/edit
   def edit
-    @admin = Admin.find(params[:id])
   end
 
   # POST /admins
   # POST /admins.json
   def create
-    @admin = Admin.new(params[:admin])
+    @admin = Admin.new(admin_params)
 
     respond_to do |format|
       if @admin.save
@@ -60,15 +58,13 @@ class AdminsController < ApplicationController
   # PUT /admins/1
   # PUT /admins/1.json
   def update
-    @admin = Admin.find(params[:id])
-
     if params[:admin][:password].blank?
       params[:admin].delete(:password)
       params[:admin].delete(:password_confirmation)
     end
 
     respond_to do |format|
-      if @admin.update_attributes(params[:admin])
+      if @admin.update(admin_params)
         format.html { redirect_to @admin, notice: 'Admin was successfully updated.' }
         format.json { head :no_content }
       else
@@ -81,12 +77,21 @@ class AdminsController < ApplicationController
   # DELETE /admins/1
   # DELETE /admins/1.json
   def destroy
-    @admin = Admin.find(params[:id])
     @admin.destroy
 
     respond_to do |format|
       format.html { redirect_to admins_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def set_admin
+    @admin = Admin.find(params[:id])
+  end
+
+  def admin_params
+    params[:admin].permit(:email, :password, :password_confirmation, :remember_me)
   end
 end

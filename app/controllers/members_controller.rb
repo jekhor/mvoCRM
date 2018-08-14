@@ -3,7 +3,7 @@
 require 'csv'
 
 class MembersController < ApplicationController
-
+  before_action :set_member, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_admin!, :except => :count
 
   helper_method :sort_column, :sort_direction
@@ -49,7 +49,6 @@ class MembersController < ApplicationController
   # GET /members/1
   # GET /members/1.json
   def show
-    @member = Member.find(params[:id])
     @title = "#{@member.last_name} #{@member.given_names}"
 
     respond_to do |format|
@@ -100,13 +99,12 @@ class MembersController < ApplicationController
 
   # GET /members/1/edit
   def edit
-    @member = Member.find(params[:id])
   end
 
   # POST /members
   # POST /members.json
   def create
-    @member = Member.new(params[:member])
+    @member = Member.new(member_params)
     @member.phone = nil if @member.phone == "+375"
 
     if @member.site_user.blank?
@@ -127,11 +125,10 @@ class MembersController < ApplicationController
   # PUT /members/1
   # PUT /members/1.json
   def update
-    @member = Member.find(params[:id])
     params[:member].delete(:site_user) if params[:member][:site_user].blank?
 
     respond_to do |format|
-      if @member.update_attributes(params[:member])
+      if @member.update(member_params)
         format.html { redirect_to @member, notice: 'Member was successfully updated.' }
         format.json { head :no_content }
       else
@@ -144,7 +141,6 @@ class MembersController < ApplicationController
   # DELETE /members/1
   # DELETE /members/1.json
   def destroy
-    @member = Member.find(params[:id])
     @member.destroy
 
     respond_to do |format|
@@ -284,6 +280,16 @@ class MembersController < ApplicationController
     end
 
     member
+  end
+
+  def set_member
+    @member = Member.find(params[:id])
+  end
+
+  def member_params
+    params[:member].permit(:given_names, :last_name, :date_of_birth, :address,
+                           :email, :phone, :card_number, :postal_address, :site_user,
+                           :site_user_creation_date, :membership_paused, :membership_pause_note)
   end
 
 end
