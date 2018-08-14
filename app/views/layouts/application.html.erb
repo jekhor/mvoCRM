@@ -27,20 +27,12 @@
     </ul>
     </nav>
     </header>
-    <section class="round">
-    <% unless notice.nil? -%>
-      <p class="notice"><%= raw notice %></p>
-    <% end -%>
-    <% unless alert.nil? -%>
-      <p class="alert"><%= raw alert %></p>
-    <% end %>
-    <% for name in [:notices, :errors, :messages] -%>
-      <% if flash[name] %>
-        <div id="<%= name %>"><%= raw flash[name].join("<br/>\n") %></div>
+    <div class="row">
+      <% flash.each do |name, message| -%>
+        <div class="alert <%= bootstrap_class_for(name) %>" role="alert"><%= message %></div>
       <% end %>
-    <% end %>
+    </div>
     <%= yield %>
-    </section>
   </div>
 
 </body>

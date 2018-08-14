@@ -26,4 +26,24 @@ module ApplicationHelper
     puts PAYMENT_TYPES.inspect
     PAYMENT_TYPES[type]
   end
+
+  def bootstrap_class_for(flash_type)
+    {
+      success: "alert-success",
+      error: "alert-error",
+      alert: "alert-danger",
+      notice: "alert-success"
+    }[flash_type.to_sym] || flash_type.to_s
+  end
+
+  def alerts_and_notices
+    res = ''
+    classes = {notices: 'success', alerts: 'warning', messages: 'info'}
+    for name in [:notices, :errors, :messages]
+      if flash[name] 
+        res += "<div class=\"alert #{classes[name]}\">#{raw flash[name].join('<br/>\n')}</div>"
+      end
+    end
+    res
+  end
 end

@@ -20,7 +20,7 @@ gem 'devise-i18n'
 
 # Gems used only for assets and not required
 # in production environments by default.
-gem 'sass-rails'
+gem 'sassc-rails'
 gem 'coffee-rails'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -36,6 +36,8 @@ gem 'momentjs-rails'
 gem 'bootstrap-sass'
 gem 'datetimepicker-rails', :git => 'https://github.com/zpaulovics/datetimepicker-rails.git', :branch => 'master', :submodules => true
 gem 'autoprefixer-rails'
+gem 'font-awesome-sass'
+
 
 gem 'comma'
 gem 'will_paginate'

@@ -17,3 +17,4 @@
 //= require_tree .
 //= require bootstrap-datetimepicker
 //= require pickers
+//= require moment/ru
