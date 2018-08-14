@@ -4,7 +4,7 @@ require 'csv'
 
 class MembersController < ApplicationController
 
-  before_filter :authenticate_admin!, :except => :count
+  before_action :authenticate_admin!, :except => :count
 
   helper_method :sort_column, :sort_direction
 

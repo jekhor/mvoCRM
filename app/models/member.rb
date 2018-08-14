@@ -20,14 +20,14 @@
 #  membership_pause_note   :text
 #
 
-class Member < ActiveRecord::Base
+class Member < ApplicationRecord
 
   has_many :payments
 
-  attr_accessible :given_names, :last_name, :date_of_birth, :address, :email, :phone
-  attr_accessible :card_number
-  attr_accessible :postal_address, :application_date, :site_user, :site_user_creation_date
-  attr_accessible :membership_paused, :membership_pause_note
+#  attr_accessible :given_names, :last_name, :date_of_birth, :address, :email, :phone
+#  attr_accessible :card_number
+#  attr_accessible :postal_address, :site_user, :site_user_creation_date
+#  attr_accessible :membership_paused, :membership_pause_note
 
   validates :given_names, :presence => true,
                           :length => {:maximum => 50}

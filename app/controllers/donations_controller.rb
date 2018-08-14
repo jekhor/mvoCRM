@@ -3,7 +3,7 @@
 require 'ipay-notification'
 
 class DonationsController < ApplicationController
-  before_filter :authenticate_admin!
+  before_action :authenticate_admin!
 
   # GET /donations
   # GET /donations.json

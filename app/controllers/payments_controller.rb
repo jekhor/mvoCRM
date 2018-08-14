@@ -3,7 +3,7 @@
 require 'csv'
 
 class PaymentsController < ApplicationController
-  before_filter :authenticate_admin!
+  before_action :authenticate_admin!
 
   helper_method :sort_column, :sort_direction
 

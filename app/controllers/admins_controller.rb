@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class AdminsController < ApplicationController
-  before_filter :authenticate_admin!
+  before_action :authenticate_admin!
 
   # GET /admins
   # GET /admins.json

@@ -43,7 +43,7 @@
 
   <% @members.each_with_index do |member, i| %>
     <% row_class = i % 2 == 0 ? 'odd' : 'even'
-    p = member.payments.find(:last, :conditions => {:end_date => Time.now.to_date..('9999-01-01'.to_date) })
+    p = member.payments.where(:end_date => Time.now.to_date..('9999-01-01'.to_date)).last
     row_class += '-debtor' if p.nil?
     row_class += ' paused' if member.membership_paused
     debtor = p.nil?

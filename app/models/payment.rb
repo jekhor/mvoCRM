@@ -1,9 +1,9 @@
 # encoding: utf-8
 #
-class Payment < ActiveRecord::Base
+class Payment < ApplicationRecord
   belongs_to :member
 
-  attr_accessible :date, :amount, :start_date, :end_date, :member_id, :note, :number, :user_account, :payment_type
+#  attr_accessible :date, :amount, :start_date, :end_date, :member_id, :note, :number, :user_account, :payment_type
 
   validates :date, :presence => true
   validates :amount, :presence => true
