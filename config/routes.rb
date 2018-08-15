@@ -6,10 +6,6 @@ MvoCRM::Application.routes.draw do
 
   get "pages/help"
 
-  get "donations/import_ipay"
-  post "donations/parse_ipay"
-  resources :donations
-
   post "payments/remind_debtors"
   get "payments/import_hg"
   post "payments/parse_hg"
