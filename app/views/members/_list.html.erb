@@ -1,9 +1,12 @@
 <% checked_all ||= false -%>
+<% disable_pagination ||= false -%>
 
-<%= content_tag 'div', :class => 'pagination' do %>
-  <%= will_paginate @members, :container => false %>
-  <span><%= t('.records_per_page') %></span>
-  <%= per_page_links [10, 30, 50, 100], :include_all => true, :current => Member.per_page %>
+<% unless disable_pagination %>
+  <%= content_tag 'div', :class => 'pagination' do %>
+    <%= will_paginate @members, :container => false %>
+    <span><%= t('.records_per_page') %></span>
+    <%= per_page_links [10, 30, 50, 100], :include_all => true, :current => Member.per_page %>
+  <% end %>
 <% end %>
 
 <table class="members">
@@ -73,5 +76,7 @@
     </tr>
   <% end %>
 </table>
-<%= will_paginate @members %>
+<% unless disable_pagination %>
+  <%= will_paginate @members %>
+<% end %>
 

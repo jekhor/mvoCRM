@@ -1,0 +1,12 @@
+.row
+  .col-lg-3
+    %p
+      .card
+        .card-body
+          = render 'members/find_member'
+  .col-lg-6
+  .col-lg-3
+    %p
+      - if admin_signed_in?
+        = link_to "Напомнить должникам", payments_remind_debtors_path, method: :post, data: {confirm: "Вы уверены?"}, class: 'btn btn-light'
+

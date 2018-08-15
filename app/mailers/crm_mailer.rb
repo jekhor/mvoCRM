@@ -16,7 +16,7 @@ class CrmMailer < ActionMailer::Base
     @src_mail = src_mail
 
     success = member.id.nil? ? "неудачно" : "успешно"
-    mail(to: Rails.configuration.crm_mailer_options[:admin_email], subject: "Обработана анкета (#{member.full_name}): #{success}").deliver
+    mail(to: Rails.configuration.crm_mailer_options[:admin_email], subject: "Обработана анкета (#{member.full_name}): #{success}")
   end
 
   def payment_parsed_email(payment, text)
@@ -24,7 +24,7 @@ class CrmMailer < ActionMailer::Base
     @src_mail = text
     success = payment.id.nil? ? "неудачно" : "успешно"
 
-    mail(to: Rails.configuration.crm_mailer_options[:admin_email], subject: "Обработан платёж (#{payment.number}): #{success}").deliver
+    mail(to: Rails.configuration.crm_mailer_options[:admin_email], subject: "Обработан платёж (#{payment.number}): #{success}")
   end
 
   def thank_for_payment(payment)
@@ -42,7 +42,8 @@ class CrmMailer < ActionMailer::Base
 
   def test_email(text)
     @text = text
-    mail(to: mailer_options[:admin_email]).deliver
+#    mail(to: mailer_options[:admin_email]).deliver_now
+    mail(to: 'jekhor@gmail.com')
   end
 
   private
@@ -59,7 +60,7 @@ class CrmMailer < ActionMailer::Base
       cc = nil
     end
 
-    mail(to: @to, cc: nil, subject: subj).deliver
+    mail(to: @to, cc: nil, subject: subj)
   end
 
   def mailer_options

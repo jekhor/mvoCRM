@@ -7,6 +7,7 @@ gem 'activerecord-session_store'
 gem 'responders'
 gem 'bootsnap'
 gem 'listen'
+gem 'haml-rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -30,11 +31,11 @@ gem 'uglifier', '>= 1.3.0'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-#gem 'jquery_datepicker', :git => 'git://github.com/wild-r/jquery_datepicker.git'
 gem 'simple_form' #, :git => 'https://github.com/plataformatec/simple_form.git'
 gem 'momentjs-rails'
-gem 'bootstrap-sass'
-gem 'datetimepicker-rails', :git => 'https://github.com/zpaulovics/datetimepicker-rails.git', :branch => 'master', :submodules => true
+gem 'bootstrap'
+#gem 'datetimepicker-rails', :git => 'https://github.com/zpaulovics/datetimepicker-rails.git', :branch => 'master', :submodules => true
+gem 'bootstrap-datepicker-rails'
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
 

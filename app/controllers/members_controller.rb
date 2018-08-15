@@ -77,7 +77,7 @@ class MembersController < ApplicationController
           format.json { render json: @member.errors, status: :unprocessable_entity }
         end
 
-        CrmMailer.member_parsed_email(@member, text)
+        CrmMailer.member_parsed_email(@member, text).deliver_later
       else
         format.html { render 'new' }
       end
@@ -184,7 +184,7 @@ class MembersController < ApplicationController
     text = "Тестовое письмо от МВО CRM\n"
     text += "В МВО сейчас состоит #{@count} человек"
 
-    CrmMailer.test_email(text)
+    CrmMailer.test_email(text).deliver_later
   end
 
   private

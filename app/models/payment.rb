@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 class Payment < ApplicationRecord
-  belongs_to :member
+  belongs_to :member, optional: true
 
 #  attr_accessible :date, :amount, :start_date, :end_date, :member_id, :note, :number, :user_account, :payment_type
 

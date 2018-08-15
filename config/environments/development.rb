@@ -71,7 +71,7 @@ Rails.application.configure do
 #  }
 
   config.action_mailer.perform_deliveries = true
-  config.crm_mailer_options = { admin_email: ["jekhor@bike.org.by", "jek@localhost"], deliver_to_users: false }
+  config.crm_mailer_options = { admin_email: ["jek@localhost"], deliver_to_users: false }
 
 end
 

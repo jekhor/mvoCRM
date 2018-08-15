@@ -1,2 +1,3 @@
-<p>Письма с напоминаниями о членских взносах высланы <%= @members.size %> членам МВО</p>
+<p>Письма с напоминаниями о членских взносах высланы <%= @members.size %> членам МВО:</p>
 
+<%= render 'members/list', checked_all: false, disable_pagination: true %>

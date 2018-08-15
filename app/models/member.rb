@@ -96,8 +96,7 @@ class Member < ApplicationRecord
   end
 
   def debtor?
-    p = self.payments.find(:last,
-                             :conditions => {:end_date => Time.now.to_date..('9999-01-01'.to_date) })
+    p = self.payments.where(:end_date => Time.now.to_date..('9999-01-01'.to_date) ).last
     p.nil?
   end
 

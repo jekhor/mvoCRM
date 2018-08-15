@@ -72,7 +72,7 @@ class PaymentsController < ApplicationController
 
     respond_to do |format|
       if @payment.save
-        CrmMailer.thank_for_payment(@payment)
+        CrmMailer.thank_for_payment(@payment).deliver_later
 
         format.html { redirect_to @payment, notice: 'Payment was successfully created.' }
         format.json { render json: @payment, status: :created, location: @payment }
@@ -136,13 +136,13 @@ class PaymentsController < ApplicationController
 
       if params[:auto]
         if @payment.save
-          CrmMailer.thank_for_payment(@payment)
+          CrmMailer.thank_for_payment(@payment).deliver_later
           format.json { render json: @payment, status: :created }
         else
           format.json {render json: @payment.errors, status: :unprocessable_entity }
         end
 
-        CrmMailer.payment_parsed_email(@payment, params[:mail_text])
+        CrmMailer.payment_parsed_email(@payment, params[:mail_text]).deliver_now
       else
         format.html { render 'new' }
       end
@@ -150,10 +150,11 @@ class PaymentsController < ApplicationController
   end
 
   def remind_debtors
-    @members = Member.where('membership_paused = ? OR membership_paused IS NULL', false).all(:include => :payments)
+    @members = Member.where('membership_paused = ? OR membership_paused IS NULL', false).includes(:payments).all.to_a
+    @skipped_members_count = 0 # for list rendering
 
     @members.delete_if { |m| !m.debtor? }
-    @members.each { |m| CrmMailer.remind_about_payment(m) }
+    @members.each { |m| CrmMailer.remind_about_payment(m).deliver_later }
 
     respond_to do |format|
       format.html

@@ -12,7 +12,7 @@
     <td><%= admin.email %></td>
     <td><%= link_to 'Show', admin %></td>
     <td><%= link_to 'Edit', edit_admin_path(admin) %></td>
-    <td><%= link_to 'Destroy', admin, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Destroy', admin, data: {confirm: 'Are you sure?'}, method: :delete %></td>
   </tr>
 <% end %>
 </table>

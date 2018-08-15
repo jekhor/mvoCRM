@@ -10,7 +10,7 @@ MvoCRM::Application.routes.draw do
   post "donations/parse_ipay"
   resources :donations
 
-  get "payments/remind_debtors"
+  post "payments/remind_debtors"
   get "payments/import_hg"
   post "payments/parse_hg"
   resources :payments

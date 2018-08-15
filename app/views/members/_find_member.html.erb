@@ -1,10 +1,10 @@
 <%= form_tag members_url, :method => 'GET' do %>
     <fieldset>
-    <legend>Find member</legend>
+    <legend>Поиск человека</legend>
     <div class="form-group">
-      <%= label_tag 'search', 'Part of last name or card №', class: 'control-label' %><br/>
+      <%= label_tag 'search', 'Часть фамилии или номер карточки' %><br/>
       <%= text_field_tag 'search', '', class: 'form-control' %>
     </div>
-    <%= submit_tag 'Search', class: 'btn btn-default' %>
+    <%= submit_tag 'Найти', class: 'btn btn-default' %>
     </fieldset>
   <% end %>
