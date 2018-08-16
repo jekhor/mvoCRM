@@ -4,7 +4,8 @@ require 'csv'
 
 class MembersController < ApplicationController
   before_action :set_member, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_admin!, :except => :count
+  load_and_authorize_resource
+#  before_action :authenticate_admin!, :except => :count
 
   helper_method :sort_column, :sort_direction
 
@@ -12,6 +13,7 @@ class MembersController < ApplicationController
   # GET /members.json
   def index
     @title = "Members"
+    authorize! :index, Member
 
     if params[:per_page] == 'all'
       Member.per_page = 100000
@@ -21,11 +23,11 @@ class MembersController < ApplicationController
 
     case sort_column
     when 'payments'
-      @members = Member.search(params[:search]).all(:include => :payments).sort_by {|m| m.payments.size * (sort_direction == 'asc' ? 1 : -1)}.paginate(:page => params[:page])
+      @members = Member.search(params[:search]).accessible_by(current_ability).all(:include => :payments).sort_by {|m| m.payments.size * (sort_direction == 'asc' ? 1 : -1)}.paginate(:page => params[:page])
     when 'debtor?'
-      @members = Member.search(params[:search]).all(:include => :payments).sort_by {|m| (m.debtor? ? 1 : 0) * (sort_direction == 'asc' ? 1 : -1)}.paginate(:page => params[:page])
+      @members = Member.search(params[:search]).accessible_by(current_ability).all(:include => :payments).sort_by {|m| (m.debtor? ? 1 : 0) * (sort_direction == 'asc' ? 1 : -1)}.paginate(:page => params[:page])
     else
-      @members = Member.search(params[:search]).page(params[:page]).order(sort_column + ' ' + sort_direction)
+      @members = Member.search(params[:search]).accessible_by(current_ability).page(params[:page]).order(sort_column + ' ' + sort_direction)
     end
 
     @skipped_members_count = params[:page].nil? ? 0 : (params[:page].to_i - 1) * Member.per_page
@@ -147,35 +149,6 @@ class MembersController < ApplicationController
       format.html { redirect_to members_url }
       format.json { head :no_content }
     end
-  end
-
-  # POST /members/parse_csv
-  def parse_csv
-    file = params[:file]
-    file.tempfile.set_encoding("utf-8")
-    @members = Array.new
-    @import_failed = 0
-
-    CSV.parse(file.read, :headers => true) do |row|
-      begin
-        h = row.to_hash
-        m = Member.new(h)
-
-        if m.valid?
-          @members << m
-        else
-          flash.now[:errors] = Array.new if flash.now[:errors].nil?
-          flash.now[:errors] << "'#{m.last_name} #{m.given_names}' failed to import: #{m.errors.any? ? m.errors.full_messages.join(', ') : 'unknown reason'}"
-          @import_failed += 1
-        end
-      rescue
-        flash.now[:errors] = Array.new if flash.now[:errors].nil?
-        flash.now[:errors] << "'#{m.last_name} #{m.given_names}' failed to import: #{m.errors.any? ? m.errors.full_messages.join(', ') : 'unknown reason'}"
-        @import_failed += 1
-      end
-    end
-
-    session[:imported_members] = @members
   end
 
   def send_test_email
