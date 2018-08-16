@@ -20,7 +20,13 @@
 #  membership_pause_note   :text
 #
 
+require 'digest/md5'
+
 class Member < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, #, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
 
   has_many :payments
 
@@ -118,6 +124,17 @@ class Member < ApplicationRecord
     end
 
   end
+
+  def avatar_url(style)
+    hash = Digest::MD5.hexdigest(self.email.to_s.downcase)
+    size = if style == :thumb
+             '60x60'
+           else
+             style == :medium ? '200x200' : ''
+           end
+    "https://gravatar.com/avatar/#{hash}?d=robohash&size=#{size}"
+  end
+
 
   private
 

@@ -1,4 +1,5 @@
 MvoCRM::Application.routes.draw do
+  devise_for :members, :path_prefix => 'd'
   devise_for :admins, :path_prefix => 'd'
   resources :admins
 

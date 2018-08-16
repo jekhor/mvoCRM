@@ -1,7 +1,2 @@
-.row
-  .col-lg-3
-    %p
-      .card
-        .card-body
-          = render 'members/find_member'
-
+.row.align-items-center.justify-content-center
+    = link_to "Войти в личный кабинет", new_member_session_path, class: 'btn btn-lg btn-outline-primary'

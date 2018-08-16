@@ -1,0 +1,56 @@
+%table.member_info{:summary => "Member information"}
+  %tr
+    %td.main
+      = image_tag @member.avatar_url(:medium), class: 'rounded'
+      %h2= "#{@member.last_name} #{@member.given_names}"
+    %td.sidebar.round
+      %strong Name
+      = @member.given_names
+      = @member.last_name
+      %br/
+      %strong Date of birth
+      = @member.date_of_birth
+      %br/
+      %strong Address
+      = @member.address
+      %br/
+      - if @member.membership_paused
+        %strong Membership is paused!
+        Cause: #{@member.membership_pause_note}
+        %br/
+      - unless @member.postal_address.blank?
+        %strong Postal address
+        = @member.postal_address
+        %br/
+      %strong Phone
+      = @member.phone
+      %br/
+      %strong e-mail
+      = @member.email
+      %br/
+      - unless @member.site_user.nil? or @member.site_user.blank?
+        %strong Site user
+        = link_to @member.site_user, "http://bike.org.by/users/#{@member.site_user_normalized}"
+        %br/
+        %strong Site user registered at
+        = @member.site_user_creation_date
+        %br/
+      %strong Payments:
+      %br/
+      = link_to 'Pay', new_payment_for_path(@member)
+      %br/
+      %table.table
+        %tr
+          %th Date
+          %th Amount
+          %th Period start
+          %th Period end
+        - @member.payments.each do |payment|
+          %tr
+            %td= payment.date
+            %td= payment.amount
+            %td= payment.start_date
+            %td= payment.end_date
+= link_to 'Edit', edit_member_path(@member)
+|
+= link_to 'Back', members_path
