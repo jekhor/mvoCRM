@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-ruby '2.3.1'
+ruby '2.5.7'
 
-gem 'rails', '~> 5.2'
+gem 'rails', '~> 6.0'
 gem 'rails-i18n'
 gem 'activerecord-session_store'
 gem 'responders'
