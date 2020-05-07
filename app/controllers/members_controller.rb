@@ -3,7 +3,7 @@
 require 'csv'
 
 class MembersController < ApplicationController
-  before_action :set_member, only: [:show, :edit, :update, :destroy]
+#  before_action :set_member, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
 #  before_action :authenticate_admin!, :except => :count
 
@@ -23,9 +23,9 @@ class MembersController < ApplicationController
 
     case sort_column
     when 'payments'
-      @members = Member.search(params[:search]).accessible_by(current_ability).all(:include => :payments).sort_by {|m| m.payments.size * (sort_direction == 'asc' ? 1 : -1)}.paginate(:page => params[:page])
+      @members = Member.search(params[:search]).accessible_by(current_ability).includes(:payments).all.sort_by {|m| m.payments.size * (sort_direction == 'asc' ? 1 : -1)}.paginate(:page => params[:page])
     when 'debtor?'
-      @members = Member.search(params[:search]).accessible_by(current_ability).all(:include => :payments).sort_by {|m| (m.debtor? ? 1 : 0) * (sort_direction == 'asc' ? 1 : -1)}.paginate(:page => params[:page])
+      @members = Member.search(params[:search]).accessible_by(current_ability).includes(:payments).all.sort_by {|m| (m.debtor? ? 1 : 0) * (sort_direction == 'asc' ? 1 : -1)}.paginate(:page => params[:page])
     else
       @members = Member.search(params[:search]).accessible_by(current_ability).page(params[:page]).order(sort_column + ' ' + sort_direction)
     end
@@ -260,9 +260,14 @@ class MembersController < ApplicationController
   end
 
   def member_params
-    params[:member].permit(:given_names, :last_name, :date_of_birth, :address,
-                           :email, :phone, :card_number, :postal_address, :site_user,
-                           :site_user_creation_date, :membership_paused, :membership_pause_note)
+    permitted = [:address, :email, :phone, :postal_address]
+
+    permitted += [:date_of_birth, :given_names, :last_name,
+                  :card_number, :site_user, :site_user_creation_date,
+                  :membership_paused,
+                  :membership_pause_note] if can? :manage, @member
+
+    params.require(:member).permit permitted
   end
 
 end

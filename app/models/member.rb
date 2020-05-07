@@ -107,7 +107,7 @@ class Member < ApplicationRecord
   end
 
   def last_payment_date
-    p = self.payments.find(:last)
+    p = self.payments.last
     if p.nil?
       nil
     else
@@ -116,13 +116,21 @@ class Member < ApplicationRecord
   end
 
   def last_payment_amount
-    p = self.payments.find(:last)
+    p = self.payments.find.last
     if p.nil?
       nil
     else
       p.amount
     end
+  end
 
+  def paid_upto
+    p = self.payments.last
+    if p.nil?
+      nil
+    else
+      p.end_date
+    end
   end
 
   def avatar_url(style)
@@ -135,6 +143,13 @@ class Member < ApplicationRecord
     "https://gravatar.com/avatar/#{hash}?d=robohash&size=#{size}"
   end
 
+  def admin?
+    false
+  end
+
+  def member?
+    true
+  end
 
   private
 

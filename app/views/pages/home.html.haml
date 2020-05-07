@@ -1,4 +1,7 @@
 - if admin_signed_in?
   = render 'home_admin'
 - else
-  = render 'home_guest'
+  - if member_signed_in?
+    = render 'home_member'
+  - else
+    = render 'home_guest'

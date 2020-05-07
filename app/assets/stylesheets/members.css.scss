@@ -4,52 +4,6 @@
 /* User show page */
 
 
-table.members {
-  border-width: 1px;
-  border-color: gray;
-  border-style: solid;
-  border-collapse: collapse;
-}
-
-table.members td, table.members th {
-  border-width: 0px;
-  border-left-width: 1px;
-  border-right-width: 1px;
-  border-color: gray;
-  border-style: solid;
-}
-
-table.members tr th {
-  background: #e5ecf9;
-}
-
-table.members tr th a {
-  text-decoration: none;
-}
-
-table.members tr:nth-child(4n) * {
-  border-bottom-width: 1px;
-}
-
-table.members tr:nth-child(4n+1) td {
-  border-top-width: 1px;
-}
-
-table.members tr:nth-child(4n+1) th {
-  background:#e5ecf9;
-  border-top-width: 1px;
-  border-bottom-width: 1px;
-  border-bottom-style: dotted;
-}
-
-table.members tr:nth-child(4n+2) * {
-  border-bottom-width: 1px;
-}
-
-table.members tr:nth-child(4n+3) * {
-  border-top-width: 1px;
-}//table.members tbody tr:nth-child(even) td, table.members tbody tr.even td {background:none;}
-
 table.members tr.odd, table.members tr.odd td {
   background:none;
 }
@@ -83,9 +37,6 @@ table.members tr.debtor:nth-child(4n+3) {
   background: #ffeeee;
 }
 */
-table.members tr .shifted {
-  text-align: right;
-}
 
 table.members tr td.member_name a {
   text-decoration: none;

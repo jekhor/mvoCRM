@@ -1,0 +1,45 @@
+- checked_all ||= false
+- disable_pagination ||= false
+- unless disable_pagination
+  = content_tag 'div', :class => 'pagination' do
+    = will_paginate @members, :container => false
+    %span= t('.records_per_page')
+    = per_page_links [10, 30, 50, 100], :include_all => true, :current => Member.per_page
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th #
+      %th
+      %th= sortable 'last_name', t(".full_name")
+      %th= sortable 'email', m_attr_name('email')
+      %th= sortable 'date_of_birth', m_attr_name('date_of_birth')
+      %th= sortable 'address', m_attr_name('address')
+      %th= sortable 'phone', m_attr_name('phone')
+      %th= sortable 'site_user_creation_date', m_attr_name('site_user_creation_date')
+      %th= t '.paid_upto'
+      %th= t '.actions'
+  %tbody
+    - @members.each_with_index do |member, i|
+      - p = member.payments.where(:end_date => Time.now.to_date..('9999-01-01'.to_date)).last
+      - row_class = ' paused' if member.membership_paused
+      - debtor = p.nil?
+      - debtor_class = debtor ? 'table-danger' : ''
+      %tr{class: row_class}
+        %td= i + 1 + @skipped_members_count
+        %td= image_tag member.avatar_url(:thumb)
+        %td.member_name
+          = link_to member.last_name + ' ' + member.given_names, member_path(member)
+          = sprintf("(%06u)",member.card_number) unless member.card_number.blank?
+        %td= member.email
+        %td= member.date_of_birth
+        %td= member.address
+        %td= member.phone
+        %td= member.site_user_creation_date
+        %td{class: debtor_class}= member.paid_upto
+        %td
+          = link_to 'Edit', edit_member_path(member)
+          | #{link_to 'Pay', new_payment_for_path(member)}
+
+- unless disable_pagination
+  = will_paginate @members

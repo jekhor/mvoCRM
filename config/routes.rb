@@ -3,6 +3,8 @@ MvoCRM::Application.routes.draw do
   devise_for :admins, :path_prefix => 'd'
   resources :admins
 
+  get "admin", to: redirect("d/admins/sign_in")
+
   get "pages/home"
 
   get "pages/help"

@@ -12,6 +12,7 @@ ru:
       full_name: "Фамилия, имя, отчество"
       app_abbr: "З."
       actions: "Действия"
+      paid_upto: "Оплачено по"
       debtor!: "Должок!"
       records_per_page: "Записей на страницу:"
   activerecord:

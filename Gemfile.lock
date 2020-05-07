@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/CanCanCommunity/cancancan.git
+  revision: 6e782102f5dfef4bd3cc3feadc49802ea942c234
+  branch: feature/3.0.0
+  specs:
+    cancancan (2.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -138,7 +145,7 @@ GEM
       railties (>= 3.1)
     msgpack (1.2.4)
     multi_json (1.13.1)
-    mysql2 (0.5.2)
+    mysql2 (0.5.3)
     nio4r (2.3.1)
     nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
@@ -270,6 +277,7 @@ DEPENDENCIES
   bootsnap
   bootstrap
   bootstrap-datepicker-rails
+  cancancan!
   coffee-rails
   comma
   devise

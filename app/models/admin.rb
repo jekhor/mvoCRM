@@ -5,6 +5,14 @@ class Admin < ApplicationRecord
 
   # Setup accessible (or protected) attributes for your model
 #  attr_accessible :email, :password, :password_confirmation, :remember_me
+
+  def admin?
+    true
+  end
+
+  def member?
+    false
+  end
 end
 # == Schema Information
 #

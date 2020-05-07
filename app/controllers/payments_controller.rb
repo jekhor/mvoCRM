@@ -3,15 +3,17 @@
 require 'csv'
 
 class PaymentsController < ApplicationController
-  before_action :set_payment, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_admin!
+  load_and_authorize_resource
+#  before_action :set_payment, only: [:show, :edit, :update, :destroy]
+#  before_action :authenticate_admin!
 
   helper_method :sort_column, :sort_direction
 
   # GET /payments
   # GET /payments.json
   def index
-    @payments = Payment.order(sort_column + ' ' + sort_direction)
+    authorize! :index, Payment
+    @payments = Payment.accessible_by(current_ability).order(sort_column + ' ' + sort_direction)
 
     respond_to do |format|
       format.html # index.html.erb
