@@ -35,7 +35,8 @@
         %td= member.date_of_birth
         %td= member.address
         %td= member.phone
-        %td= member.site_user_creation_date
+        %td
+          = member.site_user_creation_date
         %td{class: debtor_class}= member.paid_upto
         %td
           = link_to 'Edit', edit_member_path(member)

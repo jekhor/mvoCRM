@@ -69,7 +69,7 @@ class Member < ApplicationRecord
 
   validates :membership_pause_note, :presence => {:if => :membership_paused}
 
-  validates :photo_url, http_url: true
+  validates :photo_url, http_url: {allow_nil: true}
 
   before_validation :set_nil
   before_save :set_nil

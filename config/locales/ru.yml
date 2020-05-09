@@ -30,6 +30,7 @@ ru:
         postal_address: "Адрес для почты"
         site_user_creation_date: "Дата регистрации"
         site_user: "Логин на сайте"
+        join_date: "Дата вступления"
         membership_paused: "Членство приостановлено"
         membership_pause_note: "Пояснение к приостановке членства"
         photo_url: "URL фотографии"
