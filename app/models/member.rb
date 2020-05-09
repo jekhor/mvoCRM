@@ -49,7 +49,6 @@ class Member < ApplicationRecord
 
 #  attr_accessible :given_names, :last_name, :date_of_birth, :address, :email, :phone
 #  attr_accessible :card_number
-#  attr_accessible :postal_address, :site_user, :site_user_creation_date
 #  attr_accessible :membership_paused, :membership_pause_note
 
   validates :given_names, :presence => true,
@@ -84,7 +83,7 @@ class Member < ApplicationRecord
     phone
     card_number
     site_user
-    site_user_creation_date
+    join_date
     debtor?
     last_payment_date
     last_payment_amount

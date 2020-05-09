@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_09_220258) do
+ActiveRecord::Schema.define(version: 2020_05_09_222313) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", limit: 255, default: "", null: false
@@ -42,7 +42,6 @@ ActiveRecord::Schema.define(version: 2020_05_09_220258) do
     t.integer "card_number"
     t.string "postal_address", limit: 255
     t.string "site_user", limit: 255
-    t.date "site_user_creation_date"
     t.boolean "membership_paused"
     t.text "membership_pause_note"
     t.string "encrypted_password", default: "", null: false

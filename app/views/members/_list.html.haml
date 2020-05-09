@@ -16,7 +16,7 @@
       %th= sortable 'date_of_birth', m_attr_name('date_of_birth')
       %th= sortable 'address', m_attr_name('address')
       %th= sortable 'phone', m_attr_name('phone')
-      %th= sortable 'site_user_creation_date', m_attr_name('site_user_creation_date')
+      %th= sortable 'join_date', m_attr_name('join_date')
       %th= t '.paid_upto'
       %th= t '.actions'
   %tbody
@@ -36,7 +36,7 @@
         %td= member.address
         %td= member.phone
         %td
-          = member.site_user_creation_date
+          = member.join_date
         %td{class: debtor_class}= member.paid_upto
         %td
           = link_to 'Edit', edit_member_path(member)

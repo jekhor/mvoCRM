@@ -287,9 +287,8 @@ class MembersController < ApplicationController
     permitted = [:address, :email, :phone, :postal_address]
 
     permitted += [:date_of_birth, :given_names, :last_name,
-                  :card_number, :site_user, :site_user_creation_date,
-                  :membership_paused,
-                  :membership_pause_note] if can? :manage, @member
+                  :card_number, :site_user, :join_date,
+                  :membership_paused, :membership_pause_note] if can? :manage, @member
 
     params.require(:member).permit permitted
   end

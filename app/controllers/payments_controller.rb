@@ -45,7 +45,7 @@ class PaymentsController < ApplicationController
     unless @payment.member.nil?
       last_payment = @payment.member.payments.order(:end_date).last
       if last_payment.nil?
-        @payment.start_date = @payment.member.site_user_creation_date unless @payment.member.site_user_creation_date.blank?
+        @payment.start_date = @payment.member.join_date unless @payment.member.join_date.blank?
       else
         @payment.start_date = Date.today.beginning_of_year
       end
@@ -123,7 +123,7 @@ class PaymentsController < ApplicationController
     unless @payment.member.nil?
       last_payment = @payment.member.payments.order(:end_date).last
       if last_payment.nil?
-        @payment.start_date = @payment.member.site_user_creation_date unless @payment.member.site_user_creation_date.blank?
+        @payment.start_date = @payment.member.join_date unless @payment.member.join_date.blank?
       else
         @payment.start_date = Date.today.beginning_of_year
       end
