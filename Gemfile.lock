@@ -69,7 +69,9 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2, >= 2.2.2)
-    annotate (2.4.1.beta1)
+    annotate (3.1.1)
+      activerecord (>= 3.2, < 7.0)
+      rake (>= 10.4, < 14.0)
     autoprefixer-rails (9.7.6)
       execjs
     bcrypt (3.1.13)
@@ -279,7 +281,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-session_store
-  annotate (~> 2.4.1.beta)
+  annotate
   autoprefixer-rails
   bootsnap
   bootstrap

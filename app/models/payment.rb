@@ -36,14 +36,14 @@ end
 #
 # Table name: payments
 #
-#  id           :integer         not null, primary key
+#  id           :integer          not null, primary key
 #  member_id    :integer
-#  date         :date            not null
-#  amount       :decimal(10, 2)  not null
-#  start_date   :date            not null
-#  end_date     :date            not null
-#  created_at   :datetime        not null
-#  updated_at   :datetime        not null
+#  date         :date             not null
+#  amount       :decimal(10, 2)   not null
+#  start_date   :date             not null
+#  end_date     :date             not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #  note         :text
 #  number       :string(255)
 #  user_account :string(255)
