@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.5.7'
+#ruby '2.5.7'
 
 gem 'rails', '~> 6.0'
 gem 'rails-i18n'
@@ -16,6 +16,7 @@ gem 'cancancan', github: 'CanCanCommunity/cancancan', branch: 'feature/3.0.0'
 gem 'sqlite3'
 gem 'mysql2'
 gem 'yaml_db'
+gem 'puma'
 
 gem 'devise'
 gem 'devise-i18n'
