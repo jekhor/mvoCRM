@@ -151,6 +151,28 @@ class MembersController < ApplicationController
     end
   end
 
+  # POST /members/register
+  def register
+    @member = Member.new(
+      email: params[:email],
+      phone: params[:phone],
+      date_of_birth: params[:date_of_birth]
+    )
+
+    name_elements = params[:name].split(/\s+/).map {|x| x.capitalize}
+    @member.last_name = name_elements.last
+    @member.given_names = name_elements[1..-2].join(' ')
+
+    @member.join_date = Date.today
+    @member.card_number = Member.last_card_number + 1
+
+    unless @member.save
+      logger.warn "Failed to save member: #{@member.errors.inspect}"
+    end
+
+    CrmMailer.with(member: @member.serializable_hash).notify_about_registration.deliver_later
+  end
+
   def send_test_email
     @count = Member.where('membership_paused = ? OR membership_paused IS NULL', false).size
     

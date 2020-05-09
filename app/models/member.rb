@@ -81,6 +81,11 @@ class Member < ApplicationRecord
     end
   end
 
+  def self.last_card_number
+    m = Member.order(card_number: :desc).first
+    m.card_number
+  end
+
   def site_user_normalized
     tmp = site_user.gsub(/[_.]/, "")
   end
@@ -149,6 +154,12 @@ class Member < ApplicationRecord
 
   def member?
     true
+  end
+
+  protected
+
+  def password_required?
+    false
   end
 
   private

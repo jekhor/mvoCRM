@@ -1,0 +1,15 @@
+Обработана анкета о вступлении в МВО.
+<% unless @member.errors.empty? -%>
+  
+Ошибки:
+<% @member.errors.full_messages.each do |msg| %>
+<%= msg %>
+<% end %>
+<% end -%>
+
+Данные:
+<% [:card_number, :last_name, :given_names, :date_of_birth, :phone, :email].each do |attr| -%>
+  <% next if attr == :card_number and @member.id.nil? %>
+  <%= Member.human_attribute_name(attr) %>: <%= @member.send(attr) %>
+<% end -%>
+

@@ -27,6 +27,19 @@ class CrmMailer < ActionMailer::Base
     mail(to: Rails.configuration.crm_mailer_options[:admin_email], subject: "Обработан платёж (#{payment.number}): #{success}")
   end
 
+  def notify_about_registration
+    if params[:member]['id'].nil?
+      @member = Member.new(params[:member])
+      @member.validate
+    else
+      @member = Member.find(params[:member]['id'])
+    end
+
+    success = @member.id.nil? ? "неудачно" : "успешно"
+    mail(to: Rails.configuration.crm_mailer_options[:admin_email],
+         subject: "Обработана анкета (#{@member.given_names} #{@member.last_name}): #{success}")
+  end
+
   def thank_for_payment(payment)
     return if payment.member.nil? or payment.member.email.blank?
     @payment = payment

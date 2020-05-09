@@ -32,6 +32,7 @@ class Ability
     can :count, Member
 
     if user.nil?
+      can :register, Member
       return
     end
 

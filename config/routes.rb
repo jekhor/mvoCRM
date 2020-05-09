@@ -20,6 +20,7 @@ MvoCRM::Application.routes.draw do
   get "members/import_mail"
   post "members/parse_mail"
   post "members/accept_selected"
+  post "members/register"
   resources :members
 
   get "letters/make_letter" => "letters#make_letter"
