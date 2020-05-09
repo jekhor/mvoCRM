@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/CanCanCommunity/cancancan.git
+  remote: https://github.com/CanCanCommunity/cancancan.git
   revision: 93ba1812b65d71ed8aea2cf5e83218259ed4484c
   branch: feature/3.0.0
   specs:
@@ -134,7 +134,7 @@ GEM
       ruby_parser (~> 3.5)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
-    jquery-rails (4.3.5)
+    jquery-rails (4.4.0)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
@@ -212,7 +212,7 @@ GEM
       railties (>= 5.0)
     rspec-core (3.9.2)
       rspec-support (~> 3.9.3)
-    rspec-expectations (3.9.1)
+    rspec-expectations (3.9.2)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.9.0)
     rspec-mocks (3.9.1)
@@ -318,4 +318,4 @@ DEPENDENCIES
   yaml_db
 
 BUNDLED WITH
-   1.17.3
+   2.1.4
