@@ -156,7 +156,9 @@ class MembersController < ApplicationController
     @member = Member.new(
       email: params[:email],
       phone: params[:phone],
-      date_of_birth: params[:date_of_birth]
+      date_of_birth: params[:date_of_birth],
+      photo_url: params[:photo_url],
+      subscribe_to_mails: params[:subscribe_to_mails]
     )
 
     name_elements = params[:name].split(/\s+/).map {|x| x.capitalize}

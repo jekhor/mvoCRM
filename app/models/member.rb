@@ -21,6 +21,23 @@
 #
 
 require 'digest/md5'
+require 'uri'
+
+class HttpUrlValidator < ActiveModel::EachValidator
+
+  def self.compliant?(value)
+    uri = URI.parse(value)
+    uri.is_a?(URI::HTTP) && !uri.host.nil?
+  rescue URI::InvalidURIError
+    false
+  end
+
+  def validate_each(record, attribute, value)
+    unless value.present? && self.class.compliant?(value)
+      record.errors.add(attribute, "is not a valid HTTP URL")
+    end
+  end
+end
 
 class Member < ApplicationRecord
   # Include default devise modules. Others available are:
@@ -51,6 +68,8 @@ class Member < ApplicationRecord
   validates :site_user, :uniqueness => {:allow_nil => true}
 
   validates :membership_pause_note, :presence => {:if => :membership_paused}
+
+  validates :photo_url, http_url: true
 
   before_validation :set_nil
   before_save :set_nil

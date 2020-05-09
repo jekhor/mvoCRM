@@ -8,7 +8,8 @@
 <% end -%>
 
 Данные:
-<% [:card_number, :last_name, :given_names, :date_of_birth, :phone, :email].each do |attr| -%>
+<% [:card_number, :last_name, :given_names, :date_of_birth, :phone, :email,
+    :photo_url, :subscribe_to_mails].each do |attr| -%>
   <% next if attr == :card_number and @member.id.nil? %>
   <%= Member.human_attribute_name(attr) %>: <%= @member.send(attr) %>
 <% end -%>

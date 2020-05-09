@@ -1,7 +1,8 @@
 %table.member_info{:summary => "Member information"}
   %tr
     %td.main
-      = image_tag member.avatar_url(:medium), class: 'rounded'
+      = image_tag member.avatar_url(:medium), class: 'rounded' if member.photo_url.blank?
+      = image_tag member.photo_url, class: 'rounded', width: "100%" unless member.photo_url.blank?
       %h2= "#{member.last_name} #{member.given_names}"
     %td.sidebar.round
       %strong Name
@@ -28,6 +29,9 @@
       %strong e-mail
       = member.email
       %br/
+      %strong URL фото:
+      = member.photo_url
+      %br/
       - unless member.site_user.nil? or member.site_user.blank?
         %strong Site user
         = link_to member.site_user, "http://bike.org.by/users/#{member.site_user_normalized}"
@@ -35,6 +39,12 @@
         %strong Site user registered at
         = member.site_user_creation_date
         %br/
+      %strong Дата вступления:
+      = member.join_date
+      %br/
+      %strong Подписка на рассылку:
+      = member.subscribe_to_mails ? "да" : "нет"
+      %br/
       %strong Payments:
       %br/
       = link_to 'Pay', new_payment_for_path(member)

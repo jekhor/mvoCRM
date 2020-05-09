@@ -8,20 +8,25 @@
         - @member.errors.full_messages.each do |msg|
           %li= msg
   .row
+    .col-lg-4
+    .col-lg-4
+      = image_tag @member.photo_url, width: "100%" unless @member.photo_url.blank?
+      = image_tag @member.avatar_url(:medium), class: 'rounded' if @member.photo_url.blank?
+    .col-lg-4
+  .row
+    .col-lg-8
+      = f.input :photo_url
+  .row
     .col-lg-3
       = f.input :last_name
-
-      = f.input :address
       = f.input :phone, :as => :phone
+      = f.input :address
     .col-lg-3
       = f.input :given_names
-
-      = f.input :postal_address
       = f.input :email
     .col-lg-2
       = f.input :date_of_birth, :as => :date_picker
       = f.input :card_number, input_html: { size: 6 }
-      = f.input :site_user
       = f.input :site_user_creation_date, :as => :date_picker
   .row
     .col-lg-3
