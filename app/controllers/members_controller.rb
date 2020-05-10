@@ -29,7 +29,7 @@ class MembersController < ApplicationController
     when 'debtor?'
       @members = Member.search(params[:search]).accessible_by(current_ability).includes(:payments).all.sort_by {|m| (m.debtor? ? 1 : 0) * (sort_direction == 'asc' ? 1 : -1)}.paginate(:page => params[:page])
     else
-      @members = Member.search(params[:search]).accessible_by(current_ability).page(params[:page]).order(sort_column + ' ' + sort_direction)
+      @members = Member.search(params[:search]).accessible_by(current_ability).page(params[:page]).order(sort_column => sort_direction)
     end
 
     @skipped_members_count = params[:page].nil? ? 0 : (params[:page].to_i - 1) * Member.per_page
@@ -94,6 +94,8 @@ class MembersController < ApplicationController
     @title = "New Member"
     @member = Member.new
     @member.phone = "+375"
+    @member.card_number = Member.last_card_number + 1
+    @member.join_date = Date.today
 
     respond_to do |format|
       format.html # new.html.erb

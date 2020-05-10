@@ -103,13 +103,6 @@ class Member < ApplicationRecord
     membership_pause_note
   end
 
-  after_initialize :init
-
-  def init
-    self.card_number = Member.last_card_number + 1 if self.card_number.blank?
-    self.join_date = Date.today if self.join_date.blank?
-  end
-
   def self.search(search)
     if search
       where('last_name LIKE ? OR card_number = ?', "#{Unicode::capitalize(search)}%", search.to_i)
