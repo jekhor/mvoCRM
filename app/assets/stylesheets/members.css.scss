@@ -4,44 +4,6 @@
 /* User show page */
 
 
-table.members tr.odd, table.members tr.odd td {
-  background:none;
-}
-
-table.members tr.even, table.members tr.even td {
-  background:#e5ecf9;
-}
-
-table.members tr.odd-debtor, table.members tr.odd-debtor td {
-  background: #ffeeee;
-}
-
-table.members tr.even-debtor, table.members tr.even-debtor td {
-  background:#ffd5d5;
-}
-
-/*
-table.members tr.debtor:nth-child(4n) {
-  background: #ffeeee;
-}
-
-table.members tr.debtor:nth-child(4n+1) {
-  background:#ffd5d5;
-}
-
-table.members tr.debtor:nth-child(4n+2) {
-  background:#ffd5d5;
-}
-
-table.members tr.debtor:nth-child(4n+3) {
-  background: #ffeeee;
-}
-*/
-
-table.members tr td.member_name a {
-  text-decoration: none;
-}
-
 table.member_info {
   width: 100%;
   margin-bottom: 0;
@@ -61,13 +23,6 @@ td.sidebar {
 
 tr.paused {
   text-decoration: line-through;
-}
-
-table.members th, table.members td {
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-top: 1px;
-  padding-bottom: 1px;
 }
 
 .field label:after {

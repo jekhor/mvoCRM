@@ -13,6 +13,8 @@ class MembersController < ApplicationController
   # GET /members.json
   def index
     @title = "Members"
+    @fullwith_page = true
+
     authorize! :index, Member
 
     if params[:per_page] == 'all'

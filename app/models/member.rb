@@ -43,6 +43,8 @@ class HttpUrlValidator < ActiveModel::EachValidator
   end
 
   def validate_each(record, attribute, value)
+    STDERR.puts options.inspect
+    STDERR.puts value.inspect
     unless value.present? && self.class.compliant?(value)
       record.errors.add(attribute, "is not a valid HTTP URL")
     end
@@ -78,7 +80,7 @@ class Member < ApplicationRecord
 
   validates :membership_pause_note, :presence => {:if => :membership_paused}
 
-  validates :photo_url, http_url: {allow_nil: true}
+  validates :photo_url, http_url: {allow_blank: true}
 
   before_validation :set_nil
   before_save :set_nil
@@ -99,6 +101,13 @@ class Member < ApplicationRecord
     last_payment_amount
     membership_paused
     membership_pause_note
+  end
+
+  after_initialize :init
+
+  def init
+    self.card_number = Member.last_card_number + 1 if self.card_number.blank?
+    self.join_date = Date.today if self.join_date.blank?
   end
 
   def self.search(search)
@@ -167,6 +176,8 @@ class Member < ApplicationRecord
   end
 
   def avatar_url(style)
+    return photo_url unless photo_url.blank?
+
     hash = Digest::MD5.hexdigest(self.email.to_s.downcase)
     size = if style == :thumb
              '60x60'

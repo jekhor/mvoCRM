@@ -6,16 +6,17 @@
     %span= t('.records_per_page')
     = per_page_links [10, 30, 50, 100], :include_all => true, :current => Member.per_page
 
-%table.table.table-striped
+%table.table.table-striped.table-responsive
   %thead
     %tr
       %th #
       %th
       %th= sortable 'last_name', t(".full_name")
+      %th{width: '1em'}= sortable 'card_number', m_attr_name('card_number')
       %th= sortable 'email', m_attr_name('email')
       %th= sortable 'date_of_birth', m_attr_name('date_of_birth')
       %th= sortable 'address', m_attr_name('address')
-      %th= sortable 'phone', m_attr_name('phone')
+      %th{width: '11em'}= sortable 'phone', m_attr_name('phone')
       %th= sortable 'join_date', m_attr_name('join_date')
       %th= t '.paid_upto'
       %th= t '.actions'
@@ -27,10 +28,11 @@
       - debtor_class = debtor ? 'table-danger' : ''
       %tr{class: row_class}
         %td= i + 1 + @skipped_members_count
-        %td= image_tag member.avatar_url(:thumb)
-        %td.member_name
+        %td= image_tag member.avatar_url(:thumb), class: 'rounded my-n2', width: '40px'
+        %td
           = link_to member.last_name + ' ' + member.given_names, member_path(member)
-          = sprintf("(%06u)",member.card_number) unless member.card_number.blank?
+        %td
+          %b= member.card_number
         %td= member.email
         %td= member.date_of_birth
         %td= member.address

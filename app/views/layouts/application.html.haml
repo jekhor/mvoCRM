@@ -31,6 +31,10 @@
               = message
 
     %main
-      .container
-        = yield
+      - if @fullwith_page
+        .container-fluid
+          = yield
+      - else
+        .container
+          = yield
 
