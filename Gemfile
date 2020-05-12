@@ -45,6 +45,8 @@ gem 'font-awesome-sass'
 gem 'comma'
 gem 'will_paginate'
 gem 'unicode'
+gem 'mina'
+gem 'mina-puma'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
