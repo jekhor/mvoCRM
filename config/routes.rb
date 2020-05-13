@@ -11,6 +11,7 @@ MvoCRM::Application.routes.draw do
 
   post "payments/remind_debtors"
   get "payments/import_hg"
+  get "payments/hg_notify"
   post "payments/parse_hg"
   resources :payments
   get "payments/new/:for_member(.:format)" => 'payments#new', :as => :new_payment_for

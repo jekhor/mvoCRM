@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require 'csv'
+require 'hutkigrosh'
 
 class PaymentsController < ApplicationController
   load_and_authorize_resource
@@ -115,6 +116,75 @@ class PaymentsController < ApplicationController
     respond_to do |format|
       format.html
     end
+  end
+
+  def hg_notify
+    foreign_payment = false
+    bill_id = params[:purchaseid]
+    c = Rails.application.secrets.hutkigrosh
+
+    p = Payment.new
+
+    hg = HutkiGrosh::HutkiGrosh.new(c[:base_url], c[:user], c[:password])
+    begin
+      hg.login
+      bill = hg.get_bill(bill_id)
+
+      logger.debug bill.to_s
+
+      logger.debug c[:erip_ids].inspect
+      p.payment_type = c[:erip_ids][bill[:eripId].to_i]
+
+      if p.payment_type.nil?
+        raise "Unknown ERIP ID: #{bill[:eripId]}"
+      else
+        p.number = bill[:billID]
+        p.amount = bill[:amt]
+        p.user_account = bill[:invId]
+        p.date = bill[:payedDt]
+        p.full_name = bill[:fullName]
+        p.hg_bill = bill.to_json
+      end
+
+    rescue => e
+      logger.info "#{e.class.to_s}: #{e.message}"
+      head :unprocessable_entity
+      return
+    ensure
+      hg.logout
+    end
+
+    m = nil
+
+    case p.payment_type
+    when 'membership'
+      m = Member.where(card_number: p.user_account.to_i).first unless p.user_account.blank?
+    when 'initial'
+      m = Member.where(:date_of_birth => date_of_birth).order('created_at DESC').first unless date_of_birth.nil?
+    end
+
+    p.member = m
+    
+    unless p.member.nil?
+      last_payment = m.payments.order(:end_date).last
+      if last_payment.nil?
+        p.start_date = p.member.join_date unless p.member.join_date.blank?
+      else
+        p.start_date = Date.today.beginning_of_year
+      end
+    end
+    
+    p.start_date = p.date if p.start_date.nil?
+    p.end_date = p.start_date.end_of_year unless p.start_date.nil?
+
+    if p.save
+      head :ok
+      CrmMailer.thank_for_payment(p).deliver_later
+    else
+      head :unprocessable_entity
+    end
+
+    CrmMailer.payment_parsed_email(p, bill.to_s).deliver_now
   end
 
   def parse_hg

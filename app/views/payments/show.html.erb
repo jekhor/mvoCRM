@@ -1,23 +1,26 @@
 <p id="notice"><%= notice %></p>
 
-<strong>Type:</strong>
+<strong>Тип:</strong>
 <%= @payment.payment_type %><br/>
 
-<strong>Member:</strong>
+<strong>Член:</strong>
 <%= @payment.member.full_name unless @payment.member.nil? %><br/>
 
-<strong>Date:</strong>
+<strong>Имя плательщика:</strong>
+<%= @payment.full_name unless @payment.full_name.blank? %><br/>
+
+<strong>Дата:</strong>
 <%= @payment.date %><br/>
 
-<strong>Number:</strong>
+<strong>Номер платежа:</strong>
 <%= @payment.number %><br/>
 
-<strong>Amount:</strong>
+<strong>Сумма:</strong>
 <%= @payment.amount %><br/>
 
-<strong>Valid: from</strong> <%= @payment.start_date %> <strong>to</strong> <%= @payment.end_date %><br/>
+<strong>Действителен: с</strong> <%= @payment.start_date %> <strong>по</strong> <%= @payment.end_date %><br/>
 
-<strong>Note:</strong> <%= simple_format @payment.note unless @payment.note.nil? %><br/>
+<strong>Примечание:</strong> <%= simple_format @payment.note unless @payment.note.nil? %><br/>
 
 <%= link_to 'Edit', edit_payment_path(@payment) %> |
 <%= link_to 'Back', payments_path %>

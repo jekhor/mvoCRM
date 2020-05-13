@@ -30,6 +30,7 @@ class Ability
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
     
     can :count, Member
+    can :hg_notify, Payment
 
     if user.nil?
       can :register, Member

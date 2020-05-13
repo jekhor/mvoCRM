@@ -3,31 +3,37 @@
 # Table name: members
 #
 #  id                     :integer          not null, primary key
-#  given_names            :string(255)
-#  last_name              :string(255)
-#  date_of_birth          :date
 #  address                :string(255)
+#  card_number            :integer
+#  current_sign_in_at     :datetime
+#  current_sign_in_ip     :string
+#  date_of_birth          :date
 #  email                  :string(255)
+#  encrypted_password     :string           default(""), not null
+#  given_names            :string(255)
+#  join_date              :date
+#  last_name              :string(255)
+#  last_sign_in_at        :datetime
+#  last_sign_in_ip        :string
+#  membership_pause_note  :text
+#  membership_paused      :boolean
 #  phone                  :string(255)
+#  photo_url              :string
+#  postal_address         :string(255)
+#  remember_created_at    :datetime
+#  reset_password_sent_at :datetime
+#  reset_password_token   :string
+#  sign_in_count          :integer          default(0), not null
+#  site_user              :string(255)
+#  subscribe_to_mails     :boolean          default(FALSE)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  join_date              :date
-#  card_number            :integer
-#  postal_address         :string(255)
-#  site_user              :string(255)
-#  membership_paused      :boolean
-#  membership_pause_note  :text
-#  encrypted_password     :string           default(""), not null
-#  reset_password_token   :string
-#  reset_password_sent_at :datetime
-#  remember_created_at    :datetime
-#  sign_in_count          :integer          default(0), not null
-#  current_sign_in_at     :datetime
-#  last_sign_in_at        :datetime
-#  current_sign_in_ip     :string
-#  last_sign_in_ip        :string
-#  photo_url              :string
-#  subscribe_to_mails     :boolean          default(FALSE)
+#
+# Indexes
+#
+#  index_members_on_email                 (email) UNIQUE
+#  index_members_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_members_on_site_user             (site_user) UNIQUE
 #
 
 require 'digest/md5'
