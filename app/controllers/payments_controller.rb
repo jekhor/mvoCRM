@@ -132,7 +132,6 @@ class PaymentsController < ApplicationController
 
       logger.debug bill.to_s
 
-      logger.debug c[:erip_ids].inspect
       p.payment_type = c[:erip_ids][bill[:eripId].to_i]
 
       if p.payment_type.nil?
