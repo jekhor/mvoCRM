@@ -167,7 +167,7 @@ class MembersController < ApplicationController
 
     name_elements = params[:name].split(/\s+/).map {|x| x.capitalize}
     @member.last_name = name_elements.last
-    @member.given_names = name_elements[1..-2].join(' ')
+    @member.given_names = name_elements[0..-2].join(' ')
 
     @member.join_date = Date.today
     @member.card_number = Member.last_card_number + 1
