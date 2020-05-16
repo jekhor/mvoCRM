@@ -163,7 +163,7 @@ class PaymentsController < ApplicationController
     end
 
     p.member = m
-    
+
     unless p.member.nil?
       last_payment = m.payments.order(:end_date).last
       if last_payment.nil?
@@ -172,9 +172,11 @@ class PaymentsController < ApplicationController
         p.start_date = Date.today.beginning_of_year
       end
     end
-    
-    p.start_date = p.date if p.start_date.nil?
-    p.end_date = p.start_date.end_of_year unless p.start_date.nil?
+
+    unless p.payment_type == 'donation'
+      p.start_date = p.date if p.start_date.nil?
+      p.end_date = p.start_date.end_of_year unless p.start_date.nil?
+    end
 
     if p.save
       head :ok

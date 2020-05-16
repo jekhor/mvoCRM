@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_13_211313) do
+ActiveRecord::Schema.define(version: 2020_05_16_220759) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", limit: 255, default: "", null: false
@@ -64,8 +64,8 @@ ActiveRecord::Schema.define(version: 2020_05_13_211313) do
     t.integer "member_id"
     t.date "date", null: false
     t.decimal "amount", precision: 10, scale: 2, null: false
-    t.date "start_date", null: false
-    t.date "end_date", null: false
+    t.date "start_date"
+    t.date "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "note"
