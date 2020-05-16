@@ -1,0 +1,21 @@
+.accordion#pay-methods-accordion
+  .card
+    .card-header
+      .h2
+        %button.btn.btn-link{type: 'button', 'data-toggle': 'collapse', 'data-target': '#tabErip'}
+          ЕРИП
+    .collapse.show#tabErip{'data-parent': '#pay-methods-accordion'}
+      .card-body
+        Для оплаты через ЕРИП, пойдите туда, не знаем, куда. Ваш номер билета:
+        = @member.card_number ||= '<неизвестен>'
+
+  .card
+    .card-header
+      .h2
+        %button.btn.btn-link{type: 'button', 'data-toggle': 'collapse', 'data-target': '#tabCard'}
+          Платёжная карта (VISA, MasterCard, БЕЛКАРТ)
+    .collapse#tabCard{'data-parent': '#pay-methods-accordion'}
+      .card-body
+        Оплата карточкой
+
+

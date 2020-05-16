@@ -179,6 +179,11 @@ class MembersController < ApplicationController
     CrmMailer.with(member: @member.serializable_hash).notify_about_registration.deliver_later
   end
 
+  # GET /members/1/pay
+  def pay
+    @title = "Оплата взноса"
+  end
+
   def send_test_email
     @count = Member.where('membership_paused = ? OR membership_paused IS NULL', false).size
     
