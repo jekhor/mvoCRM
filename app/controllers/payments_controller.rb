@@ -159,7 +159,10 @@ class PaymentsController < ApplicationController
     when 'membership'
       m = Member.where(card_number: p.user_account.to_i).first unless p.user_account.blank?
     when 'initial'
-      m = Member.where(:date_of_birth => date_of_birth).order('created_at DESC').first unless date_of_birth.nil?
+      if p.user_account =~ /(([0-9]{2})\.?([0-9]{2})\.?([0-9]{4}))/
+        date_of_birth = Time.mktime($4, $3, $2).to_date
+        m = Member.where(:date_of_birth => date_of_birth).order('created_at DESC').first unless date_of_birth.nil?
+      end
     end
 
     p.member = m
