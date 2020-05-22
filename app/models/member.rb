@@ -157,7 +157,7 @@ class Member < ApplicationRecord
   end
 
   def last_payment_amount
-    p = self.payments.find.last
+    p = self.payments.last
     if p.nil?
       nil
     else
