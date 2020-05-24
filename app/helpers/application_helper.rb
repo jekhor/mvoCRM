@@ -23,7 +23,6 @@ module ApplicationHelper
                    'donation' => 'Пожертвование'
   }
   def payment_type_human(type)
-    puts PAYMENT_TYPES.inspect
     PAYMENT_TYPES[type]
   end
 
