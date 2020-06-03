@@ -165,7 +165,8 @@ class MembersController < ApplicationController
       subscribe_to_mails: params[:subscribe_to_mails]
     )
 
-    name_elements = params[:name].split(/\s+/).map {|x| x.capitalize}
+    name_elements = ['', '']
+    name_elements = params[:name].split(/\s+/).map {|x| x.capitalize} if params[:name]
     @member.last_name = name_elements.last
     @member.given_names = name_elements[0..-2].join(' ')
 
@@ -177,6 +178,8 @@ class MembersController < ApplicationController
     end
 
     CrmMailer.with(member: @member.serializable_hash).notify_about_registration.deliver_later
+
+    head :ok
   end
 
   # GET /members/1/pay
