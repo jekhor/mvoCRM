@@ -28,9 +28,13 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
-    
+
     can :count, Member
+    can :pay, Member
+    can :checkout, Member
     can :hg_notify, Payment
+
+    can [:return, :notify], Checkout
 
     if user.nil?
       can :register, Member

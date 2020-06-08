@@ -1,3 +1,9 @@
+%h2
+  = "Приветствуем в наших рядах, #{@member.given_names}!"
+
+%p
+  Для завершения вступления в МВО осталось оплатить членский взнос ;)
+
 .accordion#pay-methods-accordion
   .card
     .card-header
@@ -6,8 +12,16 @@
           ЕРИП
     .collapse.show#tabErip{'data-parent': '#pay-methods-accordion'}
       .card-body
-        Для оплаты через ЕРИП, пойдите туда, не знаем, куда. Ваш номер билета:
-        = @member.card_number ||= '<неизвестен>'
+        %p
+          Для оплаты через ЕРИП ищите нас в дереве услуг по следующему пути:
+          Благотворительность, общественные объединения → Спортивные объединения →
+          Минское велосипедное общество → Членский взнос.
+        %p
+          Для оплаты понадобится указать номер членского билета (даже если вы его
+          ещё не получили, номер вам уже присвоен).
+        %p
+          Ваш номер билета:
+          = @member.card_number ||= '<неизвестен>'
 
   .card
     .card-header
@@ -16,6 +30,16 @@
           Платёжная карта (VISA, MasterCard, БЕЛКАРТ)
     .collapse#tabCard{'data-parent': '#pay-methods-accordion'}
       .card-body
-        Оплата карточкой
+        %p
+          Оплата с помощью банковской карты Visa, MasterCard или БелКАРТ.
+          Используется сервис bePaid, мы не получаем и не храним данные ваших карт.
 
+        = form_with url: member_checkout_path(@member) do |form|
+          .form-group
+            = form.label :amount, 'Сумма', for: 'amount_input'
+            .input-group
+              = form.text_field :amount, id: "amount_input", class: 'form-control', value: '27'
+              .input-group-append
+                %span.input-group-text#sum-byn BYN
+          = form.submit 'Перейти к оплате', class: 'button btn btn-primary'
 

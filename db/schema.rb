@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_16_220759) do
+ActiveRecord::Schema.define(version: 2020_05_25_201450) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", limit: 255, default: "", null: false
@@ -27,6 +27,24 @@ ActiveRecord::Schema.define(version: 2020_05_16_220759) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "checkouts", force: :cascade do |t|
+    t.decimal "amount", precision: 12, scale: 2, null: false
+    t.string "pay_processor", null: false
+    t.string "token"
+    t.string "redirect_url"
+    t.string "status"
+    t.string "message"
+    t.string "customer"
+    t.text "raw_status"
+    t.string "uid"
+    t.integer "member_id"
+    t.integer "payment_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["member_id"], name: "index_checkouts_on_member_id"
+    t.index ["payment_id"], name: "index_checkouts_on_payment_id"
   end
 
   create_table "members", force: :cascade do |t|
@@ -95,4 +113,6 @@ ActiveRecord::Schema.define(version: 2020_05_16_220759) do
     t.index ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true
   end
 
+  add_foreign_key "checkouts", "members"
+  add_foreign_key "checkouts", "payments"
 end

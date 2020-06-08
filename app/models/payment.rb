@@ -2,6 +2,7 @@
 #
 class Payment < ApplicationRecord
   belongs_to :member, optional: true
+  has_one :checkout, inverse_of: :payment
 
 #  attr_accessible :date, :amount, :start_date, :end_date, :member_id, :note, :number, :user_account, :payment_type
 

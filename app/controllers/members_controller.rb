@@ -187,6 +187,45 @@ class MembersController < ApplicationController
   # GET /members/1/pay
   def pay
     @title = "Оплата взноса"
+
+    if @member.nil?
+      @member = Member.find_by email: params[:email]
+    end
+
+    respond_to do |format|
+      if @member.nil?
+        format.html {render action: 'pay_unknown_member'}
+      else
+        format.html
+      end
+    end
+  end
+
+  def checkout
+    sum = BigDecimal(params[:amount])
+
+    payproc = PayProcessor.create
+
+    begin
+      checkout = payproc.checkout(sum,
+        member: @member,
+        return_url: checkouts_return_url,
+        notification_url: Rails.env.production? ? checkouts_notify_url : nil,
+        description: "Членский взнос в МВО, билет №#{@member.card_number} (#{@member.full_name})",
+        email: @member ? @member.email : nil,
+      )
+    rescue => e
+      logger.error "Failed to checkout: #{e.message}"
+      checkout = nil
+    end
+
+    respond_to do |format|
+      if checkout.nil?
+        format.html { redirect_to member_pay_url, alert: 'Проблема платёжной системы. Попробуйте позже...'}
+      else
+        format.html { redirect_to checkout.redirect_url }
+      end
+    end
   end
 
   def send_test_email
