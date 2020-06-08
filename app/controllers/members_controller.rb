@@ -179,7 +179,9 @@ class MembersController < ApplicationController
 
     CrmMailer.with(member: @member.serializable_hash).notify_about_registration.deliver_later
 
-    head :ok
+    respond_to do |format|
+      format.html {render layout: false}
+    end
   end
 
   # GET /members/1/pay
