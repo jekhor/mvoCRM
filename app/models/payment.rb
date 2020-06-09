@@ -23,12 +23,23 @@ class Payment < ApplicationRecord
     user_account
   end
 
-  def fill_start_date!
+  def fill_dates!
     self.start_date = self.date
+    self.end_date = self.date + 1.year - 1.day
+
     unless self.member.nil?
       last_date = self.member.paid_upto
       if last_date > 3.month.ago
         self.start_date = last_date + 1.day
+      end
+      self.end_date = self.start_date + 1.year - 1.day
+
+      # Если на текущий момент уже оплачено, и заканчивается позже, чем через месяц,
+      # то не продлеваем, а приравниваем срок к действующему
+      if !last_date.nil? and last_date > Date.today + 1.month
+        lp = self.member.last_payment
+        self.start_date = lp.start_date
+        self.end_date = lp.end_date
       end
     end
   end

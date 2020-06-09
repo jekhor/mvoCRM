@@ -162,8 +162,7 @@ class PaymentsController < ApplicationController
     p.member = m
 
     unless p.payment_type == 'donation'
-      p.fill_start_date!
-      p.end_date = p.start_date + 1.year - 1.day
+      p.fill_dates!
     end
 
     if p.save
