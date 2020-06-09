@@ -1,8 +1,13 @@
-%h2
-  = "Приветствуем в наших рядах, #{@member.given_names}!"
+- if @member.neophyte?
+  %h2
+    = "Приветствуем в наших рядах, #{@member.given_names}!"
+  %p
+    Для завершения вступления в МВО осталось оплатить членский взнос ;)
+- else
+  %h2
+    Оплата членского взноса
 
-%p
-  Для завершения вступления в МВО осталось оплатить членский взнос ;)
+%p Выберите один из следующих методов оплаты:
 
 .accordion#pay-methods-accordion
   .card
@@ -17,8 +22,8 @@
           Благотворительность, общественные объединения → Спортивные объединения →
           Минское велосипедное общество → Членский взнос.
         %p
-          Для оплаты понадобится указать номер членского билета (даже если вы его
-          ещё не получили, номер вам уже присвоен).
+          Понадобится указать номер членского билета (даже если вы его
+          ещё не получили, номер уже известен).
         %p
           Ваш номер билета:
           = @member.card_number ||= '<неизвестен>'
@@ -34,12 +39,28 @@
           Оплата с помощью банковской карты Visa, MasterCard или БелКАРТ.
           Используется сервис bePaid, мы не получаем и не храним данные ваших карт.
 
-        = form_with url: member_checkout_path(@member) do |form|
-          .form-group
-            = form.label :amount, 'Сумма', for: 'amount_input'
-            .input-group
-              = form.text_field :amount, id: "amount_input", class: 'form-control', value: '27'
-              .input-group-append
-                %span.input-group-text#sum-byn BYN
-          = form.submit 'Перейти к оплате', class: 'button btn btn-primary'
+        .row
+          .col-lg-4
+            = form_with url: member_checkout_path(@member) do |form|
+              .form-group
+                = form.label :full_name, 'Участник', for: 'full_name_input'
+                = form.text_field :full_name,
+                                  id: 'full_name_input',
+                                  class: 'form-control',
+                                  value: @member.full_name,
+                                  disabled: true
+              .form-group
+                = form.label :card_number, 'Номер билета', for: 'card_number_input'
+                = form.text_field :card_number,
+                                  id: 'card_number_input',
+                                  class: 'form-control',
+                                  value: @member.card_number,
+                                  disabled: true
+              .form-group
+                = form.label :amount, 'Сумма', for: 'amount_input'
+                .input-group
+                  = form.text_field :amount, id: "amount_input", class: 'form-control', value: '27'
+                  .input-group-append
+                    %span.input-group-text#sum-byn BYN
+              = form.submit 'Перейти к оплате', class: 'button btn btn-primary'
 
