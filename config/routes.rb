@@ -10,16 +10,12 @@ MvoCRM::Application.routes.draw do
   get "pages/help"
 
   post "payments/remind_debtors"
-  get "payments/import_hg"
   get "payments/hg_notify"
-  post "payments/parse_hg"
   resources :payments
   get "payments/new/:for_member(.:format)" => 'payments#new', :as => :new_payment_for
 
   get "members/send_test_email"
   get "members/count"
-  get "members/import_mail"
-  post "members/parse_mail"
   post "members/accept_selected"
   post "members/register"
   get "members/:id/pay" => "members#pay", as: 'member_pay'

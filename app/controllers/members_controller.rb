@@ -61,33 +61,6 @@ class MembersController < ApplicationController
     end
   end
 
-  def import_mail
-    @title = "Import member from mail"
-    respond_to do |format|
-      format.html
-    end
-  end
-
-  def parse_mail
-    text = params[:mail_text]
-
-    @member = parse_new_member_mail(text)
-
-    respond_to do |format|
-      if params[:auto]
-        if @member.save
-          format.json { render json: @member, status: :created }
-        else
-          format.json { render json: @member.errors, status: :unprocessable_entity }
-        end
-
-        CrmMailer.member_parsed_email(@member, text).deliver_later
-      else
-        format.html { render 'new' }
-      end
-    end
-  end
-
   # GET /members/new
   # GET /members/new.json
   def new
@@ -245,91 +218,6 @@ class MembersController < ApplicationController
 
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-  end
-
-  def parse_new_member_mail(text)
-    member = Member.new
-    text.gsub!(/(\n|\r)([а-я0-9a-z-])/, ' \2')
-    t = text.split(/\n|\r/)
-
-    logger.debug text
-
-    payment_date = nil
-
-    state = nil
-
-    t.each do |line|
-      line.chomp!
-
-      if line =~ /Дата оплаты\s*:\s*(.*)$/
-        payment_date = Date.strptime($1, '%d.%m.%Y')
-        state = nil
-        next
-      end
-
-      if line =~ /ФИО:\s*(.*)$/
-        member.last_name, member.given_names = $1.split(' ', 2)
-        state = nil
-        next
-      end
-
-      if line =~ /Email:\s*(.*)$/
-        member.email = $1
-        state = nil
-        next
-      end
-
-      if line =~ /Дата рождения:\s*(.*)$/
-        member.date_of_birth = Date.strptime($1, '%d.%m.%Y')
-        state = nil
-        next
-      end
-
-      if line =~ /Адрес регистрации \(прописки\):\s*(.*)$/
-        member.address = $1
-        state = :registration_address
-        next
-      end
-
-      if line =~ /Адрес для почтовых отправлений:\s*(.*)$/
-        member.postal_address = $1
-        state = :postal_address
-        next
-      end
-
-      if line =~ /Телефон:\s*(.*)$/
-        member.phone = $1.gsub(/\s|-/, '')
-        state = nil
-        next
-      end
-
-      if line =~ /Предпочитаемое имя аккаунта на сайте bike.org.by \(никнейм\):\s*(.*)/
-        member.site_user = $1
-        state = :site_user
-        next
-      end
-
-      if line.blank?
-        state = nil
-        next
-      end
-
-      case state
-      when :postal_address
-        member.postal_address += ' ' + line
-      when :registration_address
-        member.address += ' ' + line
-      when :site_user
-        member.site_user += ' ' + line
-      end
-    end
-
-    payments = Payment.where(member_id: nil, date: payment_date, user_account: member.date_of_birth.strftime('%d%m%Y'))
-    if payments.size == 1
-      member.payments << payments.first
-    end
-
-    member
   end
 
   def set_member
