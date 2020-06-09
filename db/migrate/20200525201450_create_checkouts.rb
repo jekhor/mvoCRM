@@ -10,8 +10,8 @@ class CreateCheckouts < ActiveRecord::Migration[6.0]
       t.string :customer
       t.text :raw_status
       t.string :uid
-      t.belongs_to :member, foreign_key: true, null: true
-      t.belongs_to :payment, foreign_key: true, null: true
+      t.belongs_to :member, type: :integer, foreign_key: true, null: true
+      t.belongs_to :payment, type: :integer, foreign_key: true, null: true
 
       t.timestamps
     end
