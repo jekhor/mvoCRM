@@ -45,10 +45,11 @@ class CheckoutsController < ApplicationController
       end
       p.member = @checkout.member
       p.checkout = @checkout
+      p.payment_type = 'membership'
       p.amount = @checkout.amount
       p.date = Date.today
-      p.start_date = Date.today
-      p.end_date = 1.year.since
+      p.fill_start_date!
+      p.end_date = p.start_date + 1.year - 1.day
       p.number = @checkout.uid || "checkout_#{@checkout.id}"
 
       unless p.save

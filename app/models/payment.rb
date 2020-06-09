@@ -23,6 +23,16 @@ class Payment < ApplicationRecord
     user_account
   end
 
+  def fill_start_date!
+    self.start_date = self.date
+    unless self.member.nil?
+      last_date = self.member.paid_upto
+      if last_date > 3.month.ago
+        self.start_date = last_date + 1.day
+      end
+    end
+  end
+
   private
   
   def member_name

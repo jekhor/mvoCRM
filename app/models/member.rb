@@ -132,6 +132,10 @@ class Member < ApplicationRecord
     self.given_names.split(/\s/, 2)[0]
   end
 
+  def neophyte?
+    self.payments.empty?
+  end
+
   def card_number_str
     unless self.card_number.nil?
       sprintf("%06d", self.card_number)
@@ -145,8 +149,12 @@ class Member < ApplicationRecord
     p.nil?
   end
 
+  def last_payment
+    self.payments.order(:date).last
+  end
+
   def last_payment_date
-    p = self.payments.last
+    p = self.last_payment
     if p.nil?
       nil
     else
@@ -155,7 +163,7 @@ class Member < ApplicationRecord
   end
 
   def last_payment_amount
-    p = self.payments.last
+    p = last_payment
     if p.nil?
       nil
     else
@@ -164,7 +172,7 @@ class Member < ApplicationRecord
   end
 
   def paid_upto
-    p = self.payments.last
+    p = self.payments.order(:end_date).last
     if p.nil?
       nil
     else

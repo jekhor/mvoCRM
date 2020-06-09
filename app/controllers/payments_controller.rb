@@ -161,18 +161,9 @@ class PaymentsController < ApplicationController
 
     p.member = m
 
-    unless p.member.nil?
-      last_payment = m.payments.order(:end_date).last
-      if last_payment.nil?
-        p.start_date = p.member.join_date unless p.member.join_date.blank?
-      else
-        p.start_date = Date.today.beginning_of_year
-      end
-    end
-
     unless p.payment_type == 'donation'
-      p.start_date = p.date if p.start_date.nil?
-      p.end_date = p.start_date.end_of_year unless p.start_date.nil?
+      p.fill_start_date!
+      p.end_date = p.start_date + 1.year - 1.day
     end
 
     if p.save
