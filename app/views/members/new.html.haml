@@ -1,0 +1,14 @@
+%h1 Вступление в МВО
+
+= simple_form_for(@member) do |f|
+  .row
+    .col-lg-4
+      = f.input :given_names
+      = f.input :last_name
+      = f.input :phone
+      = f.input :email
+      = f.input :date_of_birth, as: :date_picker
+  .row
+    .col-lg-4
+      .actions
+        = f.submit class: 'btn btn-primary'

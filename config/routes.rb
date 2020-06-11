@@ -18,6 +18,7 @@ MvoCRM::Application.routes.draw do
   get "members/count"
   post "members/accept_selected"
   post "members/register"
+  post "members/register_new"
   get "members/:id/pay" => "members#pay", as: 'member_pay'
   get "members/pay" => "members#pay"
   post "members/:id/checkout" => "members#checkout", as: 'member_checkout'

@@ -64,7 +64,7 @@ class MembersController < ApplicationController
   # GET /members/new
   # GET /members/new.json
   def new
-    @title = "New Member"
+    @title = "Заявка на вступление"
     @member = Member.new
     @member.phone = "+375"
     @member.card_number = Member.last_card_number + 1
@@ -152,6 +152,35 @@ class MembersController < ApplicationController
     respond_to do |format|
       format.html {render layout: false}
     end
+  end
+
+  # POST /members/register_new
+  def register_new
+    @member = Member.new(
+      last_name: params[:last_name],
+      given_names: params[:name],
+      email: params[:email],
+      phone: params[:phone],
+      date_of_birth: params[:date_of_birth],
+      photo_url: params[:photo_url],
+      subscribe_to_mails: params[:subscribe_to_mails]
+    )
+
+    @member.join_date = Date.today
+    @member.card_number = Member.last_card_number + 1
+
+    respond_to do |format|
+      if @member.save
+        CrmMailer.with(member: @member.serializable_hash).notify_about_registration.deliver_later
+
+        format.html { redirect_to member_pay_path(@member), notice: 'Участник успешно зарегистрирован' }
+        format.json { render json: @member, status: :created, location: @member }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @member.errors, status: :unprocessable_entity }
+      end
+    end
+
   end
 
   # GET /members/1/pay

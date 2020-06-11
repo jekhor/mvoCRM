@@ -37,6 +37,7 @@ class Ability
     can [:return, :notify], Checkout
 
     if user.nil?
+      can :register_new, Member
       can :register, Member
       return
     end
