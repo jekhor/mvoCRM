@@ -131,17 +131,14 @@ class MembersController < ApplicationController
   # POST /members/register
   def register
     @member = Member.new(
+      last_name: params[:last_name],
+      given_names: params[:name],
       email: params[:email],
       phone: params[:phone],
       date_of_birth: params[:date_of_birth],
       photo_url: params[:photo_url],
       subscribe_to_mails: params[:subscribe_to_mails]
     )
-
-    name_elements = ['', '']
-    name_elements = params[:name].split(/\s+/).map {|x| x.capitalize} if params[:name]
-    @member.last_name = name_elements.last
-    @member.given_names = name_elements[0..-2].join(' ')
 
     @member.join_date = Date.today
     @member.card_number = Member.last_card_number + 1
