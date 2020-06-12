@@ -253,10 +253,14 @@ class MembersController < ApplicationController
   def member_params
     permitted = [:address, :email, :phone, :postal_address]
 
-    permitted += [:date_of_birth, :given_names, :last_name,
-                  :card_number, :site_user, :join_date,
-                  :membership_paused, :membership_pause_note,
-                  :photo_url] if can? :manage, @member
+    if can?(:manage, Member) then
+      permitted += [:date_of_birth, :given_names, :last_name,
+                    :card_number, :site_user, :join_date,
+                    :membership_paused, :membership_pause_note,
+                    :photo_url]
+    else
+      permitted += [:date_of_birth, :given_names, :last_name, :photo_url] if action_name == "create"
+    end
 
     params.require(:member).permit permitted
   end
