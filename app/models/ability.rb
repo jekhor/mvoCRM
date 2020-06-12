@@ -39,6 +39,7 @@ class Ability
     if user.nil?
       can :register_new, Member
       can :register, Member
+      can :create, Member
       return
     end
 

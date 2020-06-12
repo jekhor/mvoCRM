@@ -92,7 +92,7 @@ class MembersController < ApplicationController
 
     respond_to do |format|
       if @member.save
-        format.html { redirect_to new_payment_for_url(@member), notice: 'Member was successfully created.' }
+        format.html { redirect_to member_pay_path(@member), notice: 'Участник успешно зарегистрирован' }
         format.json { render json: @member, status: :created, location: @member }
       else
         format.html { render action: "new" }
