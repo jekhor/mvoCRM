@@ -13,16 +13,16 @@
         = link_to pages_home_path, class: 'navbar-brand' do
           = image_tag("logo.png", :alt => "MVO CRM", :class => "round")
         %ul.navbar-nav
-          %li.nav-item= link_to "Home", root_path, class: 'nav-link'
-          %li.nav-item= link_to "Члены", members_path, class: 'nav-link'
-          %li.nav-item= link_to "Платежи", payments_path, class: 'nav-link'
           - if admin_signed_in?
+            %li.nav-item= link_to "Home", root_path, class: 'nav-link'
+            %li.nav-item= link_to "Члены", members_path, class: 'nav-link'
+            %li.nav-item= link_to "Платежи", payments_path, class: 'nav-link'
             %li.nav-item.float-xs-right= link_to "Выйти (адм. #{current_admin.email})", destroy_admin_session_path, :method => :delete, class: 'nav-link'
           - else
             - if member_signed_in?
               %li.nav-item.float-xs-right= link_to "Выйти (#{current_member.email})", destroy_member_session_path, :method => :delete, class: 'nav-link'
             - else
-              %li.nav-item.float-xs-right= link_to "Войти", new_admin_session_path, class: 'nav-link'
+              %li.nav-item.float-xs-right= link_to "Войти", new_member_session_path, class: 'nav-link'
 
     %header
       .container
