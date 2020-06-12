@@ -92,6 +92,8 @@ class MembersController < ApplicationController
 
     respond_to do |format|
       if @member.save
+        CrmMailer.with(member: @member.serializable_hash).notify_about_registration.deliver_later
+
         format.html { redirect_to member_pay_path(@member), notice: 'Участник успешно зарегистрирован' }
         format.json { render json: @member, status: :created, location: @member }
       else
