@@ -29,7 +29,7 @@ class Payment < ApplicationRecord
 
     unless self.member.nil?
       last_date = self.member.paid_upto
-      if last_date > 3.month.ago
+      if !last_date.nil? and last_date > 3.month.ago
         self.start_date = last_date + 1.day
       end
       self.end_date = self.start_date + 1.year - 1.day
