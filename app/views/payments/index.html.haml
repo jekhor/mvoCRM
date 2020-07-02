@@ -1,34 +1,35 @@
-%h1 Платежи
-= link_to 'Новый платёж', new_payment_path
-%table.table.table-striped
-  %thead
-    %tr
-      %th
-      %th Type
-      %th Card #
-      %th Member
-      %th= sortable 'date'
-      %th= 'Number'
-      %th= sortable 'amount'
-      %th= sortable 'start_date'
-      %th= sortable 'end_date'
-      %th= sortable 'note'
-      %th
-      %th
-      %th
-    %tbody
-      - @payments.each_with_index do |payment, i|
-        %tr
-          %td= i+1
-          %td= payment_type_human(payment.payment_type) unless payment.payment_type.nil?
-          %td= payment.member.card_number_str unless payment.member.nil?
-          %td= payment.member.full_name unless payment.member.nil?
-          %td= payment.date
-          %td= payment.number
-          %td= payment.amount
-          %td= payment.start_date
-          %td= payment.end_date
-          %td= payment.note[0..20] unless payment.note.nil?
-          %td= link_to 'Show', payment
-          %td= link_to 'Edit', edit_payment_path(payment)
-          %td= link_to 'Destroy', payment, data: {confirm: 'Вы уверены?'}, method: :delete
+.row
+  %h1 Платежи
+.row
+  = link_to 'Новый платёж', new_payment_path
+  &nbsp;|&nbsp;
+  = link_to 'Экспорт списка в CSV', payments_path(:csv)
+.row
+  %table.table.table-striped
+    %thead
+      %tr
+        %th
+        %th Тип
+        %th Номер билета
+        %th Участник
+        %th= sortable 'date'
+        %th Номер
+        %th= sortable 'amount'
+        %th= sortable 'start_date'
+        %th= sortable 'end_date'
+        %th= sortable 'note'
+        %th
+      %tbody
+        - @payments.each_with_index do |payment, i|
+          %tr
+            %td= i+1
+            %td= payment_type_human(payment.payment_type) unless payment.payment_type.nil?
+            %td= payment.member.card_number_str unless payment.member.nil?
+            %td= payment.member.full_name unless payment.member.nil?
+            %td= payment.date
+            %td= payment.number
+            %td= payment.amount
+            %td= payment.start_date
+            %td= payment.end_date
+            %td= payment.note[0..20] unless payment.note.nil?
+            %td= link_to 'Просмотр', payment

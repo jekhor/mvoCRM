@@ -3,6 +3,7 @@
 <%= render 'form' %>
 
 <div class="span-24 last">
-  <%= link_to 'Show', @payment %> |
-  <%= link_to 'Payments', payments_path %>
+  <%= link_to 'Просмотр', @payment %> |
+  <%= link_to 'Удалить', @payment, data: {confirm: 'Вы уверены?'}, method: :delete %> |
+  <%= link_to 'Список платежей', payments_path %>
 </div>
