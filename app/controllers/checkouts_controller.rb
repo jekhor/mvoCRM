@@ -52,10 +52,16 @@ class CheckoutsController < ApplicationController
       p.number = @checkout.uid || "checkout_#{@checkout.id}"
 
       unless p.save
+        CrmMailer.with(
+          subject: 'Проблема обработки платежа по карте',
+          message: "Ошибка сохранения платежа по карте.\n Платёж: " +
+            p.pretty_inspect
+        ).admin_message.deliver_later
         logger.error p.inspect
         logger.error p.errors.inspect
         raise "Cannot save payment"
       end
+      CrmMailer.thank_for_payment(p).deliver_later
     end
   end
 

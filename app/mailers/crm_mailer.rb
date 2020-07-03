@@ -59,6 +59,11 @@ class CrmMailer < ActionMailer::Base
     notify_member(member, "МВО: напоминание об уплате членского взноса")
   end
 
+  def admin_message
+    @message = params[:message]
+    mail(to: mailer_options[:admin_email], subject: params[:subject])
+  end
+
   def test_email(text)
     @text = text
 #    mail(to: mailer_options[:admin_email]).deliver_now
