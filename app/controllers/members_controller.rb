@@ -90,9 +90,13 @@ class MembersController < ApplicationController
       @member.site_user = nil
     end
 
+    @member.join_date = Date.today if @member.join_date.blank?
+    @member.card_number = Member.last_card_number + 1 if @member.card_number.blank?
+
     respond_to do |format|
       if @member.save
         CrmMailer.with(member: @member.serializable_hash).notify_about_registration.deliver_later
+        CrmMailer.with(member: @member).greet_new_member.deliver_later
 
         format.html { redirect_to member_pay_path(@member), notice: 'Участник успешно зарегистрирован' }
         format.json { render json: @member, status: :created, location: @member }

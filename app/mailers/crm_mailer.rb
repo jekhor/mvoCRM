@@ -40,6 +40,12 @@ class CrmMailer < ActionMailer::Base
          subject: "Обработана анкета (#{@member.given_names} #{@member.last_name}): #{success}")
   end
 
+  def greet_new_member
+    member = params[:member]
+
+    notify_member(member, "МВО: Добро пожаловать!")
+  end
+
   def thank_for_payment(payment)
     return if payment.member.nil? or payment.member.email.blank?
     @payment = payment
@@ -67,10 +73,8 @@ class CrmMailer < ActionMailer::Base
 
     if mailer_options[:deliver_to_users]
       @to = "#{member.full_name} <#{member.email}>"
-      cc = mailer_options[:admin_email]
     else
       @to = mailer_options[:admin_email]
-      cc = nil
     end
 
     mail(to: @to, cc: nil, subject: subj)

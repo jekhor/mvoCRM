@@ -1,0 +1,17 @@
+<% unless Rails.configuration.crm_mailer_options[:deliver_to_users] -%>
+Адресат: <%= raw "#{@member.full_name} <#{@member.email}>" %>
+
+<% end -%>
+Здравствуйте, <%= @member.first_name %>!
+
+Приветствуем вас в рядах Минского велосипедного общества!
+
+Вы уже с нами, но не забудьте оплатить членский взнос ;) Если вы этого ещё не
+сделали, то вот ссылка: https://crm.bike.org.by/members/<%= @member.id %>/pay
+
+Номер вашего будущего членского билета: <%= @member.card_number %>
+
+По всем вопросам, связанным с членством в МВО, пишите нам на membership@bike.org.by.
+
+-- 
+ОО "Минское велосипедное общество"
