@@ -257,7 +257,7 @@ class MembersController < ApplicationController
   end
 
   def member_params
-    permitted = [:address, :email, :phone, :postal_address]
+    permitted = [:address, :email, :phone, :postal_address, :photo]
 
     if can?(:manage, Member) then
       permitted += [:date_of_birth, :given_names, :last_name,

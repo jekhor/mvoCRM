@@ -1,8 +1,7 @@
 %table.member_info{:summary => "Member information"}
   %tr
     %td.main
-      = image_tag member.avatar_url(:medium), class: 'rounded' if member.photo_url.blank?
-      = image_tag member.photo_url, class: 'rounded', width: "100%" unless member.photo_url.blank?
+      = image_tag member.avatar_url(:medium), class: 'rounded'
       %h2= "#{member.last_name} #{member.given_names}"
     %td.sidebar.round
       %strong Name

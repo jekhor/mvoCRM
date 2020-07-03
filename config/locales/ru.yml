@@ -34,6 +34,7 @@ ru:
         membership_paused: "Членство приостановлено"
         membership_pause_note: "Пояснение к приостановке членства"
         photo_url: "URL фотографии"
+        photo: "Фото"
         subscribe_to_mails: "Подписка на рассылку"
       payment:
         date: "Дата"
@@ -42,6 +43,12 @@ ru:
         end_date: "Дата конца"
         note: "Примечание"
         number: "Номер платежа"
+    errors:
+      models:
+        member:
+          attributes:
+            photo:
+              content_type: "Неправильный тип файла, принимаются только изображения"
   will_paginate:
     previous_label: "&#8592;"
     next_label: "&#8594;"

@@ -11,24 +11,24 @@
   .row
     .col-lg-4
     .col-lg-4
-      = image_tag @member.photo_url, width: "100%" unless @member.photo_url.blank?
       = image_tag @member.avatar_url(:medium), class: 'rounded' if @member.photo_url.blank?
+      = f.input :photo, label: 'Фото (заменить существующее):'
+  .row
     .col-lg-4
-  .row
-    .col-lg-8
-      = f.input :photo_url
-  .row
-    .col-lg-3
       = f.input :last_name, disabled: restricted
       = f.input :phone, :as => :phone
-      = f.input :address
-    .col-lg-3
+    .col-lg-5
       = f.input :given_names, disabled: restricted
       = f.input :email, disabled: restricted
-    .col-lg-2
+    .col-lg-3
       = f.input :date_of_birth, :as => :date_picker, disabled: restricted
       = f.input :card_number, input_html: { size: 6 }, disabled: restricted
+  .row
+    .col-lg-9
+      = f.input :address
+    .col-lg-3
       = f.input :join_date, :as => :date_picker, disabled: restricted
+
   - if can? :manage, Member
     .row
       .col-lg-3

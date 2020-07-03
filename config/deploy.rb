@@ -27,7 +27,7 @@ set :user, 'mvo'          # Username in the server to SSH to.
 # set :shared_dirs, fetch(:shared_dirs, []).push('public/assets')
 # set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/secrets.yml')
 
-set :shared_dirs, fetch(:shared_dirs, []).push('tmp/pids', 'tmp/sockets', 'public/uploads')
+set :shared_dirs, fetch(:shared_dirs, []).push('tmp/pids', 'tmp/sockets', 'public/uploads', 'storage')
 set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/secrets.yml')
 
 # This task is the environment that is loaded for all remote run commands, such as

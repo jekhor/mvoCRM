@@ -62,6 +62,7 @@ class Member < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :payments, dependent: :nullify
+  has_one_attached :photo
 
 #  attr_accessible :given_names, :last_name, :date_of_birth, :address, :email, :phone
 #  attr_accessible :card_number
@@ -85,6 +86,8 @@ class Member < ApplicationRecord
   validates :membership_pause_note, :presence => {:if => :membership_paused}
 
   validates :photo_url, http_url: {allow_blank: true}
+
+  validates :photo, blob: { content_type: :image }
 
   before_validation :set_nil
   before_save :set_nil
@@ -181,15 +184,25 @@ class Member < ApplicationRecord
   end
 
   def avatar_url(style)
+    s = []
+    case style
+    when :thumb
+      s = [60, 60]
+    when :medium
+      s = [200, 200]
+    end
+
+    if photo.attached?
+      if s.empty?
+        return photo
+      else
+        return photo.variant(resize_to_limit: s)
+      end
+    end
     return photo_url unless photo_url.blank?
 
     hash = Digest::MD5.hexdigest(self.email.to_s.downcase)
-    size = if style == :thumb
-             '60x60'
-           else
-             style == :medium ? '200x200' : ''
-           end
-    "https://gravatar.com/avatar/#{hash}?d=robohash&size=#{size}"
+    "https://gravatar.com/avatar/#{hash}?d=robohash&size=#{s.join('x')}"
   end
 
   def admin?

@@ -9,6 +9,9 @@ gem 'bootsnap'
 gem 'listen'
 gem 'haml-rails'
 gem 'cancancan', github: 'CanCanCommunity/cancancan', branch: 'feature/3.0.0'
+gem 'activestorage-validator'
+gem 'image_processing'
+
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
