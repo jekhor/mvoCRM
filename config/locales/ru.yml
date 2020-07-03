@@ -23,7 +23,7 @@ ru:
         date_of_birth: "Дата рождения"
         debtor?: "Должник?"
         email: "E-mail"
-        given_names: "Имя"
+        given_names: "Имя, отчество"
         last_name: "Фамилия"
         payments: "Платежи"
         phone: "Телефон"
