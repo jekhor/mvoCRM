@@ -72,6 +72,7 @@ Rails.application.configure do
 #    enable_starttls_auto: true
 #  }
 
+  config.action_mailer.default_url_options = {host: 'localhost'}
   config.action_mailer.perform_deliveries = true
   config.crm_mailer_options = { admin_email: ["jek@localhost"], deliver_to_users: false }
 

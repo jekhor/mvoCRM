@@ -121,6 +121,7 @@ Rails.application.configure do
 #    enable_starttls_auto: true
 #  }
 
+  config.action_mailer.default_url_options = {host: 'crm.bike.org.by'}
   config.action_mailer.perform_deliveries = true
   config.crm_mailer_options = { admin_email: "jekhor@bike.org.by", deliver_to_users: true }
 
