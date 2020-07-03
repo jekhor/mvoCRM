@@ -61,7 +61,7 @@ class Member < ApplicationRecord
   devise :database_authenticatable, #, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :payments
+  has_many :payments, dependent: :nullify
 
 #  attr_accessible :given_names, :last_name, :date_of_birth, :address, :email, :phone
 #  attr_accessible :card_number
