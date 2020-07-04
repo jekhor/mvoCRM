@@ -12,7 +12,9 @@
     .col-lg-4
     .col-lg-4
       = image_tag @member.avatar_url(:medium), class: 'rounded' if @member.photo_url.blank?
-      = f.input :photo, label: 'Фото (заменить существующее):'
+      = f.input :photo, as: :file,
+        label: 'Фото (заменить существующее):',
+        input_html: { data: { direct_upload_url: rails_direct_uploads_url }}
   .row
     .col-lg-4
       = f.input :last_name, disabled: restricted
