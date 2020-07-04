@@ -13,12 +13,12 @@
         %th Система
         %th Номер билета
         %th Участник
-        %th= sortable 'date'
+        %th= sortable 'date', Payment.human_attribute_name('date')
         %th Номер
-        %th= sortable 'amount'
-        %th= sortable 'start_date'
-        %th= sortable 'end_date'
-        %th= sortable 'note'
+        %th= sortable 'amount', Payment.human_attribute_name('amount')
+        %th= sortable 'start_date', Payment.human_attribute_name('start_date')
+        %th= sortable 'end_date', Payment.human_attribute_name('end_date')
+        %th= sortable 'note', Payment.human_attribute_name('note')
         %th
       %tbody
         - @payments.each_with_index do |payment, i|
