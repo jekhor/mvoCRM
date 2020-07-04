@@ -1,60 +1,66 @@
-%table.member_info{:summary => "Member information"}
-  %tr
-    %td.main
-      = image_tag member.avatar_url(:medium), class: 'rounded'
-      %h2= "#{member.last_name} #{member.given_names}"
-    %td.sidebar.round
-      %strong Name
-      = member.given_names
-      = member.last_name
-      %br/
-      %strong Date of birth
-      = member.date_of_birth
-      %br/
-      %strong Address
-      = member.address
-      %br/
-      - if member.membership_paused
-        %strong Membership is paused!
-        Cause: #{member.membership_pause_note}
-        %br/
-      - unless member.postal_address.blank?
-        %strong Postal address
-        = member.postal_address
-        %br/
-      %strong Phone
-      = member.phone
-      %br/
-      %strong e-mail
-      = member.email
-      %br/
-      %strong URL фото:
-      = member.photo_url
-      %br/
-      - unless member.site_user.nil? or member.site_user.blank?
-        %strong Site user
-        = link_to member.site_user, "http://bike.org.by/users/#{member.site_user_normalized}"
-        %br/
-      %strong Дата вступления:
-      = member.join_date
-      %br/
-      %strong Подписка на рассылку:
-      = member.subscribe_to_mails ? "да" : "нет"
-      %br/
-      %strong Payments:
-      %br/
-      = link_to 'Pay', member_pay_path(member)
-      %br/
-      %table.table
-        %tr
-          %th Date
-          %th Amount
-          %th Period start
-          %th Period end
-        - member.payments.each do |payment|
-          %tr
-            %td= payment.date
-            %td= payment.amount
-            %td= payment.start_date
-            %td= payment.end_date
-= link_to 'Edit', edit_member_path(member)
+.row
+  .col-lg-4
+    .row
+      .col-lg-12
+        = image_tag member.avatar_url(:medium), class: 'rounded'
+    .row
+      .col-lg-12
+        %h4= member.card_number_str
+    .row
+      .col-lg-12
+        = link_to 'Редактировать данные', edit_member_path(member)
+
+  .col-lg-8
+    .row
+      .col-lg-12
+        %h2= member.full_name
+    .row
+      .col-lg-4
+        %strong e-mail
+      .col-lg-6
+        = member.email
+    .row
+      .col-lg-4
+        %strong Дата рождения
+      .col-lg-6
+        = member.date_of_birth
+    .row
+      .col-lg-4
+        %strong Телефон
+      .col-lg-6
+        = member.phone
+    .row
+      .col-lg-4
+        %strong Дата вступления
+      .col-lg-6
+        = member.join_date
+    .row
+      .col-lg-4
+        %strong Адрес регистрации
+      .col-lg-6
+        = member.address
+
+    .row.mt-5
+      .col-lg-4
+        %h5 Членские взносы
+      .col-lg-6
+      .col-lg-1
+        = link_to 'Заплатить', member_pay_path(member)
+
+    .row
+      .col-lg-12
+        %table.table.table-striped
+          %thead
+            %tr
+              %th Дата
+              %th Сумма
+              %th Начало периода
+              %th Конец периода
+          %tbody
+            - member.payments.each do |payment|
+              %tr
+                %td= payment.date
+                %td= payment.amount
+                %td= payment.start_date
+                %td= payment.end_date
+

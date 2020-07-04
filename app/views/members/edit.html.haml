@@ -1,0 +1,8 @@
+.row
+  %h1 Редактирование данных
+
+= render 'form'
+
+.row
+  .col-lg-12
+    = link_to t(:destroy), @member, data: { confirm: 'Are you sure?' }, method: :delete if can? :delete, Member

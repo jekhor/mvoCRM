@@ -195,7 +195,7 @@ class Member < ApplicationRecord
     when :thumb
       s = [60, 60]
     when :medium
-      s = [200, 200]
+      s = [350, 350]
     end
 
     if photo.attached?
