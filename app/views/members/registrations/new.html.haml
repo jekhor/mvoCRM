@@ -25,6 +25,9 @@
       = f.input :photo
   .row
     .col-lg-4
+      = f.input :subscribe_to_mails
+  .row
+    .col-lg-4
       = f.button :submit, t(".sign_up")
   = f.input :card_number, as: :hidden
   = f.input :join_date, as: :hidden

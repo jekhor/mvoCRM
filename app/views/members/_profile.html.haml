@@ -2,7 +2,7 @@
   .col-lg-4
     .row
       .col-lg-12
-        = image_tag member.avatar_url(:medium), class: 'rounded'
+        = image_tag member.avatar_url(:medium), class: 'rounded', width: '100%'
     .row
       .col-lg-12
         %h4= member.card_number_str
@@ -39,6 +39,11 @@
         %strong Адрес регистрации
       .col-lg-6
         = member.address
+    .row
+      .col-lg-4
+        %strong Подписка на рассылку МВО
+      .col-lg-6
+        = member.subscribe_to_mails ? 'да' : 'нет'
 
     .row.mt-5
       .col-lg-4

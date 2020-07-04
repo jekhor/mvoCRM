@@ -48,7 +48,8 @@ class Members::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(
       :sign_up,
       keys: [:email, :phone, :address, :photo, :date_of_birth,
-             :given_names, :last_name, :card_number, :join_date]
+             :given_names, :last_name, :card_number, :join_date,
+             :subscribe_to_mails]
     )
   end
 

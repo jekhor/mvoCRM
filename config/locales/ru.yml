@@ -56,7 +56,7 @@ ru:
         membership_pause_note: "Пояснение к приостановке членства"
         photo_url: "URL фотографии"
         photo: "Фото"
-        subscribe_to_mails: "Подписка на рассылку"
+        subscribe_to_mails: "Подписка на рассылку МВО"
       payment:
         date: "Дата"
         amount: "Сумма"
