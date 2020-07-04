@@ -13,6 +13,7 @@
 //= require jquery3
 //= require jquery-ui
 //= require jquery_ujs
+//= require activestorage
 //= require bootstrap-sprockets
 //= require moment
 //= require bootstrap-datepicker/core
