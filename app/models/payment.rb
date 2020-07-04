@@ -58,19 +58,20 @@ end
 #
 # Table name: payments
 #
-#  id           :integer          not null, primary key
-#  amount       :decimal(10, 2)   not null
-#  date         :date             not null
-#  end_date     :date
-#  full_name    :string
-#  hg_bill      :json
-#  note         :text
-#  number       :string(255)
-#  payment_type :string(255)
-#  start_date   :date
-#  user_account :string(255)
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  member_id    :integer
+#  id             :integer          not null, primary key
+#  amount         :decimal(10, 2)   not null
+#  date           :date             not null
+#  end_date       :date
+#  full_name      :string
+#  hg_bill        :json
+#  note           :text
+#  number         :string(255)
+#  payment_system :string
+#  payment_type   :string(255)
+#  start_date     :date
+#  user_account   :string(255)
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  member_id      :integer
 #
 

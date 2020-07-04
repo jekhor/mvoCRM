@@ -10,6 +10,7 @@
       %tr
         %th
         %th Тип
+        %th Система
         %th Номер билета
         %th Участник
         %th= sortable 'date'
@@ -24,6 +25,7 @@
           %tr
             %td= i+1
             %td= payment_type_human(payment.payment_type) unless payment.payment_type.nil?
+            %td= payment.payment_system
             %td= payment.member.card_number_str unless payment.member.nil?
             %td= payment.member.full_name unless payment.member.nil?
             %td= payment.date

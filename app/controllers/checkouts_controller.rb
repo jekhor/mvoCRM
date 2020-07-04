@@ -54,6 +54,7 @@ class CheckoutsController < ApplicationController
       p.date = Date.today
       p.fill_dates!
       p.number = @checkout.uid || "checkout_#{@checkout.id}"
+      p.payment_system = 'card'
 
       unless p.save
         CrmMailer.with(

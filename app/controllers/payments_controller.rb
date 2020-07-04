@@ -137,6 +137,7 @@ class PaymentsController < ApplicationController
         p.date = bill[:payedDt]
         p.full_name = bill[:fullName]
         p.hg_bill = bill.to_json
+        p.payment_system = 'erip'
       end
 
     rescue => e

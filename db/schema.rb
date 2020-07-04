@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_04_094226) do
+ActiveRecord::Schema.define(version: 2020_07_04_200329) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(version: 2020_07_04_094226) do
     t.string "payment_type", limit: 255
     t.string "full_name"
     t.json "hg_bill"
+    t.string "payment_system"
   end
 
   create_table "sessions", force: :cascade do |t|
