@@ -28,12 +28,7 @@ class CrmMailer < ActionMailer::Base
   end
 
   def notify_about_registration
-    if params[:member]['id'].nil?
-      @member = Member.new(params[:member])
-      @member.validate
-    else
-      @member = Member.find(params[:member]['id'])
-    end
+    @member = params[:member]
 
     success = @member.id.nil? ? "неудачно" : "успешно"
     mail(to: Rails.configuration.crm_mailer_options[:admin_email],

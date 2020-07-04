@@ -5,6 +5,9 @@
 #  id                     :integer          not null, primary key
 #  address                :string(255)
 #  card_number            :integer
+#  confirmation_sent_at   :datetime
+#  confirmation_token     :string
+#  confirmed_at           :datetime
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :string
 #  date_of_birth          :date
@@ -31,6 +34,7 @@
 #
 # Indexes
 #
+#  index_members_on_confirmation_token    (confirmation_token) UNIQUE
 #  index_members_on_email                 (email) UNIQUE
 #  index_members_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_members_on_site_user             (site_user) UNIQUE
@@ -58,8 +62,8 @@ end
 class Member < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, #, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   has_many :payments, dependent: :nullify
   has_one_attached :photo
@@ -74,7 +78,8 @@ class Member < ApplicationRecord
                           :length => {:maximum => 50}
 #  validates :date_of_birth, :presence => true
 
-  validates :card_number, :inclusion => {:in => 1..999999, :allow_nil => true}
+  validates :card_number, inclusion: {:in => 1..999999, :allow_nil => true},
+                          uniqueness: { allow_nil: true }
 
   email_regex = /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/
 
@@ -91,6 +96,7 @@ class Member < ApplicationRecord
 
   before_validation :set_nil
   before_save :set_nil
+  after_create :notify_admins_for_create
 
   comma do
     last_name
@@ -216,10 +222,14 @@ class Member < ApplicationRecord
   protected
 
   def password_required?
-    false
+    confirmed? ? super : false
   end
 
   private
+
+  def notify_admins_for_create
+    CrmMailer.with(member: self).notify_about_registration.deliver_later
+  end
 
   def set_nil
     self[:email] = nil if self[:email].blank?

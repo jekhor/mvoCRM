@@ -7,6 +7,9 @@
 #  id                     :integer          not null, primary key
 #  address                :string(255)
 #  card_number            :integer
+#  confirmation_sent_at   :datetime
+#  confirmation_token     :string
+#  confirmed_at           :datetime
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :string
 #  date_of_birth          :date
@@ -33,6 +36,7 @@
 #
 # Indexes
 #
+#  index_members_on_confirmation_token    (confirmation_token) UNIQUE
 #  index_members_on_email                 (email) UNIQUE
 #  index_members_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_members_on_site_user             (site_user) UNIQUE

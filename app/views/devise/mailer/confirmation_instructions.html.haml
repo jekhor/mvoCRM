@@ -1,3 +1,22 @@
-%p= t('.greeting', recipient: @email)
+%p
+  Здравствуйте, 
+  = @resource.first_name
+
+%p Приветствуем вас в рядах Минского велосипедного общества!
+
+%p= "Вы уже с нами, но не забудьте оплатить членский взнос ;) Если вы этого ещё не сделали, то вот ссылка: #{link_to 'оплатить', member_pay_url(@resource)}.".html_safe
+
 %p= t('.instruction')
 %p= link_to t('.action'), confirmation_url(@resource, confirmation_token: @token)
+
+%p
+  Номер вашего будущего членского билета:
+  %b
+    = @resource.card_number
+
+%p По всем вопросам, связанным с членством в МВО, пишите нам на membership@bike.org.by.
+
+%p
+  = "-- "
+  %br
+  ОО "Минское велосипедное общество"

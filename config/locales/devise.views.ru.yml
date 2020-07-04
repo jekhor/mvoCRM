@@ -51,9 +51,9 @@ ru:
     mailer:
       confirmation_instructions:
         action: Активировать
-        greeting: Здравствуйте, %{recipient} !
+        greeting: Здравствуйте, %{recipient}!
         instruction: 'Вы можете активировать свою учетную запись, нажав ссылку снизу:'
-        subject: Инструкции по подтверждению учетной записи
+        subject: 'МВО: Добро пожаловать!'
       email_changed:
         greeting: Здравствуйте, %{recipient}!
         message: Мы пытаемся связаться с вами, что бы сообщить, что ваш email был изменен на %{email}.
@@ -80,8 +80,8 @@ ru:
       success: Вход в систему выполнен с учетной записью из %{kind}.
     passwords:
       edit:
-        change_my_password: Изменить мой пароль
-        change_your_password: Изменить пароль
+        change_my_password: Установить мой пароль
+        change_your_password: Выберите пароль
         confirm_new_password: Повторите новый пароль
         new_password: Новый пароль
       new:

@@ -1,5 +1,8 @@
 MvoCRM::Application.routes.draw do
-  devise_for :members, :path_prefix => 'd'
+  devise_for :members, path_prefix: 'd', controllers: {
+    confirmations: 'members/confirmations',
+    registrations: 'members/registrations'
+  }
   devise_for :admins, :path_prefix => 'd'
   resources :admins
 

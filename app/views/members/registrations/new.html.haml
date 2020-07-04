@@ -1,0 +1,31 @@
+%h2= t(".sign_up")
+.row
+  .col-lg-12
+    %p= t(".sign_up_description")
+
+= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+  = f.error_notification
+  .row
+    .col-lg-6
+      = f.input :last_name, autofocus: true
+    .col-lg-6
+      = f.input :given_names
+  .row
+    .col-lg-6
+      = f.input :email, required: true, input_html: { autocomplete: 'email' }
+    .col-lg-6
+      = f.input :date_of_birth, as: :date_picker, required: true
+  .row
+    .col-lg-6
+      = f.input :phone, placeholder: '+37529...'
+    .col-lg-6
+      = f.input :address
+  .row
+    .col-lg-6
+      = f.input :photo
+  .row
+    .col-lg-4
+      = f.button :submit, t(".sign_up")
+  = f.input :card_number, as: :hidden
+  = f.input :join_date, as: :hidden
+

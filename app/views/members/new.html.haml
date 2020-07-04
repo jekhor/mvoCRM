@@ -1,14 +1,19 @@
-%h1 Вступление в МВО
+.row
+  %h1 Вступление в МВО
+.row
+  %p Для вступления в Минское велосипедное общество, пожалуйста, заполните эту анкету.
 
 = simple_form_for(@member) do |f|
   .row
-    .col-lg-4
-      = f.input :given_names
+    .col-lg-6
       = f.input :last_name
-      = f.input :phone
       = f.input :email
-      = f.input :date_of_birth, as: :date_picker
+      = f.input :phone, placeholder: '+37529...'
       = f.input :photo
+    .col-lg-6
+      = f.input :given_names
+      = f.input :date_of_birth, as: :date_picker
+
   .row
     .col-lg-4
       .actions

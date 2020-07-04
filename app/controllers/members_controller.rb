@@ -66,7 +66,6 @@ class MembersController < ApplicationController
   def new
     @title = "Заявка на вступление"
     @member = Member.new
-    @member.phone = "+375"
     @member.card_number = Member.last_card_number + 1
     @member.join_date = Date.today
 
@@ -95,7 +94,6 @@ class MembersController < ApplicationController
 
     respond_to do |format|
       if @member.save
-        CrmMailer.with(member: @member.serializable_hash).notify_about_registration.deliver_later
         CrmMailer.with(member: @member).greet_new_member.deliver_later
 
         format.html { redirect_to member_pay_path(@member), notice: 'Участник успешно зарегистрирован' }
