@@ -1,4 +1,7 @@
 %h2= t(".sign_in")
+%p
+  Если вы ещё ни разу не входили здесь, то клините "Забыли пароль?",
+  запросите сброс пароля и установите новый пароль, перейдя по ссылке в письме.
 = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
   .form-inputs
     .row
