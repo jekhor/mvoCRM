@@ -25,11 +25,11 @@ class MembersController < ApplicationController
 
     case sort_column
     when 'payments'
-      @members = Member.search(params[:search]).accessible_by(current_ability).includes(:payments).all.sort_by {|m| m.payments.size * (sort_direction == 'asc' ? 1 : -1)}.paginate(:page => params[:page])
+      @members = Member.search(params[:search]).accessible_by(current_ability).includes(:payments).all.sort_by {|m| m.payments.size * (sort_direction == 'asc' ? 1 : -1)}.paginate(:page => params[:page], per_page: Member.per_page)
     when 'debtor?'
-      @members = Member.search(params[:search]).accessible_by(current_ability).includes(:payments).all.sort_by {|m| (m.debtor? ? 1 : 0) * (sort_direction == 'asc' ? 1 : -1)}.paginate(:page => params[:page])
+      @members = Member.search(params[:search]).accessible_by(current_ability).includes(:payments).all.sort_by {|m| (m.debtor? ? 1 : 0) * (sort_direction == 'asc' ? 1 : -1)}.paginate(:page => params[:page], per_page: Member.per_page)
     when 'paid_upto'
-      @members = Member.search(params[:search]).accessible_by(current_ability).includes(:payments).all.sort_by {|m| (m.paid_upto.nil? ? 0 : m.paid_upto.to_time.to_i) * (sort_direction == 'asc' ? 1 : -1)}.paginate(:page => params[:page])
+      @members = Member.search(params[:search]).accessible_by(current_ability).includes(:payments).all.sort_by {|m| (m.paid_upto.nil? ? 0 : m.paid_upto.to_time.to_i) * (sort_direction == 'asc' ? 1 : -1)}.paginate(:page => params[:page], per_page: Member.per_page)
     else
       @members = Member.search(params[:search]).accessible_by(current_ability).page(params[:page]).order(sort_column => sort_direction)
     end
