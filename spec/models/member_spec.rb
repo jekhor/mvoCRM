@@ -18,6 +18,7 @@
 #  given_names            :string(255)
 #  join_date              :date
 #  last_name              :string(255)
+#  last_reminded          :date
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string
 #  membership_pause_note  :text

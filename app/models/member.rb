@@ -16,6 +16,7 @@
 #  given_names            :string(255)
 #  join_date              :date
 #  last_name              :string(255)
+#  last_reminded          :date
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string
 #  membership_pause_note  :text
@@ -170,7 +171,7 @@ class Member < ApplicationRecord
   end
 
   def debtor?
-    p = self.payments.where(:end_date => Time.now.to_date..('9999-01-01'.to_date) ).last
+    p = self.payments.where('end_date >= ?', Date.today).last
     p.nil?
   end
 

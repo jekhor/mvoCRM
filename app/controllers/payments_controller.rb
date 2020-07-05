@@ -181,7 +181,7 @@ class PaymentsController < ApplicationController
     @skipped_members_count = 0 # for list rendering
 
     @members.delete_if { |m| !m.debtor? }
-    @members.each { |m| CrmMailer.remind_about_payment(m).deliver_later }
+    @members.each { |m| CrmMailer.with(member: m).remind_about_payment.deliver_later }
 
     respond_to do |format|
       format.html

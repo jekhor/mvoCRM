@@ -48,10 +48,11 @@ class CrmMailer < ActionMailer::Base
     notify_member(payment.member, "Ваш членский взнос в МВО получен")
   end
 
-  def remind_about_payment(member)
-    @last_payment = Payment.where(:member_id => member.id).order("date DESC").first
+  def remind_about_payment
+    @member = params[:member]
+    @last_payment = @member.last_payment
 
-    notify_member(member, "МВО: напоминание об уплате членского взноса")
+    notify_member(@member, "МВО: напоминание об уплате членского взноса")
   end
 
   def admin_message
