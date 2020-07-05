@@ -197,6 +197,12 @@ class MembersController < ApplicationController
       @member = Member.find_by email: params[:email]
     end
 
+    # Fake payment for dates calculation and explanation
+    @new_payment = Payment.new
+    @new_payment.date = Date.today
+    @new_payment.member = @member
+    @new_payment.fill_dates!
+
     respond_to do |format|
       if @member.nil?
         format.html {render action: 'pay_unknown_member'}
