@@ -1,3 +1,7 @@
+- unless @member.nil?
+  %p
+    Билет номер
+    %strong= @member.card_number || "Неизвестно"
 - if @member.nil? or @member.last_payment.nil?
   %p
     %strong Информация о взносах отсутствует
