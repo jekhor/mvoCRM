@@ -87,6 +87,7 @@ GEM
     bootstrap-datepicker-rails (1.9.0.1)
       railties (>= 3.0)
     builder (3.2.4)
+    chronic (0.10.2)
     coffee-rails (5.0.0)
       coffee-script (>= 2.2.0)
       railties (>= 5.2.0)
@@ -306,6 +307,8 @@ GEM
     websocket-driver (0.7.2)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    whenever (1.0.0)
+      chronic (>= 0.6.3)
     will_paginate (3.3.0)
     yaml_db (0.7.0)
       rails (>= 3.0)
@@ -354,6 +357,7 @@ DEPENDENCIES
   unicode
   web-console
   webrat
+  whenever
   will_paginate
   yaml_db
 
