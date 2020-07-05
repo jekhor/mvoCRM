@@ -18,7 +18,7 @@
       %th= sortable 'address', m_attr_name('address')
       %th{width: '11em'}= sortable 'phone', m_attr_name('phone')
       %th= sortable 'join_date', m_attr_name('join_date')
-      %th= t '.paid_upto'
+      %th= sortable 'paid_upto', t('.paid_upto')
       %th= t '.actions'
   %tbody
     - @members.each_with_index do |member, i|

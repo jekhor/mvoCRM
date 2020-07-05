@@ -28,6 +28,8 @@ class MembersController < ApplicationController
       @members = Member.search(params[:search]).accessible_by(current_ability).includes(:payments).all.sort_by {|m| m.payments.size * (sort_direction == 'asc' ? 1 : -1)}.paginate(:page => params[:page])
     when 'debtor?'
       @members = Member.search(params[:search]).accessible_by(current_ability).includes(:payments).all.sort_by {|m| (m.debtor? ? 1 : 0) * (sort_direction == 'asc' ? 1 : -1)}.paginate(:page => params[:page])
+    when 'paid_upto'
+      @members = Member.search(params[:search]).accessible_by(current_ability).includes(:payments).all.sort_by {|m| (m.paid_upto.nil? ? 0 : m.paid_upto.to_time.to_i) * (sort_direction == 'asc' ? 1 : -1)}.paginate(:page => params[:page])
     else
       @members = Member.search(params[:search]).accessible_by(current_ability).page(params[:page]).order(sort_column => sort_direction)
     end
@@ -253,7 +255,7 @@ class MembersController < ApplicationController
   private
 
   def sort_column
-    (%w[payments debtor?] + Member.column_names).include?(params[:sort]) ? params[:sort] : "last_name"
+    (%w[payments debtor? paid_upto] + Member.column_names).include?(params[:sort]) ? params[:sort] : "last_name"
   end
 
   def sort_direction
