@@ -42,9 +42,10 @@
         .row
           .col-lg-4
             = form_with url: member_checkout_path(@member) do |form|
-              .form-group
-                = form.label :full_name, 'Участник', for: 'full_name_input'
-                = form.text_field :full_name,
+              - if member_signed_in?
+                .form-group
+                  = form.label :full_name, 'Участник', for: 'full_name_input'
+                  = form.text_field :full_name,
                                   id: 'full_name_input',
                                   class: 'form-control',
                                   value: @member.full_name,
