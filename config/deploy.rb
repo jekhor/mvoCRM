@@ -3,6 +3,7 @@ require 'mina/git'
 require 'mina/rbenv'  # for rbenv support. (https://rbenv.org)
 # require 'mina/rvm'    # for rvm support. (https://rvm.io)
 require 'mina/puma'
+require './config/deploy/mina-whenever/tasks.rb'
 
 # Basic settings:
 #   domain       - The hostname to SSH to.
@@ -65,6 +66,7 @@ task :deploy do
 #    command %{#{fetch(:rails)} db:seed}
     invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
+    invoke :'whenever:update'
 
     on :launch do
       command %{systemctl --user restart puma-crm.bike.org.by}

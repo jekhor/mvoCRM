@@ -11,6 +11,7 @@ gem 'haml-rails'
 gem 'cancancan', github: 'CanCanCommunity/cancancan', branch: 'feature/3.0.0'
 gem 'activestorage-validator'
 gem 'image_processing'
+gem 'whenever'
 
 
 # Bundle edge Rails instead:
