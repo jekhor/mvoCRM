@@ -1,2 +1,8 @@
-.row.align-items-center.justify-content-center
-  -#= link_to "Войти в личный кабинет", new_member_session_path, class: 'btn btn-lg btn-outline-primary'
+.row
+  .col-lg-4
+    .card
+      .card-body
+        = render 'members/get_shortinfo'
+
+  .col-lg-4
+    = link_to "Войти в личный кабинет", new_member_session_path, class: 'btn btn-lg btn-outline-primary'

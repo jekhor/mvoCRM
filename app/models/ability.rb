@@ -40,6 +40,7 @@ class Ability
       can :register_new, Member
       can :register, Member
       can :create, Member
+      can :get_shortinfo, Member
       return
     end
 

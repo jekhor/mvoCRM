@@ -1,0 +1,13 @@
+- if @member.nil? or @member.last_payment.nil?
+  %p
+    %strong Информация о взносах отсутствует
+- else
+  - p = @member.last_payment
+  - if @member.debtor?
+    %p
+      %strong
+        Взнос истёк. Пожалуйста, не забудьте
+        %a{href: member_pay_path(@member)} оплатить
+  %p
+    %strong Последний взнос:
+    = "#{p.amount} рублей, внесён #{p.date}, действителен по #{p.end_date}"

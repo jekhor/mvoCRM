@@ -1,0 +1,13 @@
+.row
+  .col-lg-12
+    = form_with url:member_get_shortinfo_path, local: false do |f|
+      %fieldset
+        %legend Информация о взносах
+        .form-group
+          = label_tag 'search', 'Номер билета или e-mail'
+          %br/
+          = text_field_tag 'search', '', class: 'form-control'
+        = submit_tag 'Показать', class: 'btn btn-primary'
+.row.mt-2
+  .col-lg-12
+    #search-result

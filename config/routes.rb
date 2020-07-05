@@ -26,6 +26,7 @@ MvoCRM::Application.routes.draw do
   get "members/:id/pay" => "members#pay", as: 'member_pay'
   get "members/pay" => "members#pay"
   post "members/:id/checkout" => "members#checkout", as: 'member_checkout'
+  post "members/get_shortinfo", as: 'member_get_shortinfo'
   resources :members
 
   get 'checkouts/return'

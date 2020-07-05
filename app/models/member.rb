@@ -124,6 +124,22 @@ class Member < ApplicationRecord
     end
   end
 
+  def self.find_by_email_or_card(search)
+    return nil if search.nil?
+
+    s = search.strip
+    if search =~ /^[0-9]+$/
+      card = s.to_i
+      return Member.find_by(card_number: card)
+    end
+
+    if search =~ /^.+@.+$/
+      email = s
+      return Member.find_by(email: email)
+    end
+    nil
+  end
+
   def self.last_card_number
     m = Member.order(card_number: :desc).first
     m.card_number

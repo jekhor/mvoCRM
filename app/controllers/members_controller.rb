@@ -240,6 +240,16 @@ class MembersController < ApplicationController
     CrmMailer.test_email(text).deliver_later
   end
 
+  # POST /members/get_shortinfo
+  def get_shortinfo
+    authorize! :get_shortinfo, Member
+
+    @member = Member.find_by_email_or_card(params[:search])
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
 
   def sort_column
