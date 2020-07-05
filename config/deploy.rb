@@ -66,9 +66,9 @@ task :deploy do
 #    command %{#{fetch(:rails)} db:seed}
     invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
-    invoke :'whenever:update'
 
     on :launch do
+      invoke :'whenever:update'
       command %{systemctl --user restart puma-crm.bike.org.by}
 #      invoke :'puma:phased_restart'
     end
