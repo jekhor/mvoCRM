@@ -15,3 +15,9 @@
   %p
     %strong Последний взнос:
     = "#{p.amount} рублей, внесён #{p.date}, действителен по #{p.end_date}"
+
+  - unless @member.debtor?
+    %p
+      Если хотите, можете
+      %a{href: member_pay_path(@member)} оплатить
+      ещё.
