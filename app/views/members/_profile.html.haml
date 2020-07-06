@@ -71,7 +71,7 @@
               - if admin_signed_in?
                 %th
           %tbody
-            - member.payments.each do |payment|
+            - member.payments.order(date: 'desc').each do |payment|
               %tr
                 %td= payment.date
                 %td= payment.amount
