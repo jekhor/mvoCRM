@@ -68,6 +68,8 @@
               %th Сумма
               %th Начало периода
               %th Конец периода
+              - if admin_signed_in?
+                %th
           %tbody
             - member.payments.each do |payment|
               %tr
@@ -75,4 +77,6 @@
                 %td= payment.amount
                 %td= payment.start_date
                 %td= payment.end_date
+                - if admin_signed_in?
+                  %td= link_to 'Изменить', edit_payment_path(payment)
 

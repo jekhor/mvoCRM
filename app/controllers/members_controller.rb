@@ -57,6 +57,8 @@ class MembersController < ApplicationController
   def show
     @title = "#{@member.last_name} #{@member.given_names}"
 
+    store_location_for(:payment, member_path(@member))
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @member }
