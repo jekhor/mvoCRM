@@ -14,6 +14,13 @@
     .row
       .col-lg-12
         %h2= member.full_name
+    - if member.membership_paused?
+      .row
+        .col-lg-12.text-danger
+          Членство приостановлено (причина:
+          = member.membership_pause_note
+          ).
+
     .row
       .col-lg-4
         %strong e-mail
