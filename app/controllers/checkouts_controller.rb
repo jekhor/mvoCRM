@@ -9,7 +9,7 @@ class CheckoutsController < ApplicationController
 
     respond_to do |format|
       if @checkout.status == 'successful'
-        if can? :read, Member
+        if can? :read, @checkout.member
           format.html { redirect_to member_path(@checkout.member), flash: {success: "Платёж совершён успешно"} }
         else
           format.html { redirect_to new_session_path('member'), flash: {success: "Платёж совершён успешно, войдите в личный кабинет, чтобы увидеть подробности"} }
