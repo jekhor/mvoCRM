@@ -218,14 +218,17 @@ class MembersController < ApplicationController
     sum = BigDecimal(params[:amount])
 
     payproc = PayProcessor.create
+    description = "Членский взнос в МВО, билет №#{@member.card_number}"
+    description += " (#{@member.full_name})" if can? :read, @member
 
     begin
       checkout = payproc.checkout(sum,
         member: @member,
         return_url: checkouts_return_url,
         notification_url: Rails.env.production? ? checkouts_notify_url : nil,
-        description: "Членский взнос в МВО, билет №#{@member.card_number} (#{@member.full_name})",
+        description: description,
         email: @member ? @member.email : nil,
+        restrict_personal_info: cannot?(:read, @member),
       )
     rescue => e
       logger.error "Failed to checkout: #{e.message}"

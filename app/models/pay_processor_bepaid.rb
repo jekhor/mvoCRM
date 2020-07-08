@@ -13,12 +13,15 @@ class PayProcessorBepaid < PayProcessor
     raise 'Description should not be blank' if options[:description].blank?
 
     member = options[:member]
+    restrict_personal_info = options[:restrict_personal_info]
+
+    visible_fields = ['email']
+    visible_fields += ['first_name', 'last_name'] unless restrict_personal_info
 
     test_mode = Rails.env.production? ? false : true
     return_url = options[:return_url]
     ro_fields = []
-    ro_fields << 'email' unless member.nil?
-    ro_fields += ['first_name', 'last_name'] unless member.nil?
+    ro_fields += ['email', 'first_name', 'last_name'] unless restrict_personal_info
 
     checkout_request = {
       checkout: {
@@ -40,19 +43,17 @@ class PayProcessorBepaid < PayProcessor
           button_next_text: "Вернуться на сайт МВО",
           language: 'ru',
           customer_fields: {
-            visible: ['email', 'last_name', 'first_name'],
+            visible: visible_fields,
             read_only: ro_fields,
           },
         },
         customer: {
-          email: member ? member.email : nil,
+          email: (member and !restrict_personal_info) ? member.email : nil,
           last_name: member ? member.last_name : nil,
           first_name: member ? member.given_names : nil,
         }
       },
     }
-
-    STDERR.puts checkout_request
 
     res = @bepaid.post_checkout(checkout_request)
     raise "BePaid checkout error: #{res['message']}" if res.include? 'errors' or !res.include? 'checkout'
