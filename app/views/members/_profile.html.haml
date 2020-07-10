@@ -3,6 +3,10 @@
     .row
       .col-lg-12
         = image_tag member.avatar_url(:medium), class: 'rounded', width: '100%'
+    - if admin_signed_in?
+      .row
+        .col-lg-12
+          %small= link_to 'Оригинальный размер', member.avatar_url(:original)
     .row
       .col-lg-12
         %h4= member.card_number_str
