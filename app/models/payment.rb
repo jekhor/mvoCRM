@@ -23,13 +23,21 @@ class Payment < ApplicationRecord
     user_account
   end
 
+  # Алгоритм: взнос действует год с момента уплаты или с момента окончания
+  # предыдущего взноса.
+  #
+  # Если заплатили раньше, чем за месяц до конца предыдущего взноса — то не
+  # продлеваем, считаем пожертвованием.
+  #
+  # Если заплатили раньше, чем через месяц после окончания предыдущего —
+  # отсчитываем от конца предыдущего.
   def fill_dates!
     self.start_date = self.date
     self.end_date = self.date + 1.year - 1.day
 
     unless self.member.nil?
       last_date = self.member.paid_upto
-      if !last_date.nil? and last_date > 3.month.ago
+      if !last_date.nil? and last_date > 1.month.ago
         self.start_date = last_date + 1.day
       end
       self.end_date = self.start_date + 1.year - 1.day
