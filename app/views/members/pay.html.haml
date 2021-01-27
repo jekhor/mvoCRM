@@ -13,7 +13,7 @@
   больше — то оплаченный срок не изменится.
 
 %p
-  Размер годового взноса — 1 базовая величина (27 BYN), но вы можете оплатить больше,
+  Размер годового взноса — 1 базовая величина (29 BYN), но вы можете оплатить больше,
   если считаете нужным.
 
 - if @member.last_payment.nil?
@@ -84,7 +84,7 @@
               .form-group
                 = form.label :amount, 'Сумма', for: 'amount_input'
                 .input-group
-                  = form.text_field :amount, id: "amount_input", class: 'form-control', value: '27'
+                  = form.text_field :amount, id: "amount_input", class: 'form-control', value: '29'
                   .input-group-append
                     %span.input-group-text#sum-byn BYN
               = form.submit 'Перейти к оплате', class: 'button btn btn-primary'
