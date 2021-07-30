@@ -7,15 +7,15 @@ class ReminderService
     debtors.each do |m|
       next if !m.last_reminded.nil? and m.last_reminded > Date.today - 1.month
 
-      CrmMailer.with(member: m).remind_about_payment.deliver_now
-      m.update_attribute :last_reminded, Date.today
+#      CrmMailer.with(member: m).remind_about_payment.deliver_now
+#      m.update_attribute :last_reminded, Date.today
     end
 
     expired_soon.each do |m|
       next if !m.last_reminded.nil? and m.last_reminded > Date.today - 5.days
 
-      CrmMailer.with(member: m).remind_about_payment.deliver_now
-      m.update_attribute :last_reminded, Date.today
+#      CrmMailer.with(member: m).remind_about_payment.deliver_now
+#      m.update_attribute :last_reminded, Date.today
     end
   end
 end
