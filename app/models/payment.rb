@@ -26,22 +26,9 @@ class Payment < ApplicationRecord
   # Алгоритм: взнос действует календарный год, с 1 января по 31 декабря.
   #
   # Если заплатили в декабре — считаем как за следующий год.
-  # Если оплачено в декабре, но нет действующего платежа — то действует с момента уплаты, иначе с 1 января
   #
   def fill_dates!
-    paid_upto = self.member&.paid_upto
-    start_of_year = (self.date + 1.month).beginning_of_year
-
-    if (self.date.month == 12) or paid_upto.nil? or (paid_upto < self.date)
-        self.start_date = self.date
-    else
-      if paid_upto
-        self.start_date = [paid_upto + 1.day, start_of_year].min
-      else
-        self.start_date = start_of_year
-      end
-    end
-
+    self.start_date = (self.date + 1.month).beginning_of_year
     self.end_date = (self.date + 1.month).end_of_year
   end
 
