@@ -23,33 +23,26 @@ class Payment < ApplicationRecord
     user_account
   end
 
-  # Алгоритм: взнос действует год с момента уплаты или с момента окончания
-  # предыдущего взноса.
+  # Алгоритм: взнос действует календарный год, с 1 января по 31 декабря.
   #
-  # Если заплатили раньше, чем за месяц до конца предыдущего взноса — то не
-  # продлеваем, считаем пожертвованием.
+  # Если заплатили в декабре — считаем как за следующий год.
+  # Если оплачено в декабре, но нет действующего платежа — то действует с момента уплаты, иначе с 1 января
   #
-  # Если заплатили раньше, чем через месяц после окончания предыдущего —
-  # отсчитываем от конца предыдущего.
   def fill_dates!
-    self.start_date = self.date
-    self.end_date = self.date + 1.year - 1.day
+    paid_upto = self.member&.paid_upto
+    start_of_year = (self.date + 1.month).beginning_of_year
 
-    unless self.member.nil?
-      last_date = self.member.paid_upto
-      if !last_date.nil? and last_date > 1.month.ago
-        self.start_date = last_date + 1.day
-      end
-      self.end_date = self.start_date + 1.year - 1.day
-
-      # Если на текущий момент уже оплачено, и заканчивается позже, чем через месяц,
-      # то не продлеваем, а приравниваем срок к действующему
-      if !last_date.nil? and last_date > Date.today + 1.month
-        lp = self.member.last_payment
-        self.start_date = lp.start_date
-        self.end_date = lp.end_date
+    if (self.date.month == 12) or paid_upto.nil? or (paid_upto < self.date)
+        self.start_date = self.date
+    else
+      if paid_upto
+        self.start_date = [paid_upto + 1.day, start_of_year].min
+      else
+        self.start_date = start_of_year
       end
     end
+
+    self.end_date = (self.date + 1.month).end_of_year
   end
 
   private
