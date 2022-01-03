@@ -10,7 +10,7 @@
   Членский взнос в МВО действует на протяжении текущего календарного года (c 1 января по 31 декабря).
   Если взнос оплачен в декабре, то он действует на следующий год.
 %p
-  Размер годового взноса — 1 базовая величина (29 BYN). Также вы можете сделать пожертвование произвольного размера.
+  Размер годового взноса — 1 базовая величина (32 BYN). Также вы можете сделать пожертвование произвольного размера.
 
 - if @member.last_payment.nil?
   %p До сих пор взносов у вас не было.
@@ -80,7 +80,7 @@
               .form-group
                 = form.label :amount, 'Сумма', for: 'amount_input'
                 .input-group
-                  = form.text_field :amount, id: "amount_input", class: 'form-control', value: '29'
+                  = form.text_field :amount, id: "amount_input", class: 'form-control', value: '32'
                   .input-group-append
                     %span.input-group-text#sum-byn BYN
               = form.submit 'Перейти к оплате', class: 'button btn btn-primary'
