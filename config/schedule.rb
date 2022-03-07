@@ -19,6 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.day, at: '10:00 am'  do
-  runner "ReminderService.remind_for_payment"
-end
+#every 1.day, at: '10:00 am'  do
+#  runner "ReminderService.remind_for_payment"
+#end
